@@ -1,5 +1,7 @@
 ﻿## Ignore Visual Studio temporary files, build results, and
 ## common node modules.
+# Visual Studio SUO files
+*.suo
 
 # User-specific files
 *.rsuser

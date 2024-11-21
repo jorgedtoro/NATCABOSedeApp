@@ -1,0 +1,80 @@
+﻿@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "KPIs Dashboard";
+}
+
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">KPIs Dashboard</h1>
+
+    <!-- Card de resumen -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">PPM (Paquetes Persona Minuto)</h5>
+                    <p class="card-text">Indicador que mide la producción por minuto.</p>
+                    <a href="#" class="btn btn-light btn-sm">Ver detalles</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">PM (Paquetes Minuto)</h5>
+                    <p class="card-text">Indicador del uso de maquinaria.</p>
+                    <a href="#" class="btn btn-light btn-sm">Ver detalles</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-danger">
+                <div class="card-body">
+                    <h5 class="card-title">FTT</h5>
+                    <p class="card-text">Porcentaje de uso eficiente.</p>
+                    <a href="#" class="btn btn-light btn-sm">Ver detalles</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de datos -->
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Producción Reciente</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th>#</th>
+                        <th>Indicador</th>
+                        <th>Valor</th>
+                        <th>Última actualización</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>PPM</td>
+                        <td>120</td>
+                        <td>2024-11-21 12:30 PM</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>PM</td>
+                        <td>85</td>
+                        <td>2024-11-21 12:30 PM</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>FTT</td>
+                        <td>98%</td>
+                        <td>2024-11-21 12:30 PM</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

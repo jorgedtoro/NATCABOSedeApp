@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "g3tEqJxFg7NJJBjF/lnoMI4jg53vAJPavCMQ1R5ZZy82lfOlohgUJ/rT1Sneig0S256wokO3S9LEZKedWaDtdQ==",
+  "success": true,
+  "projectFilePath": "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jorge\\.nuget\\packages\\chart.js\\3.7.1\\chart.js.3.7.1.nupkg.sha512",
+    "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\9.0.0\\microsoft.entityframeworkcore.tools.9.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

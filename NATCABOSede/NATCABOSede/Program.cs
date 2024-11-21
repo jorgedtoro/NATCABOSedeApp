@@ -3,6 +3,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Registro del servicio KPIService J.Toro
+builder.Services.AddScoped<NATCABOSede.Services.KPIService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

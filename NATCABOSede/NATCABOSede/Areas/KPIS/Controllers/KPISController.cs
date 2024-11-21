@@ -25,6 +25,11 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             int paquetesProducidos = 60;
             double mediaPaquetesPorMinuto = 1.5;
 
+            var tiempoTotal = 8.5; // Horas
+            var costoHora = 15.0; // €/h
+            var numeroPaquetes = 100;
+            var pesoMinimo = 0.5; // Kg por paquete
+
 
             var ppm = _kpiService.CalcularPPM(paquetesTotales, minutosTrabajados, numeroPersonas);
             var pm = _kpiService.CalcularPM(paquetesTotales, minutosTrabajados);
@@ -33,6 +38,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             var horaFinAproximada = _kpiService.CalcularHoraFin(horaInicio, paquetesTotales - paquetesProducidos, mediaPaquetesPorMinuto);
             var porcentajePedido = _kpiService.CalcularPorcentajePedido(paquetesProducidos, paquetesTotales);
 
+            var costeMOD = _kpiService.CalcularCosteMOD(tiempoTotal, costoHora, numeroPaquetes, pesoMinimo);
             //Datos para paquetes
             ViewBag.PPM = ppm;
             ViewBag.PM = pm;
@@ -44,6 +50,9 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             ViewBag.HoraInicio = horaInicio;
             ViewBag.HoraFinAproximada = horaFinAproximada;
             ViewBag.PorcentajePedido = porcentajePedido;
+
+            //Coste MOD
+            ViewBag.CosteMOD = costeMOD;
 
             return View();
         }

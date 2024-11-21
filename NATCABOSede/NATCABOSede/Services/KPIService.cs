@@ -56,6 +56,25 @@ namespace NATCABOSede.Services
 
             return (double)paquetesProducidos / paquetesTotales * 100;
         }
+
+        /// <summary>
+        /// Calcula el coste por kilo de la mano de obra directa.
+        /// </summary>
+        /// <param name="tiempoTotal">Tiempo total trabajado en horas.</param>
+        /// <param name="costoHora">Costo estimado por hora de personal.</param>
+        /// <param name="numeroPaquetes">Número total de paquetes producidos.</param>
+        /// <param name="pesoMinimo">Peso mínimo por paquete en kilos.</param>
+        /// <returns>Coste de mano de obra directa por kilo.</returns>
+        public double CalcularCosteMOD(double tiempoTotal, double costoHora, int numeroPaquetes, double pesoMinimo)
+        {
+            if (tiempoTotal <= 0 || costoHora <= 0 || numeroPaquetes <= 0 || pesoMinimo <= 0)
+                throw new ArgumentException("Todos los valores deben ser mayores a 0.");
+
+            double totalCosto = tiempoTotal * costoHora;
+            double totalProduccion = numeroPaquetes * pesoMinimo;
+
+            return totalCosto / totalProduccion;
+        }
     }
 }
 

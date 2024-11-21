@@ -1,7 +1,13 @@
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//TODO: Registrar el contexto de base de datos
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Registro del servicio KPIService J.Toro
 builder.Services.AddScoped<NATCABOSede.Services.KPIService>();

@@ -1,0 +1,44 @@
+﻿## Ignore Visual Studio temporary files, build results, and
+## common node modules.
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific folders
+.idea/
+.vs
+.vscode/
+
+# Logs
+*.log
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Dependency directories
+bin/
+obj/
+
+# Build directories
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+arm/
+ARM/
+ARM64/
+
+# Runtime-generated files
+*.dll
+*.exe
+*.app
+*.ipa
+*.dSYM
+*.so
+*.idb
+*.pdb

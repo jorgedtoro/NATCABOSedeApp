@@ -1,0 +1,87 @@
+﻿@model NATCABOSede.ViewModels.DatosKpiViewModel
+
+<div class="row g-4">
+    <!-- Columna izquierda -->
+    <div class="col-md-4">
+        <!-- Cliente -->
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Cliente</h5>
+                <p class="card-text fs-4">@Model.Cliente</p>
+            </div>
+        </div>
+
+        <!-- Producto -->
+        <div class="card shadow-sm mt-3">
+            <div class="card-body text-center">
+                <h5 class="card-title">Producto</h5>
+                <p class="card-text fs-4">@Model.Producto</p>
+            </div>
+        </div>
+
+       
+    </div>
+
+    <!-- Columna central -->
+    <div class="col-md-4">
+        <!-- KPI Coste -->
+        <div class="card text-white bg-warning shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Coste</h5>
+                <p class="display-5">@Model.CosteMOD.ToString("F2") €/Kg</p>
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-6">
+                <!-- Producción -->
+                <div class="card text-white bg-success shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Producción</h5>
+                        <p class="display-6">@Model.PPM.ToString("F2") PPM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <!-- Extrapeso -->
+                <div class="card text-white bg-danger shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Extrapeso</h5>
+                        <p class="display-6">@Model.ExtraPeso.ToString("F2") gr</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Columna derecha -->
+    <div class="col-md-4">
+        <!-- Hora Inicio -->
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Hora Inicio</h5>
+                <p class="card-text fs-4">@Model.HoraInicio.ToString("HH:mm")</p>
+            </div>
+        </div>
+
+        <!-- Estado del Pedido -->
+        <div class="card shadow-sm mt-3">
+            <div class="card-body text-center">
+                <h5 class="card-title">Estado del Pedido</h5>
+                <div class="progress" style="height: 30px;">
+                    <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: @Model.PorcentajePedido.ToString("F2")%;" aria-valuenow="@Model.PorcentajePedido.ToString("F2")" aria-valuemin="0" aria-valuemax="100">
+                        @Model.PorcentajePedido.ToString("F2")%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hora Fin Estimada -->
+        <div class="card shadow-sm mt-3">
+            <div class="card-body text-center">
+                <h5 class="card-title">Hora Fin Estimada</h5>
+                <p class="card-text fs-4">@Model.HoraFinAproximada.ToString("HH:mm")</p>
+            </div>
+        </div>
+    </div>
+</div>

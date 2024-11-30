@@ -1,102 +1,33 @@
-﻿@{
-    
+﻿@model NATCABOSede.ViewModels.DatosKpiViewModel
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "KPIs Dashboard";
 }
 
-
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Línea 1 - KPIs Dashboard</h1>
+    <h1 class="text-center mb-4" id="titulo-dashboard">Línea @ViewBag.LineaSeleccionada - KPIs Dashboard</h1>
 
-    <div class="row g-4">
-        <!-- Columna izquierda -->
-        <div class="col-md-4">
-            <!-- Cliente -->
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Cliente</h5>
-                    <p class="card-text fs-4">GARCIA LAX</p>
-                </div>
-            </div>
+    <div class="mb-3">
+        <label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
+        <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
+            <option value="1" @(ViewBag.LineaSeleccionada == 1 ? "selected" : "")>Línea 1</option>
+            <option value="2" @(ViewBag.LineaSeleccionada == 2 ? "selected" : "")>Línea 2</option>
+            <option value="3" @(ViewBag.LineaSeleccionada == 3 ? "selected" : "")>Línea 3</option>
+            <option value="4" @(ViewBag.LineaSeleccionada == 4 ? "selected" : "")>Línea 4</option>
+        </select>
+    </div>
 
-            <!-- Producto -->
-            <div class="card shadow-sm mt-3">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Producto</h5>
-                    <p class="card-text fs-4">TOMATE COCKTAIL</p>
-                </div>
-            </div>
-
-            <!-- Confección -->
-            <div class="card shadow-sm mt-3">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Confección</h5>
-                    <p class="card-text fs-4">TARRINA 500 GR</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Columna central -->
-        <div class="col-md-4">
-            <!-- KPI Coste -->
-            <div class="card text-white bg-warning shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Coste</h5>
-                    <p class="display-5">@ViewBag.CosteMOD.ToString("F2") €/Kg</p>
-                </div>
-            </div>
-
-            <div class="row g-3 mt-3">
-                <div class="col-6">
-                    <!-- Producción -->
-                    <div class="card text-white bg-success shadow-sm">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Producción</h5>
-                            <p class="display-6">@ViewBag.PPM PPM</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <!-- Extrapeso -->
-                    <div class="card text-white bg-danger shadow-sm">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Extrapeso</h5>
-                            <p class="display-6">@ViewBag.Extrapeso gr</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Columna derecha -->
-        <div class="col-md-4">
-            <!-- Hora Inicio -->
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Hora Inicio</h5>
-                    <p class="card-text fs-4">@ViewBag.HoraInicio.ToString("HH:mm")</p>
-                </div>
-            </div>
-
-            <!-- Estado del Pedido -->
-            <div class="card shadow-sm mt-3">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Estado del Pedido</h5>
-                    <div class="progress" style="height: 30px;">
-                        <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                            @ViewBag.PorcentajePedido.ToString("F2")%
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hora Fin Estimada -->
-            <div class="card shadow-sm mt-3">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Hora Fin Estimada</h5>
-                    <p class="card-text fs-4">@ViewBag.HoraFinAproximada.ToString("HH:mm")</p>
-                </div>
-            </div>
-        </div>
+    <div id="contenido-dashboard">
+        <!-- Aquí se renderizará el contenido actualizado -->
+        @await Html.PartialAsync("_KPIsPartial", Model)
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        window.appSettings = {
+            obtenerDatosUrlAction: '@Url.Action("ObtenerKPIs", "KPIS", new { area = "KPIS" })'
+        };
+    </script>
+    <script src="~/js/KPIS.js"></script>
+}

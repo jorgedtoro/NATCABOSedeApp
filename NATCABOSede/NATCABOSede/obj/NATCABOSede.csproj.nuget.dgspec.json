@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj": {}
+    "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj": {}
   },
   "projects": {
-    "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj": {
+    "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
+        "projectUniqueName": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
         "projectName": "NATCABOSede",
-        "projectPath": "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
+        "projectPath": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
         "packagesPath": "C:\\Users\\jorge\\.nuget\\packages\\",
-        "outputPath": "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\obj\\",
+        "outputPath": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jorge\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -48,11 +48,21 @@
               "target": "Package",
               "version": "[3.7.1, )"
             },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.20, )"
+            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -70,6 +80,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.20, 7.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[7.0.20, 7.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.20, 7.0.20]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.20, 7.0.20]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -78,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     }

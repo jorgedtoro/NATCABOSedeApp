@@ -1,18 +1,46 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "G:\\gitPersonal\\NATCABOSede\\",
+  "WorkspaceRootPath": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosede\\natcabosede\\areas\\kpis\\views\\kpis\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosedeapp\\natcabosede\\natcabosede\\wwwroot\\js\\kpis.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|solutionrelative:natcabosede\\wwwroot\\js\\kpis.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosedeapp\\natcabosede\\natcabosede\\areas\\kpis\\views\\kpis\\_kpispartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|solutionrelative:natcabosede\\areas\\kpis\\views\\kpis\\_kpispartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosedeapp\\natcabosede\\natcabosede\\services\\kpiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|solutionrelative:natcabosede\\services\\kpiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosedeapp\\natcabosede\\natcabosede\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|solutionrelative:natcabosede\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosedeapp\\natcabosede\\natcabosede\\areas\\kpis\\views\\kpis\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|solutionrelative:natcabosede\\areas\\kpis\\views\\kpis\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosede\\natcabosede\\areas\\kpis\\controllers\\kpiscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosedeapp\\natcabosede\\natcabosede\\areas\\kpis\\controllers\\kpiscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|solutionrelative:natcabosede\\areas\\kpis\\controllers\\kpiscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosede\\natcabosede\\services\\kpiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|solutionrelative:natcabosede\\services\\kpiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosedeapp\\natcabosede\\natcabosede\\viewmodels\\datoskpiviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|solutionrelative:natcabosede\\viewmodels\\datoskpiviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosedeapp\\natcabosede\\natcabosede\\models\\metadata\\linea.partial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|solutionrelative:natcabosede\\models\\metadata\\linea.partial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosedeapp\\natcabosede\\natcabosede\\models\\metadata\\datoskpi.partial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|solutionrelative:natcabosede\\models\\metadata\\datoskpi.partial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|g:\\gitpersonal\\natcabosedeapp\\natcabosede\\natcabosede\\models\\linea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}|NATCABOSede\\NATCABOSede.csproj|solutionrelative:natcabosede\\models\\linea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,39 +66,130 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Program.cs",
+              "RelativeDocumentMoniker": "NATCABOSede\\Program.cs",
+              "ToolTip": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Program.cs",
+              "RelativeToolTip": "NATCABOSede\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T18:48:37.553Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DatosKpiViewModel.cs",
+              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\ViewModels\\DatosKpiViewModel.cs",
+              "RelativeDocumentMoniker": "NATCABOSede\\ViewModels\\DatosKpiViewModel.cs",
+              "ToolTip": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\ViewModels\\DatosKpiViewModel.cs",
+              "RelativeToolTip": "NATCABOSede\\ViewModels\\DatosKpiViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T18:44:47.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "KPIService.cs",
-              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\Services\\KPIService.cs",
+              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Services\\KPIService.cs",
               "RelativeDocumentMoniker": "NATCABOSede\\Services\\KPIService.cs",
-              "ToolTip": "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\Services\\KPIService.cs",
+              "ToolTip": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Services\\KPIService.cs",
               "RelativeToolTip": "NATCABOSede\\Services\\KPIService.cs",
-              "ViewState": "AQIAACYAAAAAAAAAAAAowDYAAAAxAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEIAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-21T13:22:06.591Z",
+              "WhenOpened": "2024-11-30T18:40:08.398Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Linea.partial.cs",
+              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Models\\Metadata\\Linea.partial.cs",
+              "RelativeDocumentMoniker": "NATCABOSede\\Models\\Metadata\\Linea.partial.cs",
+              "ToolTip": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Models\\Metadata\\Linea.partial.cs",
+              "RelativeToolTip": "NATCABOSede\\Models\\Metadata\\Linea.partial.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T18:33:50.091Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DatosKpi.partial.cs",
+              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Models\\Metadata\\DatosKpi.partial.cs",
+              "RelativeDocumentMoniker": "NATCABOSede\\Models\\Metadata\\DatosKpi.partial.cs",
+              "ToolTip": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Models\\Metadata\\DatosKpi.partial.cs",
+              "RelativeToolTip": "NATCABOSede\\Models\\Metadata\\DatosKpi.partial.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T18:33:29.215Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Linea.cs",
+              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Models\\Linea.cs",
+              "RelativeDocumentMoniker": "NATCABOSede\\Models\\Linea.cs",
+              "ToolTip": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Models\\Linea.cs",
+              "RelativeToolTip": "NATCABOSede\\Models\\Linea.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-30T18:29:21.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_KPIsPartial.cshtml",
+              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Areas\\KPIS\\Views\\KPIS\\_KPIsPartial.cshtml",
+              "RelativeDocumentMoniker": "NATCABOSede\\Areas\\KPIS\\Views\\KPIS\\_KPIsPartial.cshtml",
+              "ToolTip": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Areas\\KPIS\\Views\\KPIS\\_KPIsPartial.cshtml",
+              "RelativeToolTip": "NATCABOSede\\Areas\\KPIS\\Views\\KPIS\\_KPIsPartial.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-30T17:03:30.076Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "KPIS.js",
+              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\wwwroot\\js\\KPIS.js",
+              "RelativeDocumentMoniker": "NATCABOSede\\wwwroot\\js\\KPIS.js",
+              "ToolTip": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\wwwroot\\js\\KPIS.js",
+              "RelativeToolTip": "NATCABOSede\\wwwroot\\js\\KPIS.js",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-11-30T16:44:22.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\Areas\\KPIS\\Views\\KPIS\\Index.cshtml",
+              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Areas\\KPIS\\Views\\KPIS\\Index.cshtml",
               "RelativeDocumentMoniker": "NATCABOSede\\Areas\\KPIS\\Views\\KPIS\\Index.cshtml",
-              "ToolTip": "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\Areas\\KPIS\\Views\\KPIS\\Index.cshtml",
+              "ToolTip": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Areas\\KPIS\\Views\\KPIS\\Index.cshtml",
               "RelativeToolTip": "NATCABOSede\\Areas\\KPIS\\Views\\KPIS\\Index.cshtml",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAACwAAABKAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-11-21T12:52:13.192Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "KPISController.cs",
-              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\Areas\\KPIS\\Controllers\\KPISController.cs",
+              "DocumentMoniker": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Areas\\KPIS\\Controllers\\KPISController.cs",
               "RelativeDocumentMoniker": "NATCABOSede\\Areas\\KPIS\\Controllers\\KPISController.cs",
-              "ToolTip": "G:\\gitPersonal\\NATCABOSede\\NATCABOSede\\Areas\\KPIS\\Controllers\\KPISController.cs",
+              "ToolTip": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\Areas\\KPIS\\Controllers\\KPISController.cs",
               "RelativeToolTip": "NATCABOSede\\Areas\\KPIS\\Controllers\\KPISController.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAzwDcAAAAAAAAA",
+              "ViewState": "AQIAADUAAAAAAAAAAAAAAGIAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-21T12:52:04.42Z",
               "EditorCaption": ""

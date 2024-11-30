@@ -28,9 +28,9 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 return NotFound("No se encontraron datos para la línea seleccionada.");
             }
             var ppm = _kpiService.CalcularPPM(
-      datos.PaquetesTrabajados ?? 0,
-      datos.MinutosTrabajados ?? 0,
-      datos.NumeroPersonas ?? 0);
+                datos.PaquetesTrabajados ?? 0,
+                datos.MinutosTrabajados ?? 0,
+                datos.NumeroPersonas ?? 0);
 
             var pm = _kpiService.CalcularPM(
                 datos.PaquetesTrabajados ?? 0,
@@ -117,9 +117,9 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 return NotFound("No se encontraron datos para la línea seleccionada.");
             }
             var ppm = _kpiService.CalcularPPM(
-       datos.PaquetesTrabajados ?? 0,
-       datos.MinutosTrabajados ?? 0,
-       datos.NumeroPersonas ?? 0);
+                datos.PaquetesTrabajados ?? 0,
+                datos.MinutosTrabajados ?? 0,
+                datos.NumeroPersonas ?? 0);
 
             var pm = _kpiService.CalcularPM(
                 datos.PaquetesTrabajados ?? 0,
@@ -144,7 +144,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 datos.NumeroPaquetes ?? 0,
                 datos.PesoMinimo ?? 0);
 
-            // Crea el ViewModel
+      
             var modelo = new DatosKpiViewModel
             {
                 Cliente = "Nombre del Cliente", // TODO: obtener el nombre real usando el IdCliente
@@ -157,7 +157,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 PorcentajePedido = porcentajePedido,
                 CosteMOD = costeMOD
             };
-            // Devuelve la partial view con el modelo
+           
             return PartialView("_KPIsPartial", modelo);
         }
         private DatosKpi ObtenerDatosPorLinea(int linea)

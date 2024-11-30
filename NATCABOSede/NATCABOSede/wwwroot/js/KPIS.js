@@ -1,6 +1,6 @@
 ﻿
-
 document.addEventListener('DOMContentLoaded', function () {
+    var obtenerDatosUrlAction = window.appSettings.obtenerDatosUrlAction;
     var lineaSeleccionada = document.getElementById('lineaSeleccionada');
 
     lineaSeleccionada.addEventListener('change', function () {

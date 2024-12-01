@@ -24,3 +24,20 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 });
+
+//para llamada automática cada 5min
+//function actualizarDatos() {
+//    fetch('/tu-endpoint')
+//        .then(response => response.json())
+//        .then(data => {
+//            // Actualiza el contenido de la página con los nuevos datos
+//            document.getElementById('contenido').innerText = data.valor;
+//        })
+//        .catch(error => console.error('Error al obtener los datos:', error));
+//}
+
+//// Llama a la función cada 5 minutos (300,000 milisegundos)
+//setInterval(actualizarDatos, 300000);
+
+//// Llama a la función inmediatamente al cargar la página
+//actualizarDatos();

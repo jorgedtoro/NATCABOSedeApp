@@ -1,0 +1,6 @@
+projectKey=NATCABO
+serverUrl=http://localhost:9000
+serverVersion=10.7.0.96327
+dashboardUrl=http://localhost:9000/dashboard?id=NATCABO
+ceTaskId=1f85678a-22dd-4e3b-af93-4b2030acd402
+ceTaskUrl=http://localhost:9000/api/ce/task?id=1f85678a-22dd-4e3b-af93-4b2030acd402

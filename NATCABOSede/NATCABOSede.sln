@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NATCABOSede", "NATCABOSede\NATCABOSede.csproj", "{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NATCABOSede.Tests", "NATCABOSede.Tests\NATCABOSede.Tests.csproj", "{9FF7AC38-D110-4D69-BA58-5F99E1229BDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEEA73CB-6040-4466-8FA0-3C72C3BBAC30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FF7AC38-D110-4D69-BA58-5F99E1229BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FF7AC38-D110-4D69-BA58-5F99E1229BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FF7AC38-D110-4D69-BA58-5F99E1229BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FF7AC38-D110-4D69-BA58-5F99E1229BDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

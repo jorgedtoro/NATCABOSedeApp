@@ -9,7 +9,7 @@
   <HasBeginStepCommandLineCredentials>true</HasBeginStepCommandLineCredentials>
   <SonarQubeHostUrl>http://localhost:9000</SonarQubeHostUrl>
   <SonarQubeVersion>10.7.0.96327</SonarQubeVersion>
-  <SonarProjectKey>NATCABO</SonarProjectKey>
+  <SonarProjectKey>NATCABOSede</SonarProjectKey>
   <AdditionalConfig>
     <ConfigSetting Id="BuildUri" />
     <ConfigSetting Id="TfsUri" />
@@ -143,6 +143,8 @@
   </ServerSettings>
   <LocalSettings>
     <Property Name="sonar.host.url">http://localhost:9000</Property>
+    <Property Name="sonar.cs.opencover.reportsPaths">**/coverage.opencover.xml</Property>
+    <Property Name="sonar.exclusions">**/coverage.opencover.xml</Property>
   </LocalSettings>
   <AnalyzersSettings>
     <AnalyzerSettings>

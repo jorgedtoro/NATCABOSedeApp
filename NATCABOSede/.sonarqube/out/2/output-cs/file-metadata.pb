@@ -1,0 +1,16 @@
+m
+bG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\obj\Debug\net7.0\NATCABOSede.AssemblyInfo.csutf-8r
+gG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\obj\Debug\net7.0\NATCABOSede.RazorAssemblyInfo.csutf-8€
+uG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.csutf-8o
+dG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\obj\Debug\net7.0\NATCABOSede.GlobalUsings.g.csutf-8^
+UG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\ViewModels\DatosKpiViewModel.csutf-8U
+LG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\Services\KPIService.csutf-8I
+@G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\Program.csutf-8W
+NG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\Models\NATCABOContext.csutf-8_
+VG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\Models\Metadata\Linea.partial.csutf-8b
+YG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\Models\Metadata\DatosKpi.partial.csutf-8N
+EG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\Models\Linea.csutf-8W
+NG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\Models\ErrorViewModel.csutf-8Q
+HG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\Models\DatosKpi.csutf-8\
+SG:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\Controllers\HomeController.csutf-8g
+^G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\Areas\KPIS\Controllers\KPISController.csutf-8

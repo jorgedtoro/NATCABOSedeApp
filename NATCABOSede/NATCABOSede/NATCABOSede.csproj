@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Areas\KPIS\Data\" />
     <Folder Include="Areas\KPIS\Models\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Repositories\" />
     <Folder Include="Scripts\" />
   </ItemGroup>

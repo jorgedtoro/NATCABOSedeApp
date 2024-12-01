@@ -101,6 +101,250 @@
           }
         },
         {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"DatosKpis\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 12,
+                  "endLine": 9,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 36,
+                  "endLine": 18,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"Lineas\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 12,
+                  "endLine": 9,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 33,
+                  "endLine": 20,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"DatosKpis\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 12,
+                  "endLine": 13,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 36,
+                  "endLine": 18,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "El elemento propiedad \"Lineas\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 12,
+                  "endLine": 13,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 33,
+                  "endLine": 20,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS1998",
+          "level": "warning",
+          "message": "El método asincrónico carece de operadores \"await\" y se ejecutará de forma sincrónica. Puede usar el operador 'await' para esperar llamadas API que no sean de bloqueo o 'await Task.Run(...)' para hacer tareas enlazadas a la CPU en un subproceso en segundo plano.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/Debug/net7.0/Microsoft.CodeAnalysis.Razor.Compiler/Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator/Views_Home_Privacy_cshtml.g.cs",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 67,
+                  "endLine": 36,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS1998",
+          "level": "warning",
+          "message": "El método asincrónico carece de operadores \"await\" y se ejecutará de forma sincrónica. Puede usar el operador 'await' para esperar llamadas API que no sean de bloqueo o 'await Task.Run(...)' para hacer tareas enlazadas a la CPU en un subproceso en segundo plano.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/Debug/net7.0/Microsoft.CodeAnalysis.Razor.Compiler/Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator/Views_Shared_Error_cshtml.g.cs",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 67,
+                  "endLine": 36,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS1998",
+          "level": "warning",
+          "message": "El método asincrónico carece de operadores \"await\" y se ejecutará de forma sincrónica. Puede usar el operador 'await' para esperar llamadas API que no sean de bloqueo o 'await Task.Run(...)' para hacer tareas enlazadas a la CPU en un subproceso en segundo plano.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/Debug/net7.0/Microsoft.CodeAnalysis.Razor.Compiler/Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator/Areas_KPIS_Views_KPIS__KPIsPartial_cshtml.g.cs",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 67,
+                  "endLine": 24,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS1998",
+          "level": "warning",
+          "message": "El método asincrónico carece de operadores \"await\" y se ejecutará de forma sincrónica. Puede usar el operador 'await' para esperar llamadas API que no sean de bloqueo o 'await Task.Run(...)' para hacer tareas enlazadas a la CPU en un subproceso en segundo plano.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/Debug/net7.0/Microsoft.CodeAnalysis.Razor.Compiler/Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator/Views_Home_Index_cshtml.g.cs",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 67,
+                  "endLine": 36,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
           "ruleId": "CS1998",
           "level": "warning",
           "message": "El método asincrónico carece de operadores \"await\" y se ejecutará de forma sincrónica. Puede usar el operador 'await' para esperar llamadas API que no sean de bloqueo o 'await Task.Run(...)' para hacer tareas enlazadas a la CPU en un subproceso en segundo plano.",
@@ -158,226 +402,6 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/Debug/net7.0/Microsoft.CodeAnalysis.Razor.Compiler/Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator/Views_Shared_Error_cshtml.g.cs",
-                "region": {
-                  "startLine": 36,
-                  "startColumn": 67,
-                  "endLine": 36,
-                  "endColumn": 79
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS1998",
-          "level": "warning",
-          "message": "El método asincrónico carece de operadores \"await\" y se ejecutará de forma sincrónica. Puede usar el operador 'await' para esperar llamadas API que no sean de bloqueo o 'await Task.Run(...)' para hacer tareas enlazadas a la CPU en un subproceso en segundo plano.",
-          "suppressionStates": [
-            "suppressedInSource"
-          ],
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/Debug/net7.0/Microsoft.CodeAnalysis.Razor.Compiler/Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator/Views_Home_Index_cshtml.g.cs",
-                "region": {
-                  "startLine": 36,
-                  "startColumn": 67,
-                  "endLine": 36,
-                  "endColumn": 79
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS1998",
-          "level": "warning",
-          "message": "El método asincrónico carece de operadores \"await\" y se ejecutará de forma sincrónica. Puede usar el operador 'await' para esperar llamadas API que no sean de bloqueo o 'await Task.Run(...)' para hacer tareas enlazadas a la CPU en un subproceso en segundo plano.",
-          "suppressionStates": [
-            "suppressedInSource"
-          ],
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/Debug/net7.0/Microsoft.CodeAnalysis.Razor.Compiler/Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator/Views_Home_Privacy_cshtml.g.cs",
-                "region": {
-                  "startLine": 36,
-                  "startColumn": 67,
-                  "endLine": 36,
-                  "endColumn": 79
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "El elemento propiedad \"DatosKpis\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
-          "suppressionStates": [
-            "suppressedInSource"
-          ],
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
-                "region": {
-                  "startLine": 9,
-                  "startColumn": 12,
-                  "endLine": 9,
-                  "endColumn": 26
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
-                "region": {
-                  "startLine": 18,
-                  "startColumn": 36,
-                  "endLine": 18,
-                  "endColumn": 45
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "El elemento propiedad \"Lineas\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
-          "suppressionStates": [
-            "suppressedInSource"
-          ],
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
-                "region": {
-                  "startLine": 9,
-                  "startColumn": 12,
-                  "endLine": 9,
-                  "endColumn": 26
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
-                "region": {
-                  "startLine": 20,
-                  "startColumn": 33,
-                  "endLine": 20,
-                  "endColumn": 39
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "El elemento propiedad \"DatosKpis\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
-          "suppressionStates": [
-            "suppressedInSource"
-          ],
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 12,
-                  "endLine": 13,
-                  "endColumn": 26
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
-                "region": {
-                  "startLine": 18,
-                  "startColumn": 36,
-                  "endLine": 18,
-                  "endColumn": 45
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "El elemento propiedad \"Lineas\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador \"required'\"o declarar el propiedad como un valor que acepta valores NULL.",
-          "suppressionStates": [
-            "suppressedInSource"
-          ],
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 12,
-                  "endLine": 13,
-                  "endColumn": 26
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
-                "region": {
-                  "startLine": 20,
-                  "startColumn": 33,
-                  "endLine": 20,
-                  "endColumn": 39
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS1998",
-          "level": "warning",
-          "message": "El método asincrónico carece de operadores \"await\" y se ejecutará de forma sincrónica. Puede usar el operador 'await' para esperar llamadas API que no sean de bloqueo o 'await Task.Run(...)' para hacer tareas enlazadas a la CPU en un subproceso en segundo plano.",
-          "suppressionStates": [
-            "suppressedInSource"
-          ],
-          "locations": [
-            {
-              "resultFile": {
                 "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/Debug/net7.0/Microsoft.CodeAnalysis.Razor.Compiler/Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator/Views_Shared__ValidationScriptsPartial_cshtml.g.cs",
                 "region": {
                   "startLine": 61,
@@ -417,21 +441,18 @@
           }
         },
         {
-          "ruleId": "CS1998",
+          "ruleId": "CS8603",
           "level": "warning",
-          "message": "El método asincrónico carece de operadores \"await\" y se ejecutará de forma sincrónica. Puede usar el operador 'await' para esperar llamadas API que no sean de bloqueo o 'await Task.Run(...)' para hacer tareas enlazadas a la CPU en un subproceso en segundo plano.",
-          "suppressionStates": [
-            "suppressedInSource"
-          ],
+          "message": "Posible tipo de valor devuelto de referencia nulo.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/Debug/net7.0/Microsoft.CodeAnalysis.Razor.Compiler/Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator/Areas_KPIS_Views_KPIS__KPIsPartial_cshtml.g.cs",
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Controllers/KPISController.cs",
                 "region": {
-                  "startLine": 24,
-                  "startColumn": 67,
-                  "endLine": 24,
-                  "endColumn": 79
+                  "startLine": 168,
+                  "startColumn": 20,
+                  "endLine": 168,
+                  "endColumn": 28
                 }
               }
             }
@@ -456,27 +477,6 @@
                   "startColumn": 240,
                   "endLine": 131,
                   "endColumn": 242
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8603",
-          "level": "warning",
-          "message": "Posible tipo de valor devuelto de referencia nulo.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Controllers/KPISController.cs",
-                "region": {
-                  "startLine": 168,
-                  "startColumn": 20,
-                  "endLine": 168,
-                  "endColumn": 28
                 }
               }
             }
@@ -752,30 +752,6 @@
         {
           "ruleId": "CS0169",
           "level": "warning",
-          "message": "El campo 'Views_Shared__Layout.__tagHelperStringValueBuffer' nunca se usa",
-          "suppressionStates": [
-            "suppressedInSource"
-          ],
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/Debug/net7.0/Microsoft.CodeAnalysis.Razor.Compiler/Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator/Views_Shared__Layout_cshtml.g.cs",
-                "region": {
-                  "startLine": 56,
-                  "startColumn": 24,
-                  "endLine": 56,
-                  "endColumn": 52
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 3
-          }
-        },
-        {
-          "ruleId": "CS0169",
-          "level": "warning",
           "message": "El campo 'Areas_KPIS_Views_KPIS_Index.__tagHelperStringValueBuffer' nunca se usa",
           "suppressionStates": [
             "suppressedInSource"
@@ -788,6 +764,30 @@
                   "startLine": 30,
                   "startColumn": 24,
                   "endLine": 30,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0169",
+          "level": "warning",
+          "message": "El campo 'Views_Shared__Layout.__tagHelperStringValueBuffer' nunca se usa",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/Debug/net7.0/Microsoft.CodeAnalysis.Razor.Compiler/Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator/Views_Shared__Layout_cshtml.g.cs",
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 24,
+                  "endLine": 56,
                   "endColumn": 52
                 }
               }
@@ -1074,39 +1074,18 @@
           }
         },
         {
-          "ruleId": "S3251",
-          "level": "warning",
-          "message": "Supply an implementation for the partial method, otherwise this call will be ignored.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
-                "region": {
-                  "startLine": 39,
-                  "startColumn": 9,
-                  "endLine": 39,
-                  "endColumn": 46
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
           "ruleId": "S2325",
           "level": "warning",
-          "message": "Make 'CalcularExtrapeso' a static method.",
+          "message": "Make 'CalcularPPM' a static method.",
           "locations": [
             {
               "resultFile": {
                 "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Services/KPIService.cs",
                 "region": {
-                  "startLine": 23,
+                  "startLine": 7,
                   "startColumn": 23,
-                  "endLine": 23,
-                  "endColumn": 40
+                  "endLine": 7,
+                  "endColumn": 34
                 }
               }
             }
@@ -1139,37 +1118,16 @@
         {
           "ruleId": "S2325",
           "level": "warning",
-          "message": "Make 'CalcularFTT' a static method.",
+          "message": "Make 'CalcularExtrapeso' a static method.",
           "locations": [
             {
               "resultFile": {
                 "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Services/KPIService.cs",
                 "region": {
-                  "startLine": 28,
+                  "startLine": 23,
                   "startColumn": 23,
-                  "endLine": 28,
-                  "endColumn": 34
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "S2325",
-          "level": "warning",
-          "message": "Make 'CalcularPPM' a static method.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Services/KPIService.cs",
-                "region": {
-                  "startLine": 7,
-                  "startColumn": 23,
-                  "endLine": 7,
-                  "endColumn": 34
+                  "endLine": 23,
+                  "endColumn": 40
                 }
               }
             }
@@ -1191,6 +1149,27 @@
                   "startColumn": 25,
                   "endLine": 36,
                   "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2325",
+          "level": "warning",
+          "message": "Make 'CalcularFTT' a static method.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Services/KPIService.cs",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 23,
+                  "endLine": 28,
+                  "endColumn": 34
                 }
               }
             }
@@ -1242,27 +1221,6 @@
           }
         },
         {
-          "ruleId": "ASP0014",
-          "level": "warning",
-          "message": "Suggest using top level route registrations instead of UseEndpoints",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Program.cs",
-                "region": {
-                  "startLine": 34,
-                  "startColumn": 5,
-                  "endLine": 45,
-                  "endColumn": 3
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
           "ruleId": "S2325",
           "level": "warning",
           "message": "Make 'CalcularCosteMOD' a static method.",
@@ -1275,6 +1233,27 @@
                   "startColumn": 23,
                   "endLine": 68,
                   "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "ASP0014",
+          "level": "warning",
+          "message": "Suggest using top level route registrations instead of UseEndpoints",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Program.cs",
+                "region": {
+                  "startLine": 34,
+                  "startColumn": 5,
+                  "endLine": 45,
+                  "endColumn": 3
                 }
               }
             }
@@ -1317,6 +1296,27 @@
                   "startColumn": 30,
                   "endLine": 20,
                   "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3251",
+          "level": "warning",
+          "message": "Supply an implementation for the partial method, otherwise this call will be ignored.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Models/NATCABOContext.cs",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 9,
+                  "endLine": 39,
+                  "endColumn": 46
                 }
               }
             }

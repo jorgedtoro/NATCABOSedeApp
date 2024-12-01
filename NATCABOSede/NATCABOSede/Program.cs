@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using NATCABOSede.Services;
+using NATCABOSede.Interfaces;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +14,8 @@ builder.Services.AddDbContext<NATCABOSede.Models.NATCABOContext>(options =>
 
 
 // Registro del servicio KPIService J.Toro
-builder.Services.AddScoped<NATCABOSede.Services.KPIService>();
+//builder.Services.AddScoped<NATCABOSede.Services.KPIService>();
+builder.Services.AddScoped<IKPIService, KPIService>();
 
 var app = builder.Build();
 

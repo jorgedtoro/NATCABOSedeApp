@@ -1,8 +1,9 @@
 ﻿using System;
+using NATCABOSede.Interfaces;
 
 namespace NATCABOSede.Services
 {
-    public class KPIService
+    public class KPIService:IKPIService
     {
         public double CalcularPPM(double paquetesTotales, double minutosTrabajados, int numeroPersonas)
         {

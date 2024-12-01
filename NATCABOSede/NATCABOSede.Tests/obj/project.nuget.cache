@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "spVplk+RDDOSm0ino0Y29eKvcP9i0SkT+16tfdvYTmEctrd4HiLRJMCmVXghgEPfM574IPj9wP9MIxFBbSVlJQ==",
+  "dgSpecHash": "y215Gge7kaJzMPMw+Er/NF72YmqWTPKtqQoiOOESVWRhXRuxa9jgUWZNQCsSaQtpdvBWvi/BlkvMEzyEA84uSA==",
   "success": true,
   "projectFilePath": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede.Tests\\NATCABOSede.Tests.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,7 @@
     "C:\\Users\\jorge\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\chart.js\\3.7.1\\chart.js.3.7.1.nupkg.sha512",
-    "C:\\Users\\jorge\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
+    "C:\\Users\\jorge\\.nuget\\packages\\coverlet.collector\\6.0.2\\coverlet.collector.6.0.2.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

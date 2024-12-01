@@ -2,6 +2,7 @@
 using NATCABOSede.Models;
 using NATCABOSede.Services;
 using NATCABOSede.ViewModels;
+using NATCABOSede.Interfaces;
 
 namespace NATCABOSede.Areas.KPIS.Controllers
 {
@@ -9,9 +10,9 @@ namespace NATCABOSede.Areas.KPIS.Controllers
     public class KPISController : Controller
     {
         private readonly NATCABOContext _context;
-        private readonly KPIService _kpiService;
+        private readonly IKPIService _kpiService;
 
-        public KPISController(NATCABOContext context, KPIService kpiService)
+        public KPISController(NATCABOContext context, IKPIService kpiService)
         {
             _context = context;
             _kpiService = kpiService;

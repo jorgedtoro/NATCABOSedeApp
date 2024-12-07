@@ -37,15 +37,9 @@
         </form>
     </div>
 
-    <!-- Gráficos -->
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <canvas id="graficoBarras1"></canvas>
-        </div>
-        <div class="col-md-6">
-            <canvas id="graficoBarras2"></canvas>
-        </div>
-    </div>
+    <button id="btn-export-excel" class="btn btn-success mt-3" disabled title="Primero realice un filtro para habilitar la descarga">
+        <i class="fas fa-file-excel"></i> Exportar a Excel
+    </button>
 
     <!-- Tabla -->
     <div class="table-responsive mt-4">
@@ -110,6 +104,25 @@
             }
         </ul>
     </nav>
+
+    <!-- Selector de KPI -->
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <label for="kpiSelect" class="form-label">Seleccione el KPI:</label>
+            <select id="kpiSelect" class="form-select">
+                <option value="kpiPpm">KPI PPM</option>
+                <option value="kpiPm">KPI PM</option>
+                <option value="kpiExtrapeso">KPI Extrapeso</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Gráfico -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <canvas id="graficoKPIs"></canvas>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

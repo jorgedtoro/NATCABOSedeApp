@@ -1,0 +1,6 @@
+﻿
+@import url('./utilities/variables.css');
+
+.btn-primary {
+    border-radius: 25px;
+}

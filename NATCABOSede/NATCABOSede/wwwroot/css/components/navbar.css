@@ -1,0 +1,23 @@
+﻿
+@import url('./utilities/variables.css');
+
+.navbar {
+    background-color: var(--gris-claro);
+}
+
+.navbar-nav .nav-link {
+    cursor: pointer;
+    color: var(--principal-azul);
+    
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+.navbar-nav .nav-link:hover {
+color: #007bff !important;
+border-radius: 5px;
+}
+
+.navbar-nav .nav-link.active {
+    text-decoration: underline;
+}

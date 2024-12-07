@@ -1,0 +1,29 @@
+﻿
+@import url('./utilities/variables.css');
+
+.hero-section {
+    position: relative;
+    padding: 120px 0;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero-section p.lead {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+}
+
+.hero-section .btn {
+    background-color: var(--principal-azul);
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+}
+
+.hero-section .btn:hover {
+    background-color: #004e7a;
+}

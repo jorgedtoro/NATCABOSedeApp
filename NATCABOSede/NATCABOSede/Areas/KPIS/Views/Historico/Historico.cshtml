@@ -1,0 +1,119 @@
+﻿@model IEnumerable<NATCABOSede.Models.KpisHistorico>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = " KPIS Histórico";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">Histórico de KPIs</h1>
+
+    <!-- Panel de control -->
+    <div class="card shadow-sm p-4 mb-4">
+        <form id="filtro-form" class="row g-3">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label for="lineaSeleccionada" class="form-label">Seleccione una Línea:</label>
+                    <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
+                        <option value="" selected>Seleccione una línea</option>
+                        <option value="1">Línea 1</option>
+                        <option value="2">Línea 2</option>
+                        <option value="3">Línea 3</option>
+                        <option value="4">Línea 4</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="desde" class="form-label">Desde</label>
+                <input type="date" class="form-control" id="desde" name="desde">
+            </div>
+            <div class="col-md-4">
+                <label for="hasta" class="form-label">Hasta</label>
+                <input type="date" class="form-control" id="hasta" name="hasta">
+            </div>
+            <div class="col-12 text-center">
+                <button type="button" id="btn-filtrar" class="btn btn-primary mt-3">Filtrar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <canvas id="graficoBarras1"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="graficoBarras2"></canvas>
+        </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered table-striped">
+            <thead class="table-primary">
+                <tr>
+                    <th>Producto</th>
+                    <th>Lote</th>
+                    <th>Confección</th>
+                    <th>N° Paquetes</th>
+                    <th>N° Minutos</th>
+                    <th>N° Operaciones</th>
+                    <th>Peso Total</th>
+                    <th>Target</th>
+                    <th>KPI PPM</th>
+                    <th>KPI PM</th>
+                    <th>KPI Extrapeso</th>
+                    <th>Fecha Registro</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-historico">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.SName</td>
+                        <td>@item.Lote</td>
+                        <td>@item.Confeccion</td>
+                        <td>@item.NPaquetes</td>
+                        <td>@item.NMinutos</td>
+                        <td>@item.NOperaciones</td>
+                        <td>@item.TotalWeight</td>
+                        <td>@item.FTarget</td>
+                        <td>@item.KpiPpm</td>
+                        <td>@item.KpiPm</td>
+                        <td>@item.KpiExtrapeso</td>
+                        <td>@item.Fecha?.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- Paginación -->
+    <nav aria-label="Paginación">
+        <ul class="pagination justify-content-center">
+            @if (ViewBag.Page > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Historico", new { page = ViewBag.Page - 1 })">Anterior</a>
+                </li>
+            }
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+            <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Historico", new { page = i })">@i</a>
+            </li>
+            }
+            @if (ViewBag.Page < ViewBag.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Historico", new { page = ViewBag.Page + 1 })">Siguiente</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+@section Scripts {
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/js/HistoricoKPIs.js"></script>
+    
+}

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CukLbNYgm2EV5osdS+lJAcY2FQjJ0qGKe3ZtHW4Q5h9ru+1aNW5jKetdG1xEIgg7YqyJWRIcVbBQADMWT/i2Bw==",
+  "dgSpecHash": "tfGRLms3L9XJatZ3pY43AnETZCRzSH62mnGZMsJEuSZJEMhPUd6Scz7C+WYe0Sj4B6W22L0kKpArMcVwBN9KwQ==",
   "success": true,
   "projectFilePath": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
   "expectedPackageFiles": [
@@ -80,10 +80,10 @@
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.20\\microsoft.entityframeworkcore.7.0.20.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.20\\microsoft.entityframeworkcore.abstractions.7.0.20.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.20\\microsoft.entityframeworkcore.analyzers.7.0.20.nupkg.sha512",
-    "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.0\\microsoft.entityframeworkcore.design.7.0.0.nupkg.sha512",
+    "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.20\\microsoft.entityframeworkcore.design.7.0.20.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.20\\microsoft.entityframeworkcore.relational.7.0.20.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.20\\microsoft.entityframeworkcore.sqlserver.7.0.20.nupkg.sha512",
-    "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.0\\microsoft.entityframeworkcore.tools.7.0.0.nupkg.sha512",
+    "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.20\\microsoft.entityframeworkcore.tools.7.0.20.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",

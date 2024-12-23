@@ -15,28 +15,25 @@ namespace NATCABOSede.Tests.Controllers
         public void ObtenerKPIs_LineaExistente_RetornaPartialViewConModelo()
         {
             // Arrange
-            int lineaSeleccionada = 1;
+            short lineaSeleccionada = 1;
 
             var mockContext = new Mock<NATCABOContext>();
             var mockService = new Mock<IKPIService>();
-
+            double mediaPaquetesPorMinuto = 2.0;
             // Configurar el contexto simulado
             var datosKpi = new DatosKpi
             {
                 IdLinea = lineaSeleccionada,
-                PaquetesTrabajados = 100,
                 MinutosTrabajados = 50,
-                NumeroPersonas = 5,
-                PesoReal = 0.2,
+                NumeroOperadores = 5,
+                PesoTotalReal = 0.2,
                 PesoObjetivo = 0.1,
-                HoraInicio = DateTime.Now.AddHours(-1),
+                HoraInicioProduccion = DateTime.Now.AddHours(-1),
                 PaquetesTotales = 200,
-                PaquetesProducidos = 100,
-                MediaPaquetesPorMinuto = 2,
-                TiempoTotal = 8,
+                PaquetesValidos = 100,
                 CosteHora = 15,
-                NumeroPaquetes = 100,
-                PesoMinimo = 0.5
+               
+                
             };
 
             var datosKpis = new List<DatosKpi> { datosKpi }.AsQueryable();

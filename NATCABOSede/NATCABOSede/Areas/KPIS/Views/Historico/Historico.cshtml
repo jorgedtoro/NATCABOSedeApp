@@ -1,4 +1,4 @@
-﻿@* @model IEnumerable<NATCABOSede.Models.KpisHistorico> *@
+﻿ @model IEnumerable<NATCABOSede.Models.KpisHistorico> 
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -67,14 +67,14 @@
                         <td>@item.SName</td>
                         <td>@item.Lote</td>
                         <td>@item.Confeccion</td>
-                        <td>@item.N_Paquetes</td>
-                        <td>@item.N_Minutos</td>
-                        <td>@item.N_Operaciones</td>
+                        <td>@item.NPaquetes</td>
+                        <td>@item.NMinutos</td>
+                        <td>@item.NOperaciones</td>
                         <td>@item.TotalWeight</td>
                         <td>@item.FTarget</td>
-                        <td>@item.Kpi_Ppm</td>
-                        <td>@item.Kpi_Pm</td>
-                        <td>@item.Kpi_Extrapeso</td>
+                        <td>@item.KpiPpm</td>
+                        <td>@item.KpiPm</td>
+                        <td>@item.KpiExtrapeso</td>
                         <td>@item.Fecha?.ToString("dd/MM/yyyy")</td>
                     </tr>
                 }

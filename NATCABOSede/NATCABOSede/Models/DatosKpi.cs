@@ -1,67 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace NATCABOSede.Models;
 
-[Table("datosKPIS")]
 public partial class DatosKpi
 {
-    [Key]
-    [Column("id")]
     public int Id { get; set; }
 
-    [Column("idLinea")]
-    public int IdLinea { get; set; }
+    public short IdLinea { get; set; }
 
-    [Column("idCliente")]
-    public int? IdCliente { get; set; }
+    public string? NombreLinea { get; set; }
 
-    [Column("idProducto")]
-    [StringLength(10)]
-    public string? IdProducto { get; set; }
+    public string? NombreLote { get; set; }
 
-    [Column("paquetesTrabajados")]
-    public double? PaquetesTrabajados { get; set; }
+    public string? NombreProducto { get; set; }
 
-    [Column("minutosTrabajados")]
-    public double? MinutosTrabajados { get; set; }
+    public string? NombreCliente { get; set; }
 
-    [Column("numeroPersonas")]
-    public int? NumeroPersonas { get; set; }
+    public DateTime? HoraInicioLote { get; set; }
 
-    [Column("pesoReal")]
-    public double? PesoReal { get; set; }
+    public int? PaquetesValidos { get; set; }
 
-    [Column("pesoObjetivo")]
+    public int? MinutosTrabajados { get; set; }
+
+    public int? NumeroOperadores { get; set; }
+
     public double? PesoObjetivo { get; set; }
 
-    [Column("paquetesTotales")]
-    public double? PaquetesTotales { get; set; }
+    public int? PaquetesRequeridos { get; set; }
 
-    [Column("paquetesRechazados")]
-    public double? PaquetesRechazados { get; set; }
+    public double? PpmObjetivo { get; set; }
 
-    [Column("horaInicio", TypeName = "datetime")]
-    public DateTime? HoraInicio { get; set; }
+    public double? PesoTotalDesperdicio { get; set; }
 
-    [Column("mediaPaquetesPorMinuto")]
-    public double? MediaPaquetesPorMinuto { get; set; }
-
-    [Column("tiempoTotal")]
-    public double? TiempoTotal { get; set; }
-
-    [Column("costeHora")]
     public double? CosteHora { get; set; }
 
-    [Column("numeroPaquetes")]
-    public int? NumeroPaquetes { get; set; }
+    public double? CosteKg { get; set; }
 
-    [Column("pesoMinimo")]
-    public double? PesoMinimo { get; set; }
+    public int? PaquetesTotales { get; set; }
 
-    [Column("paquetesProducidos")]
-    public double? PaquetesProducidos { get; set; }
+    public int? PaquetesRechazadosDisc { get; set; }
+
+    public double? PesoTotalReal { get; set; }
+
+    public DateTime? HoraInicioProduccion { get; set; }
+
+    public DateTime? HoraUltimoPaquete { get; set; }
+
+    public int? PaquetesTotalesDisc { get; set; }
+
+    public double? PesoTotalRealDisc { get; set; }
 }

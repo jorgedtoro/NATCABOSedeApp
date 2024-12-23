@@ -5,6 +5,7 @@ namespace NATCABOSede.Services
 {
     public class KPIService:IKPIService
     {
+
         public double CalcularPPM(double paquetesTotales, double minutosTrabajados, int numeroPersonas)
         {
             if (minutosTrabajados <= 0 || numeroPersonas <= 0)

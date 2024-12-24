@@ -1,5 +1,5 @@
 ﻿
-@import url('./utilities/variables.css');
+/*@import url('../utilities/variables.css');*/
 
 .navbar {
     background-color: var(--gris-claro);

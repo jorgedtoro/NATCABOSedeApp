@@ -74,8 +74,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
             var modelo = new DatosKpiViewModel
             {
-                Cliente = "Nombre del Cliente",
-                Producto = "Nombre del Producto",
+                Cliente = datos.NombreLote,
+                Producto = datos.NombreProducto,
                 PPM = ppm,
                 PM = pm,
                 ExtraPeso = extraPeso,
@@ -140,8 +140,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
       
             var modelo = new DatosKpiViewModel
             {
-                Cliente = "Nombre del Cliente", // TODO: obtener el nombre real usando el IdCliente
-                Producto = "Nombre del Producto", // TODO: obtener el nombre real usando el IdProducto
+                Cliente = datos.NombreLote, 
+                Producto = datos.NombreProducto, 
                 PPM = ppm,
                 PM = pm,
                 ExtraPeso = extraPeso,

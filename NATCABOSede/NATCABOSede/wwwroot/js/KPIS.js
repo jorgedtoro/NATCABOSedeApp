@@ -1,29 +1,29 @@
 ﻿
-document.addEventListener('DOMContentLoaded', function () {
-    var obtenerDatosUrlAction = window.appSettings.obtenerDatosUrlAction;
-    var lineaSeleccionada = document.getElementById('lineaSeleccionada');
+//document.addEventListener('DOMContentLoaded', function () {
+//    var obtenerDatosUrlAction = window.appSettings.obtenerDatosUrlAction;
+//    var lineaSeleccionada = document.getElementById('lineaSeleccionada');
 
-    lineaSeleccionada.addEventListener('change', function () {
-        var linea = this.value;
+//    lineaSeleccionada.addEventListener('change', function () {
+//        var linea = this.value;
 
-        fetch(obtenerDatosUrlAction + '?lineaSeleccionada=' + linea)
-            .then(function (response) {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta del servidor');
-                }
-                return response.text();
-            })
-            .then(function (html) {
-                // Actualiza el título
-                document.getElementById('titulo-dashboard').innerText = 'Línea ' + linea + ' - KPIs Dashboard';
-                // Actualiza el contenido
-                document.getElementById('contenido-dashboard').innerHTML = html;
-            })
-            .catch(function (error) {
-                console.error('Error:', error);
-            });
-    });
-});
+//        fetch(obtenerDatosUrlAction + '?lineaSeleccionada=' + linea)
+//            .then(function (response) {
+//                if (!response.ok) {
+//                    throw new Error('Error en la respuesta del servidor');
+//                }
+//                return response.text();
+//            })
+//            .then(function (html) {
+//                // Actualiza el título
+//                document.getElementById('titulo-dashboard').innerText = 'Línea ' + linea + ' - KPIs Dashboard';
+//                // Actualiza el contenido
+//                document.getElementById('contenido-dashboard').innerHTML = html;
+//            })
+//            .catch(function (error) {
+//                console.error('Error:', error);
+//            });
+//    });
+//});
 
 //para llamada automática cada 5min
 //function actualizarDatos() {
@@ -41,3 +41,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //// Llama a la función inmediatamente al cargar la página
 //actualizarDatos();
+
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('KPIs.js cargado correctamente'); // TODO: quitar Log de depuración
+    var obtenerDatosUrlAction = window.appSettings.obtenerDatosUrlAction;
+    var lineaSeleccionada = document.getElementById('lineaSeleccionada');
+
+    // Función para obtener y actualizar los datos de KPIs
+    function obtenerYActualizarKPIs() {
+        console.log('Función obtenerYActualizarKPIs llamada'); // TODO: quitar Log de depuración
+        var linea = lineaSeleccionada.value;
+
+        var contenidoDashboard = document.getElementById('contenido-dashboard');
+
+        // Indicador de carga
+        contenidoDashboard.innerHTML = '<p>Cargando datos...</p>';
+
+        fetch(obtenerDatosUrlAction + '?lineaSeleccionada=' + linea)
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta del servidor');
+                }
+                return response.text();
+            })
+            .then(function (html) {
+                // Actualiza el título
+                document.getElementById('titulo-dashboard').innerText = 'Línea ' + linea + ' - KPIs Dashboard';
+                // Actualiza el contenido
+                contenidoDashboard.innerHTML = html;
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+                contenidoDashboard.innerHTML = '<p>Error al cargar los datos.</p>';
+            });
+    }
+
+    
+    lineaSeleccionada.addEventListener('change', function () {
+        obtenerYActualizarKPIs();
+    });
+
+    // Llamada inmediata al cargar la página
+    obtenerYActualizarKPIs();
+
+    //Intervalo de llamada en milisegundos
+    setInterval(obtenerYActualizarKPIs, 50000);
+});

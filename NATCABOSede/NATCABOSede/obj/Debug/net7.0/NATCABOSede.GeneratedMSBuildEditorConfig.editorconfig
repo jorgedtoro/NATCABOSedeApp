@@ -9,51 +9,53 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = NATCABOSede
 build_property.RootNamespace = NATCABOSede
-build_property.ProjectDir = G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede\
+build_property.ProjectDir = D:\Proyectos_VS\Nuevo\NATCABOSede\NATCABOSede\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede
+build_property.MSBuildProjectDirectory = D:\Proyectos_VS\Nuevo\NATCABOSede\NATCABOSede
 build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 7.0
+build_property.EnableCodeStyleSeverity = 
 
-[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/Historico/Historico.cshtml]
+[D:/Proyectos_VS/Nuevo/NATCABOSede/NATCABOSede/Areas/KPIS/Views/Historico/Historico.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xIaXN0b3JpY29cSGlzdG9yaWNvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/KPIS/Index.cshtml]
+[D:/Proyectos_VS/Nuevo/NATCABOSede/NATCABOSede/Areas/KPIS/Views/KPIS/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xLUElTXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/KPIS/_KPIsPartial.cshtml]
+[D:/Proyectos_VS/Nuevo/NATCABOSede/NATCABOSede/Areas/KPIS/Views/KPIS/_KPIsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xLUElTXF9LUElzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Views/Home/Index.cshtml]
+[D:/Proyectos_VS/Nuevo/NATCABOSede/NATCABOSede/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Views/Home/Privacy.cshtml]
+[D:/Proyectos_VS/Nuevo/NATCABOSede/NATCABOSede/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Views/Shared/Error.cshtml]
+[D:/Proyectos_VS/Nuevo/NATCABOSede/NATCABOSede/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Proyectos_VS/Nuevo/NATCABOSede/NATCABOSede/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Views/_ViewImports.cshtml]
+[D:/Proyectos_VS/Nuevo/NATCABOSede/NATCABOSede/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Views/_ViewStart.cshtml]
+[D:/Proyectos_VS/Nuevo/NATCABOSede/NATCABOSede/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Views/Shared/_Layout.cshtml]
+[D:/Proyectos_VS/Nuevo/NATCABOSede/NATCABOSede/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-jbxpdi10to

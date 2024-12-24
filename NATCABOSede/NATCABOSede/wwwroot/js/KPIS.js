@@ -43,19 +43,15 @@
 //actualizarDatos();
 
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('KPIs.js cargado correctamente'); // TODO: quitar Log de depuración
     var obtenerDatosUrlAction = window.appSettings.obtenerDatosUrlAction;
     var lineaSeleccionada = document.getElementById('lineaSeleccionada');
+    var lastUpdatedElement = document.getElementById('last-updated'); // Etiqueta última actualzación de kpis
 
-    // Función para obtener y actualizar los datos de KPIs
-    function obtenerYActualizarKPIs() {
-        console.log('Función obtenerYActualizarKPIs llamada'); // TODO: quitar Log de depuración
-        var linea = lineaSeleccionada.value;
 
-        var contenidoDashboard = document.getElementById('contenido-dashboard');
-
-        // Indicador de carga
-        contenidoDashboard.innerHTML = '<p>Cargando datos...</p>';
+    // Function to fetch and update KPIs
+    function obtenerYActualizarKPIs(element) {
+        var linea = element.value;
+        var lineaText = element.options[element.selectedIndex].text; // Obtención del nombre de la línea tras la selección en el dropdown
 
         fetch(obtenerDatosUrlAction + '?lineaSeleccionada=' + linea)
             .then(function (response) {
@@ -65,25 +61,31 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.text();
             })
             .then(function (html) {
-                // Actualiza el título
-                document.getElementById('titulo-dashboard').innerText = 'Línea ' + linea + ' - KPIs Dashboard';
-                // Actualiza el contenido
-                contenidoDashboard.innerHTML = html;
+                // Actualización del título con el nombre de línea seleccionado
+                document.getElementById('titulo-dashboard').innerText = lineaText + ' - KPIs Dashboard';
+                // Actualización del contenido del dashboard
+                document.getElementById('contenido-dashboard').innerHTML = html;
+                // Actualízación del último timestamp
+                var now = new Date();
+                lastUpdatedElement.innerText = 'Última actualización: ' + now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+
             })
             .catch(function (error) {
                 console.error('Error:', error);
-                contenidoDashboard.innerHTML = '<p>Error al cargar los datos.</p>';
             });
     }
 
-    
+    // Add event listener for dropdown change
     lineaSeleccionada.addEventListener('change', function () {
-        obtenerYActualizarKPIs();
+        obtenerYActualizarKPIs(this);
     });
 
-    // Llamada inmediata al cargar la página
-    obtenerYActualizarKPIs();
+    // Immediate call on page load
+    obtenerYActualizarKPIs(lineaSeleccionada);
 
-    //Intervalo de llamada en milisegundos
-    setInterval(obtenerYActualizarKPIs, 50000);
+    // Interval call in milliseconds
+    setInterval(function () {
+        obtenerYActualizarKPIs(lineaSeleccionada);
+    }, 60000);
 });
+

@@ -175,6 +175,27 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         {
             return _context.DatosKpis.FirstOrDefault(d => d.IdLinea == linea);
         }
+
+
+        // Recuperación de líneas activas desde la bbdd
+        [HttpGet]
+        public JsonResult ObtenerLineas()
+        {
+            var lineas = _context.DatosKpis
+                .Select(d => new { d.IdLinea, d.NombreLinea })
+                .ToList();
+
+            if (!lineas.Any())
+            {
+                Console.WriteLine("No data found in DatosKpis table");
+            }
+
+            return Json(lineas);
+        }
+
+
     }
+
+
 }
 

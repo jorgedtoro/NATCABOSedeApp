@@ -9,7 +9,7 @@ public partial class KpisHistorico
 
     public string? SName { get; set; }
 
-    public int? Lote { get; set; }
+    public string? Lote { get; set; }
 
     public string? Confeccion { get; set; }
 

@@ -82,6 +82,7 @@ public partial class NATCABOContext : DbContext
             entity.Property(e => e.KpiPm).HasColumnName("KPI_PM");
             entity.Property(e => e.KpiPpm).HasColumnName("KPI_PPM");
             entity.Property(e => e.LineaId).HasColumnName("LineaID");
+            entity.Property(e => e.Lote).HasMaxLength(255);
             entity.Property(e => e.NMinutos).HasColumnName("N_Minutos");
             entity.Property(e => e.NOperarios).HasColumnName("N_Operarios");
             entity.Property(e => e.NPaquetes).HasColumnName("N_Paquetes");

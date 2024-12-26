@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var lastUpdatedElement = document.getElementById('last-updated'); // Etiqueta última actualzación de kpis
     //var obtenerLineasUrlAction = '@(Url.Action("ObtenerLineas", "KPIS", new { area = "KPIS/KPIS" }))';
     //var obtenerLineasUrlAction = '@Url.Action("ObtenerLineas", "KPIS", new { area = "KPIS/KPIS" })';
-    var obtenerLineasUrlAction = 'https://localhost:7114/KPIS/KPIS/ObtenerLineas';
+    //var obtenerLineasUrlAction = 'https://localhost:7114/KPIS/KPIS/ObtenerLineas';
+    var obtenerLineasUrlAction = window.appSettings.obtenerLineasUrlAction;
 
     // Función para actualizar el dropdown de líneas activas
     function actualizarDropdownLineasActivas() {

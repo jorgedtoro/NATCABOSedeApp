@@ -27,13 +27,15 @@
         @await Html.PartialAsync("_KPIsPartial", Model)
     </div>
     <br>
-    <p class="text-center text-muted" id="last-updated">Última actualización: nunca</p> <!-- Placeholder -->
+    <p class="text-center text-muted" id="last-updated">Última actualización: @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</p> <!-- Placeholder -->
 </div>
 
 @section Scripts {
     <script>
         window.appSettings = {
-            obtenerDatosUrlAction: '@Url.Action("ObtenerKPIs", "KPIS", new { area = "KPIS" })'
+            obtenerDatosUrlAction: '@Url.Action("ObtenerKPIs", "KPIS", new { area = "KPIS" })',
+            obtenerLineasUrlAction: '@Url.Action("ObtenerLineas", "KPIS", new { area = "KPIS" })'
+
         };
     </script>
     <script src="~/js/KPIS.js"></script>

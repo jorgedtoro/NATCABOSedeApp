@@ -18,7 +18,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             _kpiService = kpiService;
         }
 
-        public IActionResult Index(int lineaSeleccionada = 0) // Default to 0, indicating no line selected yet
+        public IActionResult Index(short lineaSeleccionada = 0) // Default to 0, indicating no line selected yet
         {
             // Fetch available lines dynamically
             var lineas = _context.DatosKpis
@@ -106,7 +106,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         }
 
 
-        public IActionResult ObtenerKPIs(int lineaSeleccionada)
+        public IActionResult ObtenerKPIs(short lineaSeleccionada)
         {
             var datos = ObtenerDatosPorLinea(lineaSeleccionada);
 
@@ -171,9 +171,16 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             return PartialView("_KPIsPartial", modelo);
         }
 
-        private DatosKpi ObtenerDatosPorLinea(int linea)
+        private DatosKpi ObtenerDatosPorLinea(short linea)
         {
+            try
+            {
             return _context.DatosKpis.FirstOrDefault(d => d.IdLinea == linea);
+
+            }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
 

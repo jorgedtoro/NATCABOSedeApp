@@ -20,87 +20,111 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
         public IActionResult Index(short lineaSeleccionada = 0) // Default to 0, indicating no line selected yet
         {
-            // Fetch available lines dynamically
-            var lineas = _context.DatosKpis
-                .Select(d => new { d.IdLinea, d.NombreLinea })
-                .ToList();
-
-            // Pass lines to the view using ViewBag
-            ViewBag.LineasDisponibles = lineas;
-
-            // If no line is selected, pick the first one
-            if (lineaSeleccionada == 0 && lineas.Any())
-            {
-                lineaSeleccionada = lineas.First().IdLinea; // Set to the first available line's Id
-            }
-
-            // Set the selected line in ViewBag
-            ViewBag.LineaSeleccionada = lineaSeleccionada;
-
-            // Find the name of the selected line
-            var lineaSeleccionadaNombre = lineas.FirstOrDefault(l => l.IdLinea == lineaSeleccionada)?.NombreLinea;
-            ViewBag.NombreLineaSeleccionada = lineaSeleccionadaNombre ?? "Nombre no disponible";
-
-            // Fetch KPI data for the selected line
             var datos = ObtenerDatosPorLinea(lineaSeleccionada);
-            double mediaPaquetesPorMinuto = 0.0;
-
+            DatosKpiViewModel modelo;
             if (datos == null)
             {
-                return NotFound("No se encontraron datos para la línea seleccionada.");
+                // Crear un modelo vacío
+                modelo = new DatosKpiViewModel
+                {
+                    Cliente = string.Empty,
+                    Producto = string.Empty,
+                    PPM = 0,
+                    PM = 0,
+                    ExtraPeso = 0,
+                    HoraInicio = DateTime.Now,
+                    HoraFinAproximada = DateTime.Now,
+                    PorcentajePedido = 0,
+                    CosteMOD = 0
+                };
+            }
+            else
+            {
+
+                // Fetch available lines dynamically
+                var lineas = _context.DatosKpis
+                    .Select(d => new { d.IdLinea, d.NombreLinea })
+                    .ToList();
+
+                // Pass lines to the view using ViewBag
+                ViewBag.LineasDisponibles = lineas;
+
+                // If no line is selected, pick the first one
+                if (lineaSeleccionada == 0 && lineas.Any())
+                {
+                    lineaSeleccionada = lineas.First().IdLinea; // Set to the first available line's Id
+                }
+
+                // Set the selected line in ViewBag
+                ViewBag.LineaSeleccionada = lineaSeleccionada;
+
+                // Find the name of the selected line
+                var lineaSeleccionadaNombre = lineas.FirstOrDefault(l => l.IdLinea == lineaSeleccionada)?.NombreLinea;
+                ViewBag.NombreLineaSeleccionada = lineaSeleccionadaNombre ?? "Nombre no disponible";
+
+                // Fetch KPI data for the selected line
+                //var datos = ObtenerDatosPorLinea(lineaSeleccionada);
+                double mediaPaquetesPorMinuto = 0.0;
+
+                if (datos.HoraInicioProduccion != null && datos.HoraUltimoPaquete != null)
+                {
+                    var inicio = datos.HoraInicioProduccion.Value;
+                    var fin = datos.HoraUltimoPaquete.Value;
+
+                    // Calculate time difference
+                    TimeSpan diferencia = fin - inicio;
+                    mediaPaquetesPorMinuto = datos.PaquetesValidos / diferencia.TotalMinutes;
+                }
+
+                var ppm = _kpiService.CalcularPPM(
+                    datos.PaquetesValidos,
+                    datos.MinutosTrabajados ?? 0,
+                    datos.NumeroOperadores ?? 0);
+
+                var pm = _kpiService.CalcularPM(
+                    datos.PaquetesValidos,
+                    datos.MinutosTrabajados ?? 0);
+
+                var extraPeso = _kpiService.CalcularExtrapeso(
+                    datos.PesoTotalReal ?? 0,
+                    datos.PesoObjetivo ?? 0,
+                    datos.PaquetesValidos);
+
+                var horaFinAproximada = _kpiService.CalcularHoraFin(
+                    datos.HoraInicioProduccion ?? DateTime.Now,
+                    (int)(datos.PaquetesRequeridos - datos.PaquetesValidos),
+                    mediaPaquetesPorMinuto);
+
+                var porcentajePedido = _kpiService.CalcularPorcentajePedido(
+                    (int)(datos.PaquetesValidos),
+                    (int)(datos.PaquetesRequeridos));
+
+                var costeMOD = _kpiService.CalcularCosteMOD(
+                    datos.MinutosTrabajados ?? 0,
+                    datos.CosteHora ?? 0,
+                    datos.PaquetesValidos,
+                    datos.PesoObjetivo ?? 0);
+
+                modelo = new DatosKpiViewModel
+                {
+                    Cliente = datos.NombreCliente ?? "*CLIENTE*",
+                    Producto = datos.NombreProducto ?? "*PRODUCTO*",
+                    PPM = ppm,
+                    PM = pm,
+                    ExtraPeso = extraPeso,
+                    HoraInicio = datos.HoraInicioProduccion ?? DateTime.Now,
+                    HoraFinAproximada = horaFinAproximada,
+                    PorcentajePedido = porcentajePedido,
+                    CosteMOD = costeMOD
+                };
+
             }
 
-            if (datos.HoraInicioProduccion != null && datos.HoraUltimoPaquete != null)
-            {
-                var inicio = datos.HoraInicioProduccion.Value;
-                var fin = datos.HoraUltimoPaquete.Value;
+            //if (datos == null)
+            //{
+            //    return NotFound("No se encontraron datos para la línea seleccionada.");
+            //}
 
-                // Calculate time difference
-                TimeSpan diferencia = fin - inicio;
-                mediaPaquetesPorMinuto = datos.PaquetesValidos / diferencia.TotalMinutes;
-            }
-
-            var ppm = _kpiService.CalcularPPM(
-                datos.PaquetesValidos,
-                datos.MinutosTrabajados ?? 0,
-                datos.NumeroOperadores ?? 0);
-
-            var pm = _kpiService.CalcularPM(
-                datos.PaquetesValidos,
-                datos.MinutosTrabajados ?? 0);
-
-            var extraPeso = _kpiService.CalcularExtrapeso(
-                datos.PesoTotalReal ?? 0,
-                datos.PesoObjetivo ?? 0,
-                datos.PaquetesValidos);
-
-            var horaFinAproximada = _kpiService.CalcularHoraFin(
-                datos.HoraInicioProduccion ?? DateTime.Now,
-                (int)(datos.PaquetesRequeridos - datos.PaquetesValidos),
-                mediaPaquetesPorMinuto);
-
-            var porcentajePedido = _kpiService.CalcularPorcentajePedido(
-                (int)(datos.PaquetesValidos),
-                (int)(datos.PaquetesRequeridos));
-
-            var costeMOD = _kpiService.CalcularCosteMOD(
-                datos.MinutosTrabajados ?? 0,
-                datos.CosteHora ?? 0,
-                datos.PaquetesValidos,
-                datos.PesoObjetivo ?? 0);
-
-            var modelo = new DatosKpiViewModel
-            {
-                Cliente = datos.NombreCliente ?? "*CLIENTE*",
-                Producto = datos.NombreProducto ?? "*PRODUCTO*",
-                PPM = ppm,
-                PM = pm,
-                ExtraPeso = extraPeso,
-                HoraInicio = datos.HoraInicioProduccion ?? DateTime.Now,
-                HoraFinAproximada = horaFinAproximada,
-                PorcentajePedido = porcentajePedido,
-                CosteMOD = costeMOD
-            };
 
             return View(modelo);
         }

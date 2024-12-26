@@ -19,7 +19,7 @@ public partial class DatosKpi
 
     public DateTime? HoraInicioLote { get; set; }
 
-    public int? PaquetesValidos { get; set; }
+    public int PaquetesValidos { get; set; }
 
     public int? MinutosTrabajados { get; set; }
 
@@ -27,7 +27,7 @@ public partial class DatosKpi
 
     public double? PesoObjetivo { get; set; }
 
-    public int? PaquetesRequeridos { get; set; }
+    public int PaquetesRequeridos { get; set; }
 
     public double? PpmObjetivo { get; set; }
 
@@ -49,5 +49,5 @@ public partial class DatosKpi
 
     public int? PaquetesTotalesDisc { get; set; }
 
-    public double? PesoTotalRealDisc { get; set; }
+    public int? PesoTotalRealDisc { get; set; }
 }

@@ -21,18 +21,16 @@ public partial class NATCABOContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-       // => optionsBuilder.UseSqlServer("Server=10.67.1.99\\SQLEXPRESS01;Database=dbGrupalia_aux;User ID=sa;Password=870104;TrustServerCertificate=True;Encrypt=False;");
         => optionsBuilder.UseSqlServer("Server=C0K3\\SQLEXPRESS;Database=NATCABO;User ID=sa;Password=080506;TrustServerCertificate=True;Encrypt=False;");
-    //TODO: CAMBIAR CONEXIÓN Y COGER APPSETTINGS.JSON
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<DatosKpi>(entity =>
         {
-            entity.ToTable("datosKPIS");
+            entity
+                .HasNoKey()
+                .ToTable("datosKPIS");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
             entity.Property(e => e.CosteHora).HasColumnName("costeHora");
             entity.Property(e => e.CosteKg).HasColumnName("costeKg");
             entity.Property(e => e.HoraInicioLote)
@@ -77,18 +75,18 @@ public partial class NATCABOContext : DbContext
                 .HasNoKey()
                 .ToTable("KPIsHistorico");
 
-            entity.Property(e => e.Confeccion).HasMaxLength(250);
+            entity.Property(e => e.Confeccion).HasMaxLength(255);
             entity.Property(e => e.FTarget).HasColumnName("fTarget");
-            entity.Property(e => e.Fecha).HasColumnType("date");
+            entity.Property(e => e.Fecha).HasColumnType("datetime");
             entity.Property(e => e.KpiExtrapeso).HasColumnName("KPI_Extrapeso");
             entity.Property(e => e.KpiPm).HasColumnName("KPI_PM");
             entity.Property(e => e.KpiPpm).HasColumnName("KPI_PPM");
             entity.Property(e => e.LineaId).HasColumnName("LineaID");
             entity.Property(e => e.NMinutos).HasColumnName("N_Minutos");
-            entity.Property(e => e.NOperaciones).HasColumnName("N_Operaciones");
+            entity.Property(e => e.NOperarios).HasColumnName("N_Operarios");
             entity.Property(e => e.NPaquetes).HasColumnName("N_Paquetes");
             entity.Property(e => e.SName)
-                .HasMaxLength(100)
+                .HasMaxLength(255)
                 .HasColumnName("sName");
         });
 

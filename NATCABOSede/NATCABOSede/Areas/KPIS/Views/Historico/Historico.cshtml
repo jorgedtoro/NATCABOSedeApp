@@ -14,6 +14,7 @@
             <div class="col-md-4">
                 <div class="mb-3">
                     <label for="lineaSeleccionada" class="form-label">Seleccione una Línea:</label>
+                    @* TODO: cambiar por foreach de lineas *@
                     <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
                         <option value="" selected>Seleccione una línea</option>
                         <option value="1">Línea 1</option>
@@ -69,7 +70,7 @@
                         <td>@item.Confeccion</td>
                         <td>@item.NPaquetes</td>
                         <td>@item.NMinutos</td>
-                        <td>@item.NOperaciones</td>
+                        <td>@item.NOperarios</td>
                         <td>@item.TotalWeight</td>
                         <td>@item.FTarget</td>
                         <td>@item.KpiPpm</td>

@@ -121,7 +121,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     worksheet.Cell(row, 3).Value = item.Confeccion;
                     worksheet.Cell(row, 4).Value = item.NPaquetes;
                     worksheet.Cell(row, 5).Value = item.NMinutos;
-                    worksheet.Cell(row, 6).Value = item.NOperaciones;
+                    worksheet.Cell(row, 6).Value = item.NOperarios;
                     worksheet.Cell(row, 7).Value = item.TotalWeight;
                     worksheet.Cell(row, 8).Value = item.FTarget;
                     worksheet.Cell(row, 9).Value = item.KpiPpm;

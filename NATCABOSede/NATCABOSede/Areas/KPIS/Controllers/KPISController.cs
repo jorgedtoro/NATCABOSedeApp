@@ -68,8 +68,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
                 if (datos.HoraInicioProduccion != null && datos.HoraUltimoPaquete != null)
                 {
-                    var inicio = datos.HoraInicioProduccion.Value;
-                    var fin = datos.HoraUltimoPaquete.Value;
+                    var inicio = datos.HoraInicioProduccion;
+                    var fin = datos.HoraUltimoPaquete;
 
                     // Calculate time difference
                     TimeSpan diferencia = fin - inicio;
@@ -78,20 +78,20 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
                 var ppm = _kpiService.CalcularPPM(
                     datos.PaquetesValidos,
-                    datos.MinutosTrabajados ?? 0,
-                    datos.NumeroOperadores ?? 0);
+                    datos.MinutosTrabajados ,
+                    datos.NumeroOperadores );
 
                 var pm = _kpiService.CalcularPM(
                     datos.PaquetesValidos,
-                    datos.MinutosTrabajados ?? 0);
+                    datos.MinutosTrabajados );
 
                 var extraPeso = _kpiService.CalcularExtrapeso(
-                    datos.PesoTotalReal ?? 0,
-                    datos.PesoObjetivo ?? 0,
+                    datos.PesoTotalReal,
+                    datos.PesoObjetivo,
                     datos.PaquetesValidos);
 
                 var horaFinAproximada = _kpiService.CalcularHoraFin(
-                    datos.HoraInicioProduccion ?? DateTime.Now,
+                    datos.HoraInicioProduccion,
                     (int)(datos.PaquetesRequeridos - datos.PaquetesValidos),
                     mediaPaquetesPorMinuto);
 
@@ -100,10 +100,10 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     (int)(datos.PaquetesRequeridos));
 
                 var costeMOD = _kpiService.CalcularCosteMOD(
-                    datos.MinutosTrabajados ?? 0,
-                    datos.CosteHora ?? 0,
+                    datos.MinutosTrabajados,
+                    datos.CosteHora,
                     datos.PaquetesValidos,
-                    datos.PesoObjetivo ?? 0);
+                    datos.PesoObjetivo);
 
                 modelo = new DatosKpiViewModel
                 {
@@ -112,7 +112,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     PPM = ppm,
                     PM = pm,
                     ExtraPeso = extraPeso,
-                    HoraInicio = datos.HoraInicioProduccion ?? DateTime.Now,
+                    HoraInicio = datos.HoraInicioProduccion,
                     HoraFinAproximada = horaFinAproximada,
                     PorcentajePedido = porcentajePedido,
                     CosteMOD = costeMOD
@@ -142,8 +142,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             double mediaPaquetesPorMinuto = 0.0;
             if (datos.HoraInicioProduccion != null && datos.HoraUltimoPaquete != null)
             {
-                var inicio = datos.HoraInicioProduccion.Value;
-                var fin = datos.HoraUltimoPaquete.Value;
+                var inicio = datos.HoraInicioProduccion;
+                var fin = datos.HoraUltimoPaquete;
 
                 // Calculate time difference
                 TimeSpan diferencia = fin - inicio;
@@ -152,20 +152,20 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
             var ppm = _kpiService.CalcularPPM(
                 datos.PaquetesValidos,
-                datos.MinutosTrabajados ?? 0,
-                datos.NumeroOperadores ?? 0);
+                datos.MinutosTrabajados,
+                datos.NumeroOperadores);
 
             var pm = _kpiService.CalcularPM(
                 datos.PaquetesValidos,
-                datos.MinutosTrabajados ?? 0);
+                datos.MinutosTrabajados);
 
             var extraPeso = _kpiService.CalcularExtrapeso(
-                datos.PesoTotalReal ?? 0,
-                datos.PesoObjetivo ?? 0,
+                datos.PesoTotalReal,
+                datos.PesoObjetivo ,
                 datos.PaquetesValidos);
 
             var horaFinAproximada = _kpiService.CalcularHoraFin(
-                datos.HoraInicioProduccion ?? DateTime.Now,
+                datos.HoraInicioProduccion,
                 (int)(datos.PaquetesRequeridos - datos.PaquetesValidos),
                 mediaPaquetesPorMinuto);
 
@@ -174,10 +174,10 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 (int)(datos.PaquetesRequeridos));
 
             var costeMOD = _kpiService.CalcularCosteMOD(
-                datos.MinutosTrabajados ?? 0,
-                datos.CosteHora ?? 0,
+                datos.MinutosTrabajados,
+                datos.CosteHora,
                 datos.PaquetesValidos,
-                datos.PesoObjetivo ?? 0);
+                datos.PesoObjetivo);
 
             var modelo = new DatosKpiViewModel
             {
@@ -186,7 +186,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 PPM = ppm,
                 PM = pm,
                 ExtraPeso = extraPeso,
-                HoraInicio = datos.HoraInicioProduccion ?? DateTime.Now,
+                HoraInicio = datos.HoraInicioProduccion,
                 HoraFinAproximada = horaFinAproximada,
                 PorcentajePedido = porcentajePedido,
                 CosteMOD = costeMOD

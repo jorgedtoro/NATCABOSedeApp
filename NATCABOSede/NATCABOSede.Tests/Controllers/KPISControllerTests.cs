@@ -49,7 +49,7 @@ namespace NATCABOSede.Tests.Controllers
             // Configurar el servicio simulado
             mockService.Setup(s => s.CalcularPPM(It.IsAny<double>(), It.IsAny<double>(), It.IsAny<int>())).Returns(0.4);
             mockService.Setup(s => s.CalcularPM(It.IsAny<double>(), It.IsAny<double>())).Returns(2.0);
-            mockService.Setup(s => s.CalcularExtrapeso(It.IsAny<double>(), It.IsAny<double>())).Returns(0.1);
+            //mockService.Setup(s => s.CalcularExtrapeso(It.IsAny<double>(), It.IsAny<double>(),It.IsAny<int>)).Returns(0.1);
             mockService.Setup(s => s.CalcularHoraFin(It.IsAny<DateTime>(), It.IsAny<int>(), It.IsAny<double>())).Returns(DateTime.Now);
             mockService.Setup(s => s.CalcularPorcentajePedido(It.IsAny<int>(), It.IsAny<int>())).Returns(50);
             mockService.Setup(s => s.CalcularCosteMOD(It.IsAny<double>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<double>())).Returns(1.5);

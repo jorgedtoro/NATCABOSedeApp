@@ -8,8 +8,7 @@ namespace NATCABOSede.Models.Metadata
     }
     public class DatosKpiMetadata
     {
-        [Display(Name = "ID")]
-        public int Id { get; set; }
+        
 
         [Display(Name = "Línea")]
         public int IdLinea { get; set; }

@@ -1,10 +1,4 @@
 G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\CoverletSourceRootsMapping_NATCABOSede.Tests
-G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.csproj.AssemblyReference.cache
-G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.GeneratedMSBuildEditorConfig.editorconfig
-G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.AssemblyInfoInputs.cache
-G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.AssemblyInfo.cs
-G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.csproj.CoreCompileInputs.cache
-G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.sourcelink.json
 G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\testhost.dll
 G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\NATCABOSede.deps.json
 G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\NATCABOSede.runtimeconfig.json
@@ -326,6 +320,12 @@ G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\run
 G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\NATCABOSede.dll
 G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\NATCABOSede.pdb
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.csproj.AssemblyReference.cache
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.GeneratedMSBuildEditorConfig.editorconfig
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.AssemblyInfoInputs.cache
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.AssemblyInfo.cs
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.csproj.CoreCompileInputs.cache
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.sourcelink.json
 G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOS.92AD7356.Up2Date
 G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.dll
 G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\refint\NATCABOSede.Tests.dll

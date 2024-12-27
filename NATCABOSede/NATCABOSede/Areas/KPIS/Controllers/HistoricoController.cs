@@ -99,7 +99,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 worksheet.Cell(1, 3).Value = "Confección";
                 worksheet.Cell(1, 4).Value = "N° Paquetes";
                 worksheet.Cell(1, 5).Value = "N° Minutos";
-                worksheet.Cell(1, 6).Value = "N° Operaciones";
+                worksheet.Cell(1, 6).Value = "N° Operarios";
                 worksheet.Cell(1, 7).Value = "Peso Total";
                 worksheet.Cell(1, 8).Value = "Target";
                 worksheet.Cell(1, 9).Value = "KPI PPM";
@@ -141,6 +141,22 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "KpisHistorico.xlsx");
                 }
             }
+        }
+
+        // Recuperación de líneas desde la vista de históricos en la bbdd
+        [HttpGet]
+        public JsonResult ObtenerLineasHistorico()
+        {
+            var lineas = _context.KpisHistoricos
+                .Select(d => new { d.LineaId, d.SName })
+                .ToList();
+
+            if (!lineas.Any())
+            {
+                Console.WriteLine("No data found in KPIsHistorico table");
+            }
+
+            return Json(lineas);
         }
     }
 }

@@ -224,7 +224,6 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             return Json(lineas);
         }
 
-
     }
 
 

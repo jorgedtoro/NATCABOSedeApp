@@ -13,14 +13,9 @@
         <form id="filtro-form" class="row g-3">
             <div class="col-md-4">
                 <div class="mb-3">
-                    <label for="lineaSeleccionada" class="form-label">Seleccione una Línea:</label>
-                    @* TODO: cambiar por foreach de lineas *@
+                    <label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
                     <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
-                        <option value="" selected>Seleccione una línea</option>
-                        <option value="1">Línea 1</option>
-                        <option value="2">Línea 2</option>
-                        <option value="3">Línea 3</option>
-                        <option value="4">Línea 4</option>
+                        <option value="" disabled selected>Loading lines...</option>
                     </select>
                 </div>
             </div>
@@ -50,15 +45,15 @@
                     <th>Producto</th>
                     <th>Lote</th>
                     <th>Confección</th>
-                    <th>N° Paquetes</th>
-                    <th>N° Minutos</th>
-                    <th>N° Operaciones</th>
-                    <th>Peso Total</th>
-                    <th>Target</th>
-                    <th>KPI PPM</th>
-                    <th>KPI PM</th>
-                    <th>KPI Extrapeso</th>
-                    <th>Fecha Registro</th>
+                    <th class="numeric">N° Paquetes</th>
+                    <th class="numeric">N° Minutos</th>
+                    <th class="numeric">N° Operarios</th>
+                    <th class="numeric">Peso Total (Kg)</th>
+                    <th class="numeric">Objetivo</th>
+                    <th class="numeric">PPM</th>
+                    <th class="numeric">PM</th>
+                    <th class="numeric">Extrapeso (Kg)</th>
+                    <th class="numeric">Fecha Registro</th>
                 </tr>
             </thead>
             <tbody id="tabla-historico">
@@ -68,15 +63,15 @@
                         <td>@item.SName</td>
                         <td>@item.Lote</td>
                         <td>@item.Confeccion</td>
-                        <td>@item.NPaquetes</td>
-                        <td>@item.NMinutos</td>
-                        <td>@item.NOperarios</td>
-                        <td>@item.TotalWeight</td>
-                        <td>@item.FTarget</td>
-                        <td>@item.KpiPpm</td>
-                        <td>@item.KpiPm</td>
-                        <td>@item.KpiExtrapeso</td>
-                        <td>@item.Fecha?.ToString("dd/MM/yyyy")</td>
+                        <td class="numeric">@item.NPaquetes?.ToString("N0")</td>
+                        <td class="numeric">@item.NMinutos?.ToString("N0")</td>
+                        <td class="numeric">@item.NOperarios</td>
+                        <td class="numeric">@item.TotalWeight?.ToString("N0")</td>
+                        <td class="numeric">@item.FTarget</td>
+                        <td class="numeric">@item.KpiPpm?.ToString("F2")</td>
+                        <td class="numeric">@item.KpiPm?.ToString("F2")</td>
+                        <td class="numeric">@item.KpiExtrapeso?.ToString("N0")</td>
+                        <td class="numeric">@item.Fecha?.ToString("dd/MM/yyyy")</td>
                     </tr>
                 }
             </tbody>
@@ -88,23 +83,24 @@
             @if (ViewBag.Page > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Historico", new { page = ViewBag.Page - 1 })">Anterior</a>
+                    <a class="page-link" href="#" onclick="loadPage(@(ViewBag.Page - 1))">Anterior</a>
                 </li>
             }
             @for (int i = 1; i <= ViewBag.TotalPages; i++)
             {
-            <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                <a class="page-link" href="@Url.Action("Historico", new { page = i })">@i</a>
-            </li>
+                <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                    <a class="page-link" href="#" onclick="loadPage(@i)">@i</a>
+                </li>
             }
             @if (ViewBag.Page < ViewBag.TotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Historico", new { page = ViewBag.Page + 1 })">Siguiente</a>
+                    <a class="page-link" href="#" onclick="loadPage(@(ViewBag.Page + 1))">Siguiente</a>
                 </li>
             }
         </ul>
     </nav>
+
 
     <!-- Selector de KPI -->
     <div class="row mt-4">
@@ -128,6 +124,13 @@
 
 @section Scripts {
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        window.appSettings = {
+            obtenerLineasHistoricoUrlAction: '@Url.Action("ObtenerLineasHistorico", "Historico", new { area = "KPIS" })'
+        };
+    </script>
+
 <script src="~/js/HistoricoKPIs.js"></script>
     
 }

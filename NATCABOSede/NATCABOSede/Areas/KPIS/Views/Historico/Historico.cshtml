@@ -15,8 +15,20 @@
                 <div class="mb-3">
                     <label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
                     <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
-                        <option value="" disabled selected>Loading lines...</option>
+                        @if (ViewBag.LineasDisponibles != null)
+                        {
+                            foreach (var linea in ViewBag.LineasDisponibles)
+                            {
+                                <option value="@linea.LineaId" @(ViewBag.LineaSeleccionada == linea.LineaId ? "selected" : "")>
+                                    @linea.SName
+                                </option>
+                            }
+                        }
                     </select>
+                  @*   <label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
+                    <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
+                        <option value="" disabled selected>Loading lines...</option>
+                    </select> *@
                 </div>
             </div>
             <div class="col-md-4">

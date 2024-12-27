@@ -28,6 +28,10 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                .Skip((page - 1) * pageSize)
                .Take(pageSize)
                .ToList();
+           //lineas disponibles en el histórico
+            var lineas = _context.KpisHistoricos
+               .Select(d => new { d.LineaId, d.SName })
+               .ToList();
 
             // Total de registros
             var totalRecords = _context.KpisHistoricos.Count();
@@ -37,8 +41,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             ViewBag.Page = page;
             ViewBag.PageSize = pageSize;
             ViewBag.TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+            ViewBag.LineasDisponibles = lineas;
 
-            
             return View(historico);
         }
         [HttpPost]

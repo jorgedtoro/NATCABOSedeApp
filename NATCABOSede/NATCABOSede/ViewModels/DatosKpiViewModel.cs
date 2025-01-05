@@ -8,9 +8,13 @@
        
         // KPIs
         public double PPM { get; set; }
+        public double PPM_Disc { get; set; }
         public double PM { get; set; }
+        public double PM_Disc { get; set; }
         public double ExtraPeso { get; set; }
+        public double ExtraPeso_Disc { get; set; }
         public double CosteMOD { get; set; }
+        public double FTT { get; set; }
 
         // Horas y porcentajes
         public DateTime HoraInicio { get; set; }

@@ -81,6 +81,11 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     datos.MinutosTrabajados ,
                     datos.NumeroOperadores );
 
+                var ppm_disc = _kpiService.CalcularPPM(
+                    datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc,
+                    datos.MinutosTrabajados,
+                    datos.NumeroOperadores);
+
                 var pm = _kpiService.CalcularPM(
                     datos.PaquetesValidos,
                     datos.MinutosTrabajados );
@@ -110,6 +115,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     Cliente = datos.NombreCliente ?? "*CLIENTE*",
                     Producto = datos.NombreProducto ?? "*PRODUCTO*",
                     PPM = ppm,
+                    PPM_Disc=ppm_disc,
                     PM = pm,
                     ExtraPeso = extraPeso,
                     HoraInicio = datos.HoraInicioProduccion,
@@ -155,7 +161,16 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 datos.MinutosTrabajados,
                 datos.NumeroOperadores);
 
+            var ppm_disc = _kpiService.CalcularPPM(
+                datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc,
+                datos.MinutosTrabajados,
+                datos.NumeroOperadores);
+
             var pm = _kpiService.CalcularPM(
+                datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc,
+                datos.MinutosTrabajados);
+
+            var pm_disc = _kpiService.CalcularPM(
                 datos.PaquetesValidos,
                 datos.MinutosTrabajados);
 
@@ -163,6 +178,11 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 datos.PesoTotalReal,
                 datos.PesoObjetivo ,
                 datos.PaquetesValidos);
+
+            var extraPeso_disc = _kpiService.CalcularExtrapeso(
+                datos.PesoTotalRealDisc,
+                datos.PesoObjetivo,
+                datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc);
 
             var horaFinAproximada = _kpiService.CalcularHoraFin(
                 datos.HoraInicioProduccion,
@@ -179,17 +199,26 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 datos.PaquetesValidos,
                 datos.PesoObjetivo);
 
+            var ftt = _kpiService.CalcularFTT(
+                datos.PaquetesTotalesDisc,
+                datos.PaquetesRechazadosDisc
+                );
+
             var modelo = new DatosKpiViewModel
             {
                 Cliente = datos.NombreCliente ?? "*CLIENTE*",
                 Producto = datos.NombreProducto ?? "*PRODUCTO*",
                 PPM = ppm,
+                PPM_Disc= ppm_disc,
                 PM = pm,
+                PM_Disc= pm_disc,
                 ExtraPeso = extraPeso,
+                ExtraPeso_Disc = extraPeso_disc,
                 HoraInicio = datos.HoraInicioProduccion,
                 HoraFinAproximada = horaFinAproximada,
                 PorcentajePedido = porcentajePedido,
-                CosteMOD = costeMOD
+                CosteMOD = costeMOD,
+                FTT=ftt
             };
 
             return PartialView("_KPIsPartial", modelo);

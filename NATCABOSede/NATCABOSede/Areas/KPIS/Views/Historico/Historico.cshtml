@@ -11,19 +11,27 @@
     <!-- Panel de control -->
     <div class="card shadow-sm p-4 mb-4">
         <form id="filtro-form" class="row g-3">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="mb-3">
                     <label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
                     <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
-                        <option value="" disabled selected>Loading lines...</option>
+                        <option value="" disabled selected>Cargando líneas...</option>
                     </select>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="confeccionSeleccionada" class="form-label">Selecciona una Confección:</label>
+                    <select id="confeccionSeleccionada" name="confeccionSeleccionada" class="form-select">
+                        <option value="" disabled selected>Cargando confecciones...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <label for="desde" class="form-label">Desde</label>
                 <input type="date" class="form-control" id="desde" name="desde">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="hasta" class="form-label">Hasta</label>
                 <input type="date" class="form-control" id="hasta" name="hasta">
             </div>
@@ -42,18 +50,18 @@
         <table class="table table-bordered table-striped">
             <thead class="table-primary">
                 <tr>
-                    <th>Producto</th>
+                    <th>Línea</th>
                     <th>Lote</th>
                     <th>Confección</th>
                     <th class="numeric">N° Paquetes</th>
-                    <th class="numeric">N° Minutos</th>
+                    <!--<th class="numeric">N° Minutos</th>-->
                     <th class="numeric">N° Operarios</th>
                     <th class="numeric">Peso Total (Kg)</th>
-                    <th class="numeric">Objetivo</th>
+                    <!--<th class="numeric">Objetivo</th>-->
                     <th class="numeric">PPM</th>
                     <th class="numeric">PM</th>
                     <th class="numeric">Extrapeso (Kg)</th>
-                    <th class="numeric">Fecha Registro</th>
+                    <th class="numeric">Fecha Lote</th>
                 </tr>
             </thead>
             <tbody id="tabla-historico">
@@ -64,10 +72,10 @@
                         <td>@item.Lote</td>
                         <td>@item.Confeccion</td>
                         <td class="numeric">@item.NPaquetes?.ToString("N0")</td>
-                        <td class="numeric">@item.NMinutos?.ToString("N0")</td>
+                        <!--<td class="numeric">@item.NMinutos?.ToString("N0")</td>-->
                         <td class="numeric">@item.NOperarios</td>
                         <td class="numeric">@item.TotalWeight?.ToString("N0")</td>
-                        <td class="numeric">@item.FTarget</td>
+                        <!--<td class="numeric">@item.FTarget</td>-->
                         <td class="numeric">@item.KpiPpm?.ToString("F2")</td>
                         <td class="numeric">@item.KpiPm?.ToString("F2")</td>
                         <td class="numeric">@item.KpiExtrapeso?.ToString("N0")</td>
@@ -127,7 +135,8 @@
 
     <script>
         window.appSettings = {
-            obtenerLineasHistoricoUrlAction: '@Url.Action("ObtenerLineasHistorico", "Historico", new { area = "KPIS" })'
+            obtenerLineasHistoricoUrlAction: '@Url.Action("ObtenerLineasHistorico", "Historico", new { area = "KPIS" })',
+            obtenerConfeccionesHistoricoUrlAction: '@Url.Action("ObtenerConfeccionesHistorico", "Historico", new { area = "KPIS" })'
         };
     </script>
 

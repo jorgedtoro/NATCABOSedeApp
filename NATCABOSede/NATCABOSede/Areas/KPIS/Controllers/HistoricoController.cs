@@ -158,6 +158,22 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
             return Json(lineas);
         }
+
+        // Recuperación de confecciones desde la vista de históricos en la bbdd
+        [HttpGet]
+        public JsonResult ObtenerConfeccionesHistorico()
+        {
+            var confecciones = _context.KpisHistoricos
+                .Select(d => new { d.Confeccion })
+                .ToList();
+
+            if (!confecciones.Any())
+            {
+                Console.WriteLine("No data found in KPIsHistorico table");
+            }
+
+            return Json(confecciones);
+        }
     }
 }
 

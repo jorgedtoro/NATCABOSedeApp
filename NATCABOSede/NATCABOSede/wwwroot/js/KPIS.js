@@ -16,14 +16,21 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(obtenerLineasUrlAction)
             .then(function (response) {
                 if (!response.ok) {
-                    throw new Error('Error al obtener las línas activas desde la bbdd');
+                    throw new Error('Error al obtener las líenas activas desde la bbdd');
                 }
                 return response.json();
             })
             .then(function (lineas) {
+                console.log(lineas);
+                if ('success' in lineas && !lineas.success) {
+                    console.error('Error en json desde el servidor:', result.message || 'Error desconocido');
+                    //window.location.href = '/Home/Error'; // Cambia el path si es necesario
+                    return;
+                }
+                console.log('Json ok, continuamos...');
                 // Eliminamos el contenido del dropdown
                 lineaSeleccionada.innerHTML = '';
-
+                
                 if (lineas.length === 0) {
                     // No existen líneas activas...
                     var noLinesOption = document.createElement('option');
@@ -64,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(function (error) {
                 console.error('Error en la actualización del dropdown:', error);
+                window.location.href = '/Home/Error'; // Cambia el path si es necesario
             });
     }
 
@@ -122,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Actualización del último timestamp
         var now = new Date();
         lastUpdatedElement.innerText = 'Última actualización: ' + now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-    }, 5000);
+    }, 60000);
 });
 
 

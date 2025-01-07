@@ -15,6 +15,8 @@
         public double ExtraPeso_Disc { get; set; }
         public double CosteMOD { get; set; }
         public double FTT { get; set; }
+        public double PesoTotalDesperdicio { get; set; }
+        public double PorcentajeTotalDesperdicio { get; set; }
 
         // Horas y porcentajes
         public DateTime HoraInicio { get; set; }

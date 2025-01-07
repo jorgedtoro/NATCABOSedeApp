@@ -1,6 +1,8 @@
 ﻿@model NATCABOSede.ViewModels.DatosKpiViewModel
 
-
+@section Styles {
+    <link rel="stylesheet" href="~/css/utilities/kpis.css" />
+}
 
 
 <div class="container mt-3">
@@ -49,7 +51,7 @@
         <!-- KPI Coste -->
         <div class="card text-white bg-warning shadow-sm">
             <div class="card-body text-center">
-                <h5 class="card-title">Coste</h5>
+                <h5 class="card-title" style="font-weight: bold;">MOD</h5>
                 <p class="display-5">@Model.CosteMOD.ToString("F2") €/Kg</p>
             </div>
         </div>
@@ -62,17 +64,32 @@
                 @* TODO: cambiar colores en función de ppm_obetivo rojo < 10% ppm_objetivo *@
                 <div class="card text-white bg-success shadow-sm">
                     <div class="card-body text-center">
-                        <h5 class="card-title">PPM</h5>
+                        <h5 class="card-title" style="font-weight: bold;">PPM</h5>
                         <!--<p class="display-6">@Model.PPM.ToString("F2") PPM</p>-->
-                        <p class="display-6">@Model.PPM.ToString("F2")/@Model.PPM_Disc.ToString("F2")</p>
+                        <p class="display-6">
+                            <span class="kpi-MARCO">@Model.PPM.ToString("F1")</span>
+                            /
+                            <span class="kpi-Bizerba">@Model.PPM_Disc.ToString("F1")</span>
+                        </p>
+
+                        <h5 class="card-title">
+                            (<span class="kpi-MARCO">MARCO</span>/<span class="kpi-Bizerba">Bizerba</span>)
+                        </h5>
                     </div>
                 </div>
                 <br />
                 <div class="card text-white bg-success shadow-sm">
                     <div class="card-body text-center">
-                        <h5 class="card-title">PM</h5>
-                        <p class="display-6">@Model.PM.ToString("F2")/@Model.PM_Disc.ToString("F2")</p>
-
+                        <h5 class="card-title" style="font-weight: bold;">PM</h5>
+                        <!--<p class="display-6">@Model.PM.ToString("F2")/@Model.PM_Disc.ToString("F2")</p>-->
+                        <p class="display-6">
+                            <span class="kpi-MARCO">@Model.PM.ToString("F1")</span>
+                            /
+                            <span class="kpi-Bizerba">@Model.PM_Disc.ToString("F1")</span>
+                        </p>
+                        <h5 class="card-title">
+                            <span class="kpi-MARCO">MARCO</span>  /  <span class="kpi-Bizerba">Bizerba</span>
+                        </h5>
                     </div>
                 </div>
             </div>
@@ -80,20 +97,69 @@
                 <!-- Extrapeso -->
                 <div class="card text-white bg-danger shadow-sm">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Extrapeso (Kg)</h5>
-                        <p class="display-6">@Model.ExtraPeso.ToString("F2")/@Model.ExtraPeso_Disc.ToString("F2")</p>
+                        <h5 class="card-title" style="font-weight: bold;">Extrapeso (Kg)</h5>
+
+                        <!--<p class="display-6">@Model.ExtraPeso.ToString("F1")/@Model.ExtraPeso_Disc.ToString("F1")</p>-->
+                        <p class="display-6">
+                            <span class="kpi-MARCO">@Model.ExtraPeso.ToString("F1")</span>
+                            /
+                            <span class="kpi-Bizerba">@Model.ExtraPeso_Disc.ToString("F1")</span>
+                        </p>
+                        <h5 class="card-title">
+                            <span class="kpi-MARCO">MARCO</span>  /  <span class="kpi-Bizerba">Bizerba</span>
+                        </h5>
                     </div>
                 </div>
                 <br />
                 <div class="card text-white bg-success shadow-sm">
                     <div class="card-body text-center">
-                        <h5 class="card-title">FTT</h5>
-                        <p class="display-6">@Model.FTT.ToString("F0") %</p>
+                        <h5 class="card-title" style="font-weight: bold;">FTT (%)</h5>
+                        <p class="display-6">
+                            <span class="kpi-Bizerba">@Model.FTT.ToString("F0")</span>
+                        </p>
+                        <h5 class="card-title">
+                            <span class="kpi-Bizerba">Bizerba</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
 
+            
+        </div>
+
+        <!--DESECHO-->
+        <div class="row g-3 mt-3">
+            <!-- Kg Desecho -->
+            <div class="col-md-6">
+                <div class="card text-white bg-danger shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title" style="font-weight: bold;">Desecho (Kg)</h5>
+                        <p class="display-6">
+                            <span class="kpi-MARCO">@Model.PesoTotalDesperdicio.ToString("F1")</span>
+                        </p>
+                        <h5 class="card-title">
+                            <span class="kpi-MARCO">MARCO</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- % Desecho -->
+            <div class="col-md-6">
+                <div class="card text-white bg-success shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title" style="font-weight: bold;">Desecho (%)</h5>
+                        <p class="display-6">
+                            <span class="kpi-MARCO">@Model.PorcentajeTotalDesperdicio.ToString("F1")</span>
+                        </p>
+                        <h5 class="card-title">
+                            <span class="kpi-MARCO">MARCO</span>
+                        </h5>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <!-- Columna derecha -->

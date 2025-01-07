@@ -28,6 +28,8 @@ public partial class KpisHistorico
     public double? KpiPm { get; set; }
 
     public double? KpiExtrapeso { get; set; }
+    //public double? KpiFTT { get; set; }
+    //public double? KpiMOD { get; set; }
 
     public DateTime? Fecha { get; set; }
 }

@@ -26,6 +26,8 @@ namespace NATCABOSede.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            //ViewBag.ErrorMessage = TempData["ErrorMessage"] ?? "An unexpected error occurred."; //JMB
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

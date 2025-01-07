@@ -10,6 +10,7 @@ let currentPage = 1; // Current page
 // Handle the "Filtrar" button click
 document.getElementById("btn-filtrar").addEventListener("click", function () {
     const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    const confeccion =document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
     const desde = new Date(document.getElementById("desde").value).toISOString();
     const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
@@ -168,7 +169,10 @@ function loadPage(page) {
 // Populate dropdown for line selection
 document.addEventListener('DOMContentLoaded', function () {
     const obtenerLineasHistoricoUrlAction = window.appSettings.obtenerLineasHistoricoUrlAction;
+    const obtenerConfeccionesHistoricoUrlAction = window.appSettings.obtenerConfeccionesHistoricoUrlAction;
+
     const lineaSeleccionada = document.getElementById("lineaSeleccionada");
+    const confeccionSeleccionada = document.getElementById("confeccionSeleccionada");
 
     function cargarLineasHistorico() {
         fetch(obtenerLineasHistoricoUrlAction)
@@ -187,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (lineas.length === 0) {
                     const noLinesOption = document.createElement('option');
-                    noLinesOption.textContent = 'No lines available';
+                    noLinesOption.textContent = 'No existen líneas';
                     noLinesOption.disabled = true;
                     noLinesOption.selected = true;
                     lineaSeleccionada.appendChild(noLinesOption);
@@ -206,8 +210,50 @@ document.addEventListener('DOMContentLoaded', function () {
                     lineaSeleccionada.appendChild(option);
                 });
             })
-            .catch(error => console.error('Error loading lines:', error));
+            .catch(error => console.error('Error cargando líneas:', error));
+    }
+
+    function cargarConfeccionesHistorico() {
+        console.log('Cargando Confecciones disponibles para el histórico...')
+        fetch(obtenerConfeccionesHistoricoUrlAction)
+            .then(response => {
+                if (!response.ok) throw new Error('Error fetching confecciones historico');
+                return response.json();
+            })
+            
+            .then(confecciones => {
+                confeccionSeleccionada.innerHTML = ''; // Clear existing options
+                const placeholderOption = document.createElement('option');
+                placeholderOption.value = '';
+                placeholderOption.textContent = 'Seleccione una confección';
+                placeholderOption.disabled = true;
+                placeholderOption.selected = true;
+                confeccionSeleccionada.appendChild(placeholderOption);
+                if (confecciones.length === 0) {
+                    const noConfeccionesOption = document.createElement('option');
+                    noConfeccionesOption.textContent = 'No existen confecciones';
+                    noConfeccionesOption.disabled = true;
+                    noConfeccionesOption.selected = true;
+                    confeccionSeleccionada.appendChild(noConfeccionesOption);
+                    return;
+                }
+
+                const uniqueConfecciones = new Set();
+                confecciones.forEach(confeccion => uniqueConfecciones.add(JSON.stringify(confeccion)));
+                const filteredConfecciones = Array.from(uniqueConfecciones).map(confeccion => JSON.parse(confeccion));
+                filteredConfecciones.sort((a, b) => a.confeccion.localeCompare(b.confeccion));
+
+
+                filteredConfecciones.forEach(confeccion => {
+                    const option = document.createElement('option');
+                    option.value = confeccion.confeccion;
+                    option.textContent = confeccion.confeccion;
+                    confeccionSeleccionada.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error cargando confecciones:', error));
     }
 
     cargarLineasHistorico(); // Populate the dropdown when the page loads
+    cargarConfeccionesHistorico(); // Populate the dropdown when the page loads
 });

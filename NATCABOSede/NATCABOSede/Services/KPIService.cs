@@ -38,6 +38,16 @@ namespace NATCABOSede.Services
 
             return ((double)(paquetesTotales - paquetesRechazados) / paquetesTotales) * 100;
         }
+
+        public double CalcularPorcentajeDesperdicio(double pesoDesperdicio, double pesoReal)
+        {
+            if (pesoReal <= 0)
+                return 0;
+
+            return (pesoDesperdicio*1000 / (pesoDesperdicio*1000 + pesoReal)) * 100;
+        }
+
+
         // Hora de inicio del lote
         public DateTime GetHoraInicioLote(DateTime horaInicio)
         {

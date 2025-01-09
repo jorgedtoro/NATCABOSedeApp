@@ -4,7 +4,16 @@
     ViewData["Title"] = "KPIs Dashboard";
 }
 
+
+
+
 <div class="container mt-5">
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
     <h1 class="text-center mb-4" id="titulo-dashboard">@ViewBag.NombreLineaSeleccionada - KPIs Dashboard</h1>
 
     <div class="mb-3">

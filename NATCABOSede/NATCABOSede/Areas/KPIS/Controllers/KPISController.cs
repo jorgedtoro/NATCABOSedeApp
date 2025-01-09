@@ -3,6 +3,8 @@ using NATCABOSede.Models;
 using NATCABOSede.Services;
 using NATCABOSede.ViewModels;
 using NATCABOSede.Interfaces;
+using NATCABOSede.Utilities;
+using Microsoft.Data.SqlClient;
 
 namespace NATCABOSede.Areas.KPIS.Controllers
 {
@@ -24,6 +26,9 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             DatosKpiViewModel modelo;
             if (datos == null)
             {
+                //// Redirect to the error page if data retrieval fails
+                //return RedirectToAction("Error");
+
                 // Crear un modelo vacío
                 modelo = new DatosKpiViewModel
                 {
@@ -81,6 +86,11 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     datos.MinutosTrabajados ,
                     datos.NumeroOperadores );
 
+                var ppm_disc = _kpiService.CalcularPPM(
+                    datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc,
+                    datos.MinutosTrabajados,
+                    datos.NumeroOperadores);
+
                 var pm = _kpiService.CalcularPM(
                     datos.PaquetesValidos,
                     datos.MinutosTrabajados );
@@ -110,6 +120,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     Cliente = datos.NombreCliente ?? "*CLIENTE*",
                     Producto = datos.NombreProducto ?? "*PRODUCTO*",
                     PPM = ppm,
+                    PPM_Disc=ppm_disc,
                     PM = pm,
                     ExtraPeso = extraPeso,
                     HoraInicio = datos.HoraInicioProduccion,
@@ -136,7 +147,13 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
             if (datos == null)
             {
-                return NotFound("No se encontraron datos para la línea seleccionada.");
+                ViewBag.ErrorMessage = TempData["ErrorMessage"] ?? "An unexpected error occurred."; //JMB
+
+                // Redirect to the error page if data retrieval fails
+                return RedirectToAction("Error");
+
+
+                //return NotFound("No se encontraron datos para la línea seleccionada.");
             }
 
             double mediaPaquetesPorMinuto = 0.0;
@@ -155,7 +172,16 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 datos.MinutosTrabajados,
                 datos.NumeroOperadores);
 
+            var ppm_disc = _kpiService.CalcularPPM(
+                datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc,
+                datos.MinutosTrabajados,
+                datos.NumeroOperadores);
+
             var pm = _kpiService.CalcularPM(
+                datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc,
+                datos.MinutosTrabajados);
+
+            var pm_disc = _kpiService.CalcularPM(
                 datos.PaquetesValidos,
                 datos.MinutosTrabajados);
 
@@ -163,6 +189,11 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 datos.PesoTotalReal,
                 datos.PesoObjetivo ,
                 datos.PaquetesValidos);
+
+            var extraPeso_disc = _kpiService.CalcularExtrapeso(
+                datos.PesoTotalRealDisc,
+                datos.PesoObjetivo,
+                datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc);
 
             var horaFinAproximada = _kpiService.CalcularHoraFin(
                 datos.HoraInicioProduccion,
@@ -179,17 +210,35 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 datos.PaquetesValidos,
                 datos.PesoObjetivo);
 
+            var ftt = _kpiService.CalcularFTT(
+                datos.PaquetesTotalesDisc,
+                datos.PaquetesRechazadosDisc
+                );
+
+            var porcentajeTotalDesperdicio = _kpiService.CalcularPorcentajeDesperdicio(
+                datos.PesoTotalDesperdicio,
+                datos.PesoTotalReal
+                );
+
+
+
             var modelo = new DatosKpiViewModel
             {
                 Cliente = datos.NombreCliente ?? "*CLIENTE*",
                 Producto = datos.NombreProducto ?? "*PRODUCTO*",
                 PPM = ppm,
+                PPM_Disc= ppm_disc,
                 PM = pm,
+                PM_Disc= pm_disc,
                 ExtraPeso = extraPeso,
+                ExtraPeso_Disc = extraPeso_disc,
                 HoraInicio = datos.HoraInicioProduccion,
                 HoraFinAproximada = horaFinAproximada,
                 PorcentajePedido = porcentajePedido,
-                CosteMOD = costeMOD
+                CosteMOD = costeMOD,
+                FTT=ftt,
+                PesoTotalDesperdicio=datos.PesoTotalDesperdicio,
+                PorcentajeTotalDesperdicio=porcentajeTotalDesperdicio
             };
 
             return PartialView("_KPIsPartial", modelo);
@@ -199,11 +248,17 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         {
             try
             {
-            return _context.DatosKpis.FirstOrDefault(d => d.IdLinea == linea);
-
-            }catch (Exception ex)
+                //return _context.DatosKpis.FirstOrDefault(d => d.IdLinea == linea);
+                return ExecuteWithRetry(() =>
+                {
+                    return _context.DatosKpis.FirstOrDefault(d => d.IdLinea == linea);
+                });
+            }
+            catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                Logger.LogError("Se ha producido un error al obtener los datos para los KPIs.", ex);
+                //throw new Exception(ex.Message);
+                throw; // Let the global exception handler deal with this
             }
         }
 
@@ -212,9 +267,13 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         [HttpGet]
         public JsonResult ObtenerLineas()
         {
-            var lineas = _context.DatosKpis
-                .Select(d => new { d.IdLinea, d.NombreLinea })
-                .ToList();
+            try
+            {
+                var lineas = _context.DatosKpis
+                    .Select(d => new { d.IdLinea, d.NombreLinea })
+                    .ToList();
+
+
 
             if (!lineas.Any())
             {
@@ -222,10 +281,44 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             }
 
             return Json(lineas);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Se ha producido un error al obtener las líneas activas.", ex);
+                //throw new Exception(ex.Message);
+
+                TempData["ErrorMessage"] = "An error occurred while processing your request.";
+
+                //return null;
+                // Return an error response
+                return Json(new { success = false, message = "An error occurred while processing your request." });
+            }
+        }
+
+        private T ExecuteWithRetry<T>(Func<T> operation, int retryCount = 3)
+        {
+            for (int i = 0; i < retryCount; i++)
+            {
+                try
+                {
+                    return operation();
+                }
+                catch (SqlException ex) when (ex.Number == 1205) // Deadlock error number
+                {
+                    if (i == retryCount - 1)
+                    {
+                        // Log and rethrow the exception if retries are exhausted
+                        Logger.LogError("Deadlock occurred. Retries exhausted.", ex);
+                        throw;
+                    }
+
+                    // Wait a short time before retrying
+                    Task.Delay(1000).Wait();
+                }
+            }
+            return default;
         }
 
     }
-
-
 }
 

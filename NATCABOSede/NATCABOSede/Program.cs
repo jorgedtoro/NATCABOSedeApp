@@ -47,4 +47,7 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
+//app.UseExceptionHandler("/Home/Error");     //JMB
+
+
 app.Run();

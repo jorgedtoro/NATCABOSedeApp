@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var lastUpdatedElement = document.getElementById('last-updated'); 
 
     // Función para actualizar el dropdown de líneas activas
+    //TODO: quitar esta forma. Lineas desde el controller
     function actualizarDropdownLineasActivas() {
         console.log('Fetching lines from:', obtenerLineasUrlAction);
 

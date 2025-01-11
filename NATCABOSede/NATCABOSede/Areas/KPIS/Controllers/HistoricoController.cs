@@ -97,19 +97,32 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         [HttpPost]
         public IActionResult ExportarExcel([FromBody] FiltrarRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Solicitud inválida.");
+            }
 
             var query = _context.KpisHistoricos.AsQueryable();
 
+            // Filtrar por Línea si se proporciona
             if (request.LineaId.HasValue)
             {
                 query = query.Where(h => h.LineaId == request.LineaId.Value);
             }
 
+            // Filtrar por Confección si se proporciona y no está vacío
+            if (!string.IsNullOrWhiteSpace(request.Confeccion))
+            {
+                query = query.Where(h => h.Confeccion == request.Confeccion);
+            }
+
+            // Filtrar por fecha desde si se proporciona
             if (request.Desde.HasValue)
             {
                 query = query.Where(h => h.Fecha >= request.Desde.Value);
             }
 
+            // Filtrar por fecha hasta si se proporciona
             if (request.Hasta.HasValue)
             {
                 query = query.Where(h => h.Fecha <= request.Hasta.Value);

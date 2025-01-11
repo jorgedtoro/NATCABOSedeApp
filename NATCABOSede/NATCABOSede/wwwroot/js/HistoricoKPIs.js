@@ -37,11 +37,11 @@ document.getElementById("btn-filtrar").addEventListener("click", function () {
     })
         .then(response => response.json())
         .then(data => {
-            datosFiltrados = data.Data;
-            totalPages = data.TotalPages;
+            datosFiltrados = data.data;
+            totalPages = data.totalPages;
             currentPage = 1; //reseteamos a la primera página
             updateTable(data); // Actualiza tabla
-            actualizarGraficos(data); // Actualiza gráfico
+            actualizarGraficos(data.data); // Actualiza gráfico
             actualizarPaginacion(); // Actualizar la paginación
 
             // Enable the "Exportar a Excel" button if there is data

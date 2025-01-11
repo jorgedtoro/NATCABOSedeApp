@@ -22,28 +22,45 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
         public IActionResult Historico(int page = 1, int pageSize = 25)
         {
-
-            var historico = _context.KpisHistoricos
-               .OrderByDescending(h => h.Fecha)
-               .Skip((page - 1) * pageSize)
-               .Take(pageSize)
-               .ToList();
-           //lineas disponibles en el histórico
+            // No cargar datos históricos inicialmente
+            // Obtener líneas disponibles
             var lineas = _context.KpisHistoricos
-               .Select(d => new { d.LineaId, d.SName })
-               .ToList();
+                .Select(d => new { d.LineaId, d.SName })
+                .Distinct()
+                .ToList();
 
-            // Total de registros
-            var totalRecords = _context.KpisHistoricos.Count();
-
-            // Pasar datos a la vista
-            ViewBag.Historico = historico;
-            ViewBag.Page = page;
-            ViewBag.PageSize = pageSize;
-            ViewBag.TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
             ViewBag.LineasDisponibles = lineas;
 
-            return View(historico);
+            // Obtener confecciones disponibles
+            var confecciones = _context.KpisHistoricos
+                .Select(d => d.Confeccion)
+                .Distinct()
+                .ToList();
+
+            ViewBag.ConfeccionesDisponibles = confecciones;
+
+            return View();
+            // var historico = _context.KpisHistoricos
+            //    .OrderByDescending(h => h.Fecha)
+            //    .Skip((page - 1) * pageSize)
+            //    .Take(pageSize)
+            //    .ToList();
+            ////lineas disponibles en el histórico
+            // var lineas = _context.KpisHistoricos
+            //    .Select(d => new { d.LineaId, d.SName })
+            //    .ToList();
+
+            // // Total de registros
+            // var totalRecords = _context.KpisHistoricos.Count();
+
+            // // Pasar datos a la vista
+            // ViewBag.Historico = historico;
+            // ViewBag.Page = page;
+            // ViewBag.PageSize = pageSize;
+            // ViewBag.TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+            // ViewBag.LineasDisponibles = lineas;
+
+            // return View(historico);
         }
         [HttpPost]
         public IActionResult Filtrar([FromBody] FiltrarRequest request)

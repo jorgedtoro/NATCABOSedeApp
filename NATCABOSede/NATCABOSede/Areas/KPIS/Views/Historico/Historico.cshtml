@@ -26,10 +26,7 @@
                         }
                         <option value="" disabled selected>Cargando líneas...</option>
                     </select>
-                    @*   <label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
-                    <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
-                    <option value="" disabled selected>Loading lines...</option>
-                    </select>*@
+               
                 </div>
             </div>
             <div class="col-md-3">
@@ -40,6 +37,7 @@
                     </select>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <label for="desde" class="form-label">Desde</label>
                 <input type="date" class="form-control" id="desde" name="desde">
@@ -67,10 +65,8 @@
                     <th>Lote</th>
                     <th>Confección</th>
                     <th class="numeric">N° Paquetes</th>
-                    <!--<th class="numeric">N° Minutos</th>-->
                     <th class="numeric">N° Operarios</th>
                     <th class="numeric">Peso Total (Kg)</th>
-                    <!--<th class="numeric">Objetivo</th>-->
                     <th class="numeric">PPM</th>
                     <th class="numeric">PM</th>
                     <th class="numeric">Extrapeso (Kg)</th>
@@ -80,23 +76,22 @@
                 </tr>
             </thead>
             <tbody id="tabla-historico">
-                @foreach (var item in Model)
+                <!-- Inicialmente vacío -->
+               @*  @foreach (var item in Model)
                 {
                     <tr>
                         <td>@item.SName</td>
                         <td>@item.Lote</td>
                         <td>@item.Confeccion</td>
                         <td class="numeric">@item.NPaquetes?.ToString("N0")</td>
-                        <!--<td class="numeric">@item.NMinutos?.ToString("N0")</td>-->
                         <td class="numeric">@item.NOperarios</td>
                         <td class="numeric">@item.TotalWeight?.ToString("N0")</td>
-                        <!--<td class="numeric">@item.FTarget</td>-->
                         <td class="numeric">@item.KpiPpm?.ToString("F2")</td>
                         <td class="numeric">@item.KpiPm?.ToString("F2")</td>
                         <td class="numeric">@item.KpiExtrapeso?.ToString("N0")</td>
                         <td class="numeric">@item.Fecha?.ToString("dd/MM/yyyy")</td>
                     </tr>
-                }
+                } *@
             </tbody>
         </table>
     </div>

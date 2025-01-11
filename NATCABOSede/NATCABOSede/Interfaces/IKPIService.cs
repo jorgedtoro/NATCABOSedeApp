@@ -1,4 +1,7 @@
-﻿namespace NATCABOSede.Interfaces
+﻿using NATCABOSede.Models;
+using NATCABOSede.ViewModels;
+
+namespace NATCABOSede.Interfaces
 {
     public interface IKPIService
     {
@@ -11,6 +14,7 @@
         double CalcularCosteMOD(double tiempoTotal, double costoHora, int numeroPaquetes, double pesoMinimo);
         public double CalcularFTT(int paquetesTotales, int paquetesRechazados);
         public double CalcularPorcentajeDesperdicio(double pesoDesperdicio, double pesoReal);
+        DatosKpiViewModel GenerarDatosKpiViewModel(DatosKpi datos, double mediaPaquetesPorMinuto);
 
     }
 }

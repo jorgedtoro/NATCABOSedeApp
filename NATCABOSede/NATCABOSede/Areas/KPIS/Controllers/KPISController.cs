@@ -219,8 +219,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 datos.PesoTotalDesperdicio,
                 datos.PesoTotalReal
                 );
-
-
+            //TODO: recoger un ppm_objetivo real ¿base de datos?
+            var ppm_objetivo = 1.2;
 
             var modelo = new DatosKpiViewModel
             {
@@ -240,7 +240,9 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 PesoTotalDesperdicio=datos.PesoTotalDesperdicio,
                 PorcentajeTotalDesperdicio=porcentajeTotalDesperdicio
             };
-
+            //añado propiedad para manejo de colores MARCO - Bizerba
+            modelo.ppm_objetivo = ppm_objetivo;
+            modelo.PpmCardClass = GetColorClass(modelo.PPM, modelo.ppm_objetivo);
             return PartialView("_KPIsPartial", modelo);
         }
 
@@ -293,6 +295,18 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 // Return an error response
                 return Json(new { success = false, message = "An error occurred while processing your request." });
             }
+        }
+        //método para gestionar colores MARCO - Bizerba
+        private string GetColorClass(double actual, double objetivo)
+        {
+            double porcentaje = ((actual - objetivo) / objetivo) * 100;
+
+            if (porcentaje > 10)
+                return "bg-success";  // Verde
+            else if (porcentaje >= -10 && porcentaje <= 10)
+                return "bg-warning";  // Amarillo
+            else
+                return "bg-danger";   // Rojo
         }
 
         private T ExecuteWithRetry<T>(Func<T> operation, int retryCount = 3)

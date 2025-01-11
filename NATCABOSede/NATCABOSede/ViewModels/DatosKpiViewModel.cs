@@ -22,5 +22,9 @@
         public DateTime HoraInicio { get; set; }
         public DateTime HoraFinAproximada { get; set; }
         public double PorcentajePedido { get; set; }
+
+        //Propiedades para manejo de colores
+        public double ppm_objetivo { get; set; }
+        public string PpmCardClass { get; set; }
     }
 }

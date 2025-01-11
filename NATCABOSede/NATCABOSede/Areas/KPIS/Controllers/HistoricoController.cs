@@ -48,13 +48,22 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         [HttpPost]
         public IActionResult Filtrar([FromBody] FiltrarRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Solicitud inválida.");
+            }
             var query = _context.KpisHistoricos.AsQueryable();
 
+            //Filtro de linea si se proporciona
             if (request.LineaId.HasValue)
             {
                 query = query.Where(h => h.LineaId == request.LineaId.Value);
             }
-
+            // Filtrar por Confección si se proporciona y no está vacío
+            if (!string.IsNullOrWhiteSpace(request.Confeccion))
+            {
+                query = query.Where(h => h.Confeccion == request.Confeccion);
+            }
             if (request.Desde.HasValue)
             {
                 query = query.Where(h => h.Fecha >= request.Desde.Value);
@@ -66,6 +75,21 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             }
 
             var resultados = query.OrderByDescending(h => h.Fecha).ToList();
+            // Ordenar y aplicar paginación
+            //var totalRecords = query.Count();
+            //var totalPages = (int)Math.Ceiling(totalRecords / (double)request.PageSize);
+
+            //var resultados = query.OrderByDescending(h => h.Fecha)
+            //                      .Skip((request.Page - 1) * request.PageSize)
+            //                      .Take(request.PageSize)
+            //                      .ToList();
+
+            ////Preparar respuesta
+            //var response = new
+            //{
+            //    Data = resultados,
+            //    TotalPages = totalPages
+            //};
 
             return Json(resultados);
             

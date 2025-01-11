@@ -59,10 +59,11 @@
         <div class="row g-3 mt-3">
             <div class="col-6">
                 <!-- Producción -->
+                @* Coke: creado con propiedad PpmCardClass 11-01-25*@
                 @* TODO: cambiar colores en función de ppm_obetivo verde > 10%> ppm_objetivo *@
                 @* TODO: cambiar colores en función de ppm_obetivo amarillo entre<10% y >10% ppm_objetivo *@
                 @* TODO: cambiar colores en función de ppm_obetivo rojo < 10% ppm_objetivo *@
-                <div class="card text-white bg-success shadow-sm">
+                <div class="card text-white bg-success shadow-sm @Model.PpmCardClass">
                     <div class="card-body text-center">
                         <h5 class="card-title" style="font-weight: bold;">PPM</h5>
                         <!--<p class="display-6">@Model.PPM.ToString("F2") PPM</p>-->
@@ -73,7 +74,7 @@
                         </p>
 
                         <h5 class="card-title">
-                            (<span class="kpi-MARCO">MARCO</span>/<span class="kpi-Bizerba">Bizerba</span>)
+                            <span class="kpi-MARCO">MARCO</span> / <span class="kpi-Bizerba">Bizerba</span>
                         </h5>
                     </div>
                 </div>

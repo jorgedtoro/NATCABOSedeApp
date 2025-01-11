@@ -3,36 +3,50 @@ let miChart = null;
 
 
 let totalRecords = 0; // Total records for pagination
-const pageSize = 10; // Number of rows per page
+const pageSize = 25; // Number of rows per page
 let currentPage = 1; // Current page
 
 
 // Handle the "Filtrar" button click
 document.getElementById("btn-filtrar").addEventListener("click", function () {
     const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
-    const confeccion =document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
+    const Confeccion =document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
     const desde = new Date(document.getElementById("desde").value).toISOString();
     const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
+    // Validación: Línea, Desde y Hasta son obligatorios
     if (!lineaId || !desde || !hasta) {
         alert("Por favor, complete todos los campos del filtro.");
         return;
     }
+    // Preparar los datos de la solicitud
+    const requestData = {
+        lineaId,
+        Confeccion: Confeccion ? Confeccion : null, // Incluir confección si está seleccionada
+        desde: desdeInput ? desde : null,
+        hasta: hastaInput ? hasta : null,
+        page: 1,
+        pageSize: pageSize
+    };
 
     fetch('/KPIS/Historico/Filtrar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lineaId, desde, hasta })
+       // body: JSON.stringify({ lineaId, desde, hasta })
+        body: JSON.stringify(requestData)
     })
         .then(response => response.json())
         .then(data => {
-            datosFiltrados = data;
-            updateTable(data); // Update the table
-            actualizarGraficos(data); // Update the chart
+            datosFiltrados = data.Data;
+            totalPages = data.TotalPages;
+            currentPage = 1; //reseteamos a la primera página
+            updateTable(data); // Actualiza tabla
+            actualizarGraficos(data); // Actualiza gráfico
+            actualizarPaginacion(); // Actualizar la paginación
 
             // Enable the "Exportar a Excel" button if there is data
             const exportBtn = document.getElementById("btn-export-excel");
-            if (data && data.length > 0) {
+            if (datosFiltrados && datosFiltrados.length > 0) {
                 exportBtn.removeAttribute("disabled");
                 exportBtn.setAttribute("title", "Exportar datos a Excel");
             } else {
@@ -145,6 +159,7 @@ document.getElementById("btn-export-excel").addEventListener("click", function (
 // Function to load a specific page with filters applied
 function loadPage(page) {
     const lineaId = document.getElementById("lineaSeleccionada").value;
+    const confeccion = document.getElementById("confeccionSeleccionada").value; // Opcional
     const desde = document.getElementById("desde").value;
     const hasta = document.getElementById("hasta").value;
 
@@ -152,19 +167,108 @@ function loadPage(page) {
         alert("Por favor, complete todos los campos del filtro antes de cambiar de página.");
         return;
     }
+    // Preparar los datos de la solicitud
+    const requestData = {
+        lineaId,
+        confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
+        desde: desdeInput ? desde : null,
+        hasta: hastaInput ? hasta : null,
+        page: page,
+        pageSize: pageSize
+    };
 
-    fetch(`/KPIS/Historico/Filtrar?page=${page}`, {
+    // Realizar la solicitud de filtrado para la página específica
+    fetch('/KPIS/Historico/Filtrar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lineaId, desde, hasta })
+        body: JSON.stringify(requestData)
     })
         .then(response => response.json())
         .then(data => {
-            datosFiltrados = data;
-            updateTable(data); // Update the table with the new page's data
+            datosFiltrados = data.Data;
+            totalPages = data.TotalPages;
+            currentPage = page;
+
+            updateTable(datosFiltrados); // Actualizar la tabla
+            actualizarGraficos(datosFiltrados); // Actualizar el gráfico
+            actualizarPaginacion(); // Actualizar la paginación
         })
         .catch(error => console.error('Error:', error));
 }
+// Variable global para almacenar el total de páginas
+let totalPages = 0;
+
+// Función para actualizar la paginación en la vista
+function actualizarPaginacion() {
+    const pagination = document.querySelector(".pagination");
+    pagination.innerHTML = ''; // Limpiar la paginación existente
+
+    // Botón "Anterior"
+    if (currentPage > 1) {
+        const prevLi = document.createElement('li');
+        prevLi.classList.add('page-item');
+        const prevLink = document.createElement('a');
+        prevLink.classList.add('page-link');
+        prevLink.href = '#';
+        prevLink.textContent = 'Anterior';
+        prevLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            loadPage(currentPage - 1);
+        });
+        prevLi.appendChild(prevLink);
+        pagination.appendChild(prevLi);
+    }
+
+    // Botones de página
+    for (let i = 1; i <= totalPages; i++) {
+        const pageLi = document.createElement('li');
+        pageLi.classList.add('page-item');
+        if (i === currentPage) {
+            pageLi.classList.add('active');
+        }
+
+        const pageLink = document.createElement('a');
+        pageLink.classList.add('page-link');
+        pageLink.href = '#';
+        pageLink.textContent = i;
+        pageLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            loadPage(i);
+        });
+
+        pageLi.appendChild(pageLink);
+        pagination.appendChild(pageLi);
+    }
+
+    // Botón "Siguiente"
+    if (currentPage < totalPages) {
+        const nextLi = document.createElement('li');
+        nextLi.classList.add('page-item');
+        const nextLink = document.createElement('a');
+        nextLink.classList.add('page-link');
+        nextLink.href = '#';
+        nextLink.textContent = 'Siguiente';
+        nextLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            loadPage(currentPage + 1);
+        });
+        nextLi.appendChild(nextLink);
+        pagination.appendChild(nextLi);
+    }
+}
+
+    //fetch(`/KPIS/Historico/Filtrar?page=${page}`, {
+    //    method: 'POST',
+    //    headers: { 'Content-Type': 'application/json' },
+    //    body: JSON.stringify({ lineaId, desde, hasta })
+    //})
+    //    .then(response => response.json())
+    //    .then(data => {
+    //        datosFiltrados = data;
+    //        updateTable(data); // Update the table with the new page's data
+    //    })
+    //    .catch(error => console.error('Error:', error));
+//}
 
 // Populate dropdown for line selection
 document.addEventListener('DOMContentLoaded', function () {

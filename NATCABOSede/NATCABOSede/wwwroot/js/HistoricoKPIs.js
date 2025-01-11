@@ -10,7 +10,7 @@ let currentPage = 1; // Current page
 // Handle the "Filtrar" button click
 document.getElementById("btn-filtrar").addEventListener("click", function () {
     const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
-    const Confeccion =document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
+    const confeccion =document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
     const desde = new Date(document.getElementById("desde").value).toISOString();
     const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
@@ -22,9 +22,9 @@ document.getElementById("btn-filtrar").addEventListener("click", function () {
     // Preparar los datos de la solicitud
     const requestData = {
         lineaId,
-        Confeccion: Confeccion ? Confeccion : null, // Incluir confección si está seleccionada
-        desde: desdeInput ? desde : null,
-        hasta: hastaInput ? hasta : null,
+        Confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
+        desde: desde ? desde : null,
+        hasta: hasta ? hasta : null,
         page: 1,
         pageSize: pageSize
     };
@@ -65,7 +65,7 @@ document.getElementById("kpiSelect").addEventListener("change", function () {
 // Function to update the table
 function updateTable(data) {
     const tabla = document.getElementById("tabla-historico");
-    tabla.innerHTML = data.map(item => `
+    tabla.innerHTML = data.data.map(item => `
         <tr>
             <td>${item.sName}</td>
             <td>${item.lote}</td>

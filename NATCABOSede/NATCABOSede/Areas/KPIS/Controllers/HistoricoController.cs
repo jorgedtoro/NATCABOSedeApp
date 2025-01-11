@@ -74,24 +74,24 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 query = query.Where(h => h.Fecha <= request.Hasta.Value);
             }
 
-            var resultados = query.OrderByDescending(h => h.Fecha).ToList();
+            //var resultados = query.OrderByDescending(h => h.Fecha).ToList();
             // Ordenar y aplicar paginación
-            //var totalRecords = query.Count();
-            //var totalPages = (int)Math.Ceiling(totalRecords / (double)request.PageSize);
+            var totalRecords = query.Count();
+            var totalPages = (int)Math.Ceiling(totalRecords / (double)request.PageSize);
 
-            //var resultados = query.OrderByDescending(h => h.Fecha)
-            //                      .Skip((request.Page - 1) * request.PageSize)
-            //                      .Take(request.PageSize)
-            //                      .ToList();
+            var resultados = query.OrderByDescending(h => h.Fecha)
+                                  .Skip((request.Page - 1) * request.PageSize)
+                                  .Take(request.PageSize)
+                                  .ToList();
 
             ////Preparar respuesta
-            //var response = new
-            //{
-            //    Data = resultados,
-            //    TotalPages = totalPages
-            //};
+            var response = new
+            {
+                Data = resultados,
+                TotalPages = totalPages
+            };
 
-            return Json(resultados);
+            return Json(response);
             
         }
         [HttpPost]

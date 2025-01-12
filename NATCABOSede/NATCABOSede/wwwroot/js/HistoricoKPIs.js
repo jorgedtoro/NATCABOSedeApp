@@ -1,68 +1,48 @@
-﻿let datosFiltrados = []; // Global variable to store filtered data
+﻿// ----------------------------
+// 1. Declaraciones de Variables
+// ----------------------------
+let datosFiltrados = []; // Global variable to store filtered data
 let miChart = null;
 
 
 let totalRecords = 0; // Total records for pagination
 const pageSize = 25; // Number of rows per page
 let currentPage = 1; // Current page
+let totalPages = 0;
+
+// ----------------------------
+// 2. Funciones Utilitarias
+// ----------------------------
+
+/**
+ * Muestra una alerta al usuario.
+ * @param {string} mensaje - El mensaje a mostrar.
+ */
+function mostrarAlerta(mensaje) {
+    alert(mensaje);
+}
+/**
+ * Valida que la fecha 'hasta' sea posterior o igual a la fecha 'desde'.
+ * @param {string} desde - Fecha 'desde' en formato ISO.
+ * @param {string} hasta - Fecha 'hasta' en formato ISO.
+ * @returns {boolean} - True si 'hasta' >= 'desde', de lo contrario, False.
+ */
+
+function validarFechas(desde, hasta) {
+    const desdeDate = new Date(desde);
+    const hastaDate = new Date(hasta);
+    return hastaDate >= desdeDate;
+}
 
 
-// Handle the "Filtrar" button click
-document.getElementById("btn-filtrar").addEventListener("click", function () {
-    const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
-    const confeccion =document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
-    const desde = new Date(document.getElementById("desde").value).toISOString();
-    const hasta = new Date(document.getElementById("hasta").value).toISOString();
+// ----------------------------
+// 3. Funciones Principales
+// ----------------------------
 
-    // Validación: Línea, Desde y Hasta son obligatorios
-    if (!lineaId || !desde || !hasta) {
-        alert("Por favor, complete todos los campos del filtro.");
-        return;
-    }
-    // Preparar los datos de la solicitud
-    const requestData = {
-        lineaId,
-        Confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
-        desde: desde ? desde : null,
-        hasta: hasta ? hasta : null,
-        page: 1,
-        pageSize: pageSize
-    };
-
-    fetch('/KPIS/Historico/Filtrar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-       // body: JSON.stringify({ lineaId, desde, hasta })
-        body: JSON.stringify(requestData)
-    })
-        .then(response => response.json())
-        .then(data => {
-            datosFiltrados = data.data;
-            totalPages = data.totalPages;
-            currentPage = 1; //reseteamos a la primera página
-            updateTable(data); // Actualiza tabla
-            actualizarGraficos(data.data); // Actualiza gráfico
-            actualizarPaginacion(); // Actualizar la paginación
-
-            // Enable the "Exportar a Excel" button if there is data
-            const exportBtn = document.getElementById("btn-export-excel");
-            if (datosFiltrados && datosFiltrados.length > 0) {
-                exportBtn.removeAttribute("disabled");
-                exportBtn.setAttribute("title", "Exportar datos a Excel");
-            } else {
-                exportBtn.setAttribute("disabled", "true");
-                exportBtn.setAttribute("title", "No hay datos para exportar, realice un filtro");
-            }
-        })
-        .catch(error => console.error('Error:', error));
-});
-
-// Handle KPI selection change
-document.getElementById("kpiSelect").addEventListener("change", function () {
-    actualizarGraficos(datosFiltrados);
-});
-
-// Function to update the table
+/**
+ * Actualiza el contenido de la tabla con los datos proporcionados.
+ * @param {Array} data - Array de objetos con los datos a mostrar en la tabla.
+ */
 function updateTable(data) {
     const tabla = document.getElementById("tabla-historico");
     tabla.innerHTML = data.data.map(item => `
@@ -82,8 +62,10 @@ function updateTable(data) {
         </tr>
     `).join('');
 }
-
-// Function to update charts
+/**
+ * Actualiza el gráfico con los datos proporcionados.
+ * @param {Array} data - Array de objetos con los datos para el gráfico.
+ */
 function actualizarGraficos(data) {
     if (!data || data.length === 0) return;
 
@@ -128,77 +110,9 @@ function actualizarGraficos(data) {
     });
 }
 
-// Handle "Exportar a Excel" button click
-document.getElementById("btn-export-excel").addEventListener("click", function () {
-    const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
-    const desde = new Date(document.getElementById("desde").value).toISOString();
-    const hasta = new Date(document.getElementById("hasta").value).toISOString();
-
-    if (!lineaId || !desde || !hasta) {
-        alert("Por favor, para exportar datos complete todos los campos del filtro.");
-        return;
-    }
-
-    fetch('/KPIS/Historico/ExportarExcel', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lineaId, desde, hasta })
-    })
-        .then(response => response.blob())
-        .then(blob => {
-            const link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = "KpisHistorico.xlsx";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        })
-        .catch(error => console.error('Error:', error));
-});
-
-// Function to load a specific page with filters applied
-function loadPage(page) {
-    const lineaId = document.getElementById("lineaSeleccionada").value;
-    const confeccion = document.getElementById("confeccionSeleccionada").value; // Opcional
-    const desde = document.getElementById("desde").value;
-    const hasta = document.getElementById("hasta").value;
-
-    if (!lineaId || !desde || !hasta) {
-        alert("Por favor, complete todos los campos del filtro antes de cambiar de página.");
-        return;
-    }
-    // Preparar los datos de la solicitud
-    const requestData = {
-        lineaId,
-        confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
-        desde: desdeInput ? desde : null,
-        hasta: hastaInput ? hasta : null,
-        page: page,
-        pageSize: pageSize
-    };
-
-    // Realizar la solicitud de filtrado para la página específica
-    fetch('/KPIS/Historico/Filtrar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestData)
-    })
-        .then(response => response.json())
-        .then(data => {
-            datosFiltrados = data.Data;
-            totalPages = data.TotalPages;
-            currentPage = page;
-
-            updateTable(datosFiltrados); // Actualizar la tabla
-            actualizarGraficos(datosFiltrados); // Actualizar el gráfico
-            actualizarPaginacion(); // Actualizar la paginación
-        })
-        .catch(error => console.error('Error:', error));
-}
-// Variable global para almacenar el total de páginas
-let totalPages = 0;
-
-// Función para actualizar la paginación en la vista
+/**
+ * Actualiza la paginación en la vista.
+ */
 function actualizarPaginacion() {
     const pagination = document.querySelector(".pagination");
     pagination.innerHTML = ''; // Limpiar la paginación existente
@@ -256,21 +170,143 @@ function actualizarPaginacion() {
         pagination.appendChild(nextLi);
     }
 }
+/**
+ * Carga una página específica con los filtros aplicados.
+ * @param {number} page - Número de página a cargar.
+ */
+function loadPage(page) {
+    const lineaId = document.getElementById("lineaSeleccionada").value;
+    const confeccion = document.getElementById("confeccionSeleccionada").value; // Opcional
+    const desde = document.getElementById("desde").value;
+    const hasta = document.getElementById("hasta").value;
 
-    //fetch(`/KPIS/Historico/Filtrar?page=${page}`, {
-    //    method: 'POST',
-    //    headers: { 'Content-Type': 'application/json' },
-    //    body: JSON.stringify({ lineaId, desde, hasta })
-    //})
-    //    .then(response => response.json())
-    //    .then(data => {
-    //        datosFiltrados = data;
-    //        updateTable(data); // Update the table with the new page's data
-    //    })
-    //    .catch(error => console.error('Error:', error));
-//}
+    if (!lineaId || !desde || !hasta) {
+        alert("Por favor, complete todos los campos del filtro antes de cambiar de página.");
+        return;
+    }
+    // Preparar los datos de la solicitud
+    const requestData = {
+        lineaId,
+        confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
+        desde: desde ? desde : null,
+        hasta: hasta ? hasta : null,
+        page: page,
+        pageSize: pageSize
+    };
 
-// Populate dropdown for line selection
+    // Realizar la solicitud de filtrado para la página específica
+    fetch('/KPIS/Historico/Filtrar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            datosFiltrados = data.Data;
+            totalPages = data.TotalPages;
+            currentPage = page;
+
+            updateTable(datosFiltrados); // Actualizar la tabla
+            actualizarGraficos(datosFiltrados); // Actualizar el gráfico
+            actualizarPaginacion(); // Actualizar la paginación
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// ----------------------------
+// 4. Manejadores de Eventos
+// ----------------------------
+
+// Manejar el clic en el botón "Filtrar"
+document.getElementById("btn-filtrar").addEventListener("click", function () {
+    const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    const confeccion =document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
+    const desde = new Date(document.getElementById("desde").value).toISOString();
+    const hasta = new Date(document.getElementById("hasta").value).toISOString();
+
+    // Validación: Línea, Desde y Hasta son obligatorios
+    if (!lineaId || !desde || !hasta) {
+        mostrarAlerta("Por favor, complete los campos de Línea, Desde y Hasta.");
+        return;
+    }
+
+    // Preparar los datos de la solicitud
+    const requestData = {
+        lineaId,
+        Confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
+        desde: desde ? desde : null,
+        hasta: hasta ? hasta : null,
+        page: 1,
+        pageSize: pageSize
+    };
+
+    fetch('/KPIS/Historico/Filtrar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+       // body: JSON.stringify({ lineaId, desde, hasta })
+        body: JSON.stringify(requestData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            datosFiltrados = data.data;
+            totalPages = data.totalPages;
+            currentPage = 1; //reseteamos a la primera página
+            updateTable(data); // Actualiza tabla
+            actualizarGraficos(data.data); // Actualiza gráfico
+            actualizarPaginacion(); // Actualizar la paginación
+
+            // Enable the "Exportar a Excel" button if there is data
+            const exportBtn = document.getElementById("btn-export-excel");
+            if (datosFiltrados && datosFiltrados.length > 0) {
+                exportBtn.removeAttribute("disabled");
+                exportBtn.setAttribute("title", "Exportar datos a Excel");
+            } else {
+                exportBtn.setAttribute("disabled", "true");
+                exportBtn.setAttribute("title", "No hay datos para exportar, realice un filtro");
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+// Manejar el cambio en la selección de KPI
+document.getElementById("kpiSelect").addEventListener("change", function () {
+    actualizarGraficos(datosFiltrados);
+});
+
+
+// Manejar el clic en el botón "Exportar a Excel"
+document.getElementById("btn-export-excel").addEventListener("click", function () {
+    const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    const desde = new Date(document.getElementById("desde").value).toISOString();
+    const hasta = new Date(document.getElementById("hasta").value).toISOString();
+
+    if (!lineaId || !desde || !hasta) {
+        alert("Por favor, para exportar datos complete todos los campos del filtro.");
+        return;
+    }
+
+    fetch('/KPIS/Historico/ExportarExcel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lineaId, desde, hasta })
+    })
+        .then(response => response.blob())
+        .then(blob => {
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "KpisHistorico.xlsx";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+
+// ----------------------------
+// 5. Carga Inicial de Dropdowns
+// ----------------------------
+
 document.addEventListener('DOMContentLoaded', function () {
     const obtenerLineasHistoricoUrlAction = window.appSettings.obtenerLineasHistoricoUrlAction;
     const obtenerConfeccionesHistoricoUrlAction = window.appSettings.obtenerConfeccionesHistoricoUrlAction;
@@ -278,6 +314,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const lineaSeleccionada = document.getElementById("lineaSeleccionada");
     const confeccionSeleccionada = document.getElementById("confeccionSeleccionada");
 
+    /**
+     * Carga las líneas históricas desde el servidor y las agrega al dropdown.
+     */
     function cargarLineasHistorico() {
         fetch(obtenerLineasHistoricoUrlAction)
             .then(response => {
@@ -316,9 +355,12 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error cargando líneas:', error));
     }
-
+    /**
+     * Carga las confecciones históricas desde el servidor y las agrega al dropdown.
+     * @param {number} [lineaId=null] - Opcional. Filtra las confecciones por línea.
+     */
     function cargarConfeccionesHistorico() {
-        console.log('Cargando Confecciones disponibles para el histórico...')
+       // console.log('Cargando Confecciones disponibles para el histórico...')
         fetch(obtenerConfeccionesHistoricoUrlAction)
             .then(response => {
                 if (!response.ok) throw new Error('Error fetching confecciones historico');
@@ -357,7 +399,8 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error cargando confecciones:', error));
     }
-
-    cargarLineasHistorico(); // Populate the dropdown when the page loads
-    cargarConfeccionesHistorico(); // Populate the dropdown when the page loads
+    // Cargar las líneas al cargar la página
+    cargarLineasHistorico();
+    // Cargar las confecciones al cargar la página (sin filtrar por línea)
+    cargarConfeccionesHistorico(); 
 });

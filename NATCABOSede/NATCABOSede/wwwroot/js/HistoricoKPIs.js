@@ -33,6 +33,16 @@ function validarFechas(desde, hasta) {
     const hastaDate = new Date(hasta);
     return hastaDate >= desdeDate;
 }
+/**
+ * Formatea un número según las opciones especificadas.
+ * @param {number} numero - Número a formatear.
+ * @param {string} locale - Localización para el formateo (por defecto 'en-US').
+ * @param {Object} opciones - Opciones de formateo.
+ * @returns {string} - Número formateado.
+ */
+function formatearNumero(numero, locale = 'en-US', opciones = { minimumFractionDigits: 2, maximumFractionDigits: 2 }) {
+    return new Intl.NumberFormat(locale, opciones).format(numero);
+}
 
 
 // ----------------------------
@@ -45,39 +55,37 @@ function validarFechas(desde, hasta) {
  */
 
 function updateTable(data) {
-    
     const tabla = document.getElementById("tabla-historico");
-    tabla.innerHTML = ''; // Limpiar la tabla antes de actualizar
+    let contenido = ''; // Variable para acumular el HTML
 
-    // Verificar si hay datos
     if (!data || data.length === 0) {
-        tabla.innerHTML = `
+        contenido = `
             <tr>
                 <td colspan="12" class="text-center">Sin datos encontrados, realice un filtro nuevo.</td>
             </tr>
         `;
     } else {
-        // Insertar cada fila de datos
-        data.forEach(item => {
-            tabla.innerHTML += `
-                <tr>
-                    <td>${item.sName || item.SName}</td>
-                    <td>${item.lote}</td>
-                    <td>${item.confeccion || item.Confeccion}</td>
-                    <td class="numeric">${item.nPaquetes}</td>
-                    <td class="numeric">${item.nMinutos}</td>
-                    <td class="numeric">${item.nOperarios}</td>
-                    <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.totalWeight)}</td>
-                    <td class="numeric">${item.fTarget}</td>
-                    <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.kpiPpm)}</td>
-                    <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.kpiPm)}</td>
-                    <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.kpiExtrapeso)}</td>
-                    <td class="numeric">${new Date(item.fecha).toLocaleDateString()}</td>
-                </tr>
-            `;
-        });
+        contenido = data.map(item => `
+            <tr>
+                <td>${item.sName || item.SName}</td>
+                <td>${item.lote}</td>
+                <td>${item.confeccion || item.Confeccion}</td>
+                <td class="numeric">${item.nPaquetes}</td>
+                <td class="numeric">${item.nMinutos}</td>
+                <td class="numeric">${item.nOperarios}</td>
+                <td class="numeric">${formatearNumero(item.totalWeight)}</td>
+                <td class="numeric">${item.fTarget}</td>
+                <td class="numeric">${formatearNumero(item.kpiPpm)}</td>
+                <td class="numeric">${formatearNumero(item.kpiPm)}</td>
+                <td class="numeric">${formatearNumero(item.kpiExtrapeso)}</td>
+                <td class="numeric">${new Date(item.fecha).toLocaleDateString()}</td>
+            </tr>
+        `).join('');
     }
+
+    tabla.innerHTML = contenido;
 }
+
 /**
  * Actualiza el gráfico con los datos proporcionados.
  * @param {Array} data - Array de objetos con los datos para el gráfico.
@@ -241,7 +249,7 @@ function loadPage(page) {
 // Manejar el clic en el botón "Filtrar"
 document.getElementById("btn-filtrar").addEventListener("click", function () {
     const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
-    const confeccion =document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
+    const confeccion = document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
     const desde = new Date(document.getElementById("desde").value).toISOString();
     const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
@@ -268,7 +276,7 @@ document.getElementById("btn-filtrar").addEventListener("click", function () {
     fetch('/KPIS/Historico/Filtrar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-       // body: JSON.stringify({ lineaId, desde, hasta })
+        // body: JSON.stringify({ lineaId, desde, hasta })
         body: JSON.stringify(requestData)
     })
         .then(response => response.json())
@@ -331,101 +339,170 @@ document.getElementById("btn-export-excel").addEventListener("click", function (
 // ----------------------------
 // 5. Carga Inicial de Dropdowns
 // ----------------------------
+/**
+ * Carga opciones en un dropdown desde una URL específica.
+ * @param {string} url - URL para obtener los datos.
+ * @param {HTMLElement} selectElement - Elemento select donde se cargarán las opciones.
+ * @param {string} placeholderText - Texto del placeholder.
+ * @param {function} formatOption - Función para formatear cada opción.
+ */
+function cargarDropdown(url, selectElement, placeholderText, formatOption) {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error(`Error fetching data from ${url}`);
+            return response.json();
+        })
+        .then(items => {
+            selectElement.innerHTML = ''; // Limpiar opciones existentes
 
-document.addEventListener('DOMContentLoaded', function () {
-    const obtenerLineasHistoricoUrlAction = window.appSettings.obtenerLineasHistoricoUrlAction;
-    const obtenerConfeccionesHistoricoUrlAction = window.appSettings.obtenerConfeccionesHistoricoUrlAction;
+            const placeholderOption = document.createElement('option');
+            placeholderOption.value = '';
+            placeholderOption.textContent = placeholderText;
+            placeholderOption.disabled = true;
+            placeholderOption.selected = true;
+            selectElement.appendChild(placeholderOption);
 
-    const lineaSeleccionada = document.getElementById("lineaSeleccionada");
-    const confeccionSeleccionada = document.getElementById("confeccionSeleccionada");
+            if (items.length === 0) {
+                const noItemsOption = document.createElement('option');
+                noItemsOption.textContent = `No existen ${placeholderText.toLowerCase()}`;
+                noItemsOption.disabled = true;
+                noItemsOption.selected = true;
+                selectElement.appendChild(noItemsOption);
+                return;
+            }
 
-    /**
-     * Carga las líneas históricas desde el servidor y las agrega al dropdown.
-     */
-    function cargarLineasHistorico() {
-        fetch(obtenerLineasHistoricoUrlAction)
-            .then(response => {
-                if (!response.ok) throw new Error('Error fetching lineas historico');
-                return response.json();
-            })
-            .then(lineas => {
-                lineaSeleccionada.innerHTML = ''; // Clear existing options
-                const placeholderOption = document.createElement('option');
-                placeholderOption.value = '';
-                placeholderOption.textContent = 'Seleccione una línea';
-                placeholderOption.disabled = true;
-                placeholderOption.selected = true;
-                lineaSeleccionada.appendChild(placeholderOption);
+            const uniqueItems = Array.from(new Set(items.map(item => JSON.stringify(item)))).map(item => JSON.parse(item));
+            uniqueItems.sort((a, b) => {
+                if (a.sName && b.sName) return a.sName.localeCompare(b.sName);
+                if (a.confeccion && b.confeccion) return a.confeccion.localeCompare(b.confeccion);
+                return 0;
+            });
 
-                if (lineas.length === 0) {
-                    const noLinesOption = document.createElement('option');
-                    noLinesOption.textContent = 'No existen líneas';
-                    noLinesOption.disabled = true;
-                    noLinesOption.selected = true;
-                    lineaSeleccionada.appendChild(noLinesOption);
-                    return;
-                }
+            uniqueItems.forEach(item => {
+                const option = document.createElement('option');
+                option.value = formatOption(item);
+                option.textContent = formatOption(item, true);
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => console.error(`Error cargando ${placeholderText.toLowerCase()}:`, error));
+}
+function cargarLineasHistorico() {
+    cargarDropdown(
+        window.appSettings.obtenerLineasHistoricoUrlAction,
+        document.getElementById("lineaSeleccionada"),
+        'Seleccione una línea',
+        (item, isText = false) => isText ? item.sName : item.lineaId
+    );
+}
 
-                const uniqueLineas = new Set();
-                lineas.forEach(linea => uniqueLineas.add(JSON.stringify(linea)));
-                const filteredLineas = Array.from(uniqueLineas).map(linea => JSON.parse(linea));
-                filteredLineas.sort((a, b) => a.sName.localeCompare(b.sName));
+function cargarConfeccionesHistorico() {
+    cargarDropdown(
+        window.appSettings.obtenerConfeccionesHistoricoUrlAction,
+        document.getElementById("confeccionSeleccionada"),
+        'Seleccione una confección',
+        (item) => item.confeccion
+    );
+}
+// Cargar las líneas al cargar la página
+cargarLineasHistorico();
+// Cargar las confecciones al cargar la página (sin filtrar por línea)
+cargarConfeccionesHistorico();
 
-                filteredLineas.forEach(linea => {
-                    const option = document.createElement('option');
-                    option.value = linea.lineaId;
-                    option.textContent = linea.sName;
-                    lineaSeleccionada.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error cargando líneas:', error));
-    }
-    /**
-     * Carga las confecciones históricas desde el servidor y las agrega al dropdown.
-     * @param {number} [lineaId=null] - Opcional. Filtra las confecciones por línea.
-     */
-    function cargarConfeccionesHistorico() {
-       // console.log('Cargando Confecciones disponibles para el histórico...')
-        fetch(obtenerConfeccionesHistoricoUrlAction)
-            .then(response => {
-                if (!response.ok) throw new Error('Error fetching confecciones historico');
-                return response.json();
-            })
-            
-            .then(confecciones => {
-                confeccionSeleccionada.innerHTML = ''; // Clear existing options
-                const placeholderOption = document.createElement('option');
-                placeholderOption.value = '';
-                placeholderOption.textContent = 'Seleccione una confección';
-                placeholderOption.disabled = true;
-                placeholderOption.selected = true;
-                confeccionSeleccionada.appendChild(placeholderOption);
-                if (confecciones.length === 0) {
-                    const noConfeccionesOption = document.createElement('option');
-                    noConfeccionesOption.textContent = 'No existen confecciones';
-                    noConfeccionesOption.disabled = true;
-                    noConfeccionesOption.selected = true;
-                    confeccionSeleccionada.appendChild(noConfeccionesOption);
-                    return;
-                }
+//document.addEventListener('DOMContentLoaded', function () {
+//    const obtenerLineasHistoricoUrlAction = window.appSettings.obtenerLineasHistoricoUrlAction;
+//    const obtenerConfeccionesHistoricoUrlAction = window.appSettings.obtenerConfeccionesHistoricoUrlAction;
 
-                const uniqueConfecciones = new Set();
-                confecciones.forEach(confeccion => uniqueConfecciones.add(JSON.stringify(confeccion)));
-                const filteredConfecciones = Array.from(uniqueConfecciones).map(confeccion => JSON.parse(confeccion));
-                filteredConfecciones.sort((a, b) => a.confeccion.localeCompare(b.confeccion));
+//    const lineaSeleccionada = document.getElementById("lineaSeleccionada");
+//    const confeccionSeleccionada = document.getElementById("confeccionSeleccionada");
+
+//    /**
+//     * Carga las líneas históricas desde el servidor y las agrega al dropdown.
+//     */
+//    function cargarLineasHistorico() {
+//        fetch(obtenerLineasHistoricoUrlAction)
+//            .then(response => {
+//                if (!response.ok) throw new Error('Error fetching lineas historico');
+//                return response.json();
+//            })
+//            .then(lineas => {
+//                lineaSeleccionada.innerHTML = ''; // Clear existing options
+//                const placeholderOption = document.createElement('option');
+//                placeholderOption.value = '';
+//                placeholderOption.textContent = 'Seleccione una línea';
+//                placeholderOption.disabled = true;
+//                placeholderOption.selected = true;
+//                lineaSeleccionada.appendChild(placeholderOption);
+
+//                if (lineas.length === 0) {
+//                    const noLinesOption = document.createElement('option');
+//                    noLinesOption.textContent = 'No existen líneas';
+//                    noLinesOption.disabled = true;
+//                    noLinesOption.selected = true;
+//                    lineaSeleccionada.appendChild(noLinesOption);
+//                    return;
+//                }
+
+//                const uniqueLineas = new Set();
+//                lineas.forEach(linea => uniqueLineas.add(JSON.stringify(linea)));
+//                const filteredLineas = Array.from(uniqueLineas).map(linea => JSON.parse(linea));
+//                filteredLineas.sort((a, b) => a.sName.localeCompare(b.sName));
+
+//                filteredLineas.forEach(linea => {
+//                    const option = document.createElement('option');
+//                    option.value = linea.lineaId;
+//                    option.textContent = linea.sName;
+//                    lineaSeleccionada.appendChild(option);
+//                });
+//            })
+//            .catch(error => console.error('Error cargando líneas:', error));
+//    }
+//    /**
+//     * Carga las confecciones históricas desde el servidor y las agrega al dropdown.
+//     * @param {number} [lineaId=null] - Opcional. Filtra las confecciones por línea.
+//     */
+//    function cargarConfeccionesHistorico() {
+//       // console.log('Cargando Confecciones disponibles para el histórico...')
+//        fetch(obtenerConfeccionesHistoricoUrlAction)
+//            .then(response => {
+//                if (!response.ok) throw new Error('Error fetching confecciones historico');
+//                return response.json();
+//            })
+
+//            .then(confecciones => {
+//                confeccionSeleccionada.innerHTML = ''; // Clear existing options
+//                const placeholderOption = document.createElement('option');
+//                placeholderOption.value = '';
+//                placeholderOption.textContent = 'Seleccione una confección';
+//                placeholderOption.disabled = true;
+//                placeholderOption.selected = true;
+//                confeccionSeleccionada.appendChild(placeholderOption);
+//                if (confecciones.length === 0) {
+//                    const noConfeccionesOption = document.createElement('option');
+//                    noConfeccionesOption.textContent = 'No existen confecciones';
+//                    noConfeccionesOption.disabled = true;
+//                    noConfeccionesOption.selected = true;
+//                    confeccionSeleccionada.appendChild(noConfeccionesOption);
+//                    return;
+//                }
+
+//                const uniqueConfecciones = new Set();
+//                confecciones.forEach(confeccion => uniqueConfecciones.add(JSON.stringify(confeccion)));
+//                const filteredConfecciones = Array.from(uniqueConfecciones).map(confeccion => JSON.parse(confeccion));
+//                filteredConfecciones.sort((a, b) => a.confeccion.localeCompare(b.confeccion));
 
 
-                filteredConfecciones.forEach(confeccion => {
-                    const option = document.createElement('option');
-                    option.value = confeccion.confeccion;
-                    option.textContent = confeccion.confeccion;
-                    confeccionSeleccionada.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error cargando confecciones:', error));
-    }
-    // Cargar las líneas al cargar la página
-    cargarLineasHistorico();
-    // Cargar las confecciones al cargar la página (sin filtrar por línea)
-    cargarConfeccionesHistorico(); 
-});
+//                filteredConfecciones.forEach(confeccion => {
+//                    const option = document.createElement('option');
+//                    option.value = confeccion.confeccion;
+//                    option.textContent = confeccion.confeccion;
+//                    confeccionSeleccionada.appendChild(option);
+//                });
+//            })
+//            .catch(error => console.error('Error cargando confecciones:', error));
+//    }
+//    // Cargar las líneas al cargar la página
+//    cargarLineasHistorico();
+//    // Cargar las confecciones al cargar la página (sin filtrar por línea)
+//    cargarConfeccionesHistorico();
+//});

@@ -43,24 +43,40 @@ function validarFechas(desde, hasta) {
  * Actualiza el contenido de la tabla con los datos proporcionados.
  * @param {Array} data - Array de objetos con los datos a mostrar en la tabla.
  */
+
 function updateTable(data) {
+    
     const tabla = document.getElementById("tabla-historico");
-    tabla.innerHTML = data.data.map(item => `
-        <tr>
-            <td>${item.sName}</td>
-            <td>${item.lote}</td>
-            <td>${item.confeccion}</td>
-            <td class="numeric">${item.nPaquetes}</td>
-            <td class="numeric">${item.nMinutos}</td>
-            <td class="numeric">${item.nOperarios}</td>
-            <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.totalWeight)}</td>
-            <td class="numeric">${item.fTarget}</td>
-            <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.kpiPpm)}</td>
-            <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.kpiPm)}</td>
-            <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.kpiExtrapeso)}</td>
-            <td class="numeric">${new Date(item.fecha).toLocaleDateString()}</td>
-        </tr>
-    `).join('');
+    tabla.innerHTML = ''; // Limpiar la tabla antes de actualizar
+
+    // Verificar si hay datos
+    if (!data || data.length === 0) {
+        tabla.innerHTML = `
+            <tr>
+                <td colspan="12" class="text-center">Sin datos encontrados, realice un filtro nuevo.</td>
+            </tr>
+        `;
+    } else {
+        // Insertar cada fila de datos
+        data.forEach(item => {
+            tabla.innerHTML += `
+                <tr>
+                    <td>${item.sName || item.SName}</td>
+                    <td>${item.lote}</td>
+                    <td>${item.confeccion || item.Confeccion}</td>
+                    <td class="numeric">${item.nPaquetes}</td>
+                    <td class="numeric">${item.nMinutos}</td>
+                    <td class="numeric">${item.nOperarios}</td>
+                    <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.totalWeight)}</td>
+                    <td class="numeric">${item.fTarget}</td>
+                    <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.kpiPpm)}</td>
+                    <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.kpiPm)}</td>
+                    <td class="numeric">${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.kpiExtrapeso)}</td>
+                    <td class="numeric">${new Date(item.fecha).toLocaleDateString()}</td>
+                </tr>
+            `;
+        });
+    }
 }
 /**
  * Actualiza el gráfico con los datos proporcionados.
@@ -251,7 +267,7 @@ document.getElementById("btn-filtrar").addEventListener("click", function () {
             datosFiltrados = data.data;
             totalPages = data.totalPages;
             currentPage = 1; //reseteamos a la primera página
-            updateTable(data); // Actualiza tabla
+            updateTable(datosFiltrados); // Actualiza tabla
             actualizarGraficos(data.data); // Actualiza gráfico
             actualizarPaginacion(); // Actualizar la paginación
 

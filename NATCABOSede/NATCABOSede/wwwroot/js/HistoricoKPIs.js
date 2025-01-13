@@ -218,8 +218,8 @@ function loadPage(page) {
     })
         .then(response => response.json())
         .then(data => {
-            datosFiltrados = data.Data;
-            totalPages = data.TotalPages;
+            datosFiltrados = data.data;
+            totalPages = data.totalPages;
             currentPage = page;
 
             updateTable(datosFiltrados); // Actualizar la tabla

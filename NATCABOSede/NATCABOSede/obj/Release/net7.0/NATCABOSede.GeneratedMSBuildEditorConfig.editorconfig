@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede
 build_property._RazorSourceGeneratorDebug = 
 
+[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/Historico/Historico.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xIaXN0b3JpY29cSGlzdG9yaWNvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/KPIS/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xLUElTXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

@@ -1,8 +1,8 @@
 ﻿
-/*@import url('../utilities/variables.css');*/
+/@import url('../utilities/variables.css');*/
 
 .navbar {
-    background-color: var(--gris-claro);
+    background-color: var(--blanco) !important;
 }
 
 .navbar-nav .nav-link {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// Controllers/KPISController.cs
+using Microsoft.AspNetCore.Mvc;
 using NATCABOSede.Models;
 using NATCABOSede.Services;
 using NATCABOSede.ViewModels;
@@ -24,17 +25,38 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         {
             var datos = ObtenerDatosPorLinea(lineaSeleccionada);
             DatosKpiViewModel modelo;
+
+            // Fetch available lines dynamically
+            var lineas = _context.DatosKpis
+                .Select(d => new { d.IdLinea, d.NombreLinea })
+                .Distinct()
+                .ToList();
+
+            // Pass lines to the view using ViewBag
+            ViewBag.LineasDisponibles = lineas;
+
+            // If no line is selected, pick the first one
+            if (lineaSeleccionada == 0 && lineas.Any())
+            {
+                lineaSeleccionada = lineas.First().IdLinea; // Set to the first available line's Id
+            }
+
+            
+            ViewBag.LineaSeleccionada = lineaSeleccionada;
+
+           
+            var lineaSeleccionadaNombre = lineas.FirstOrDefault(l => l.IdLinea == lineaSeleccionada)?.NombreLinea;
+            ViewBag.NombreLineaSeleccionada = lineaSeleccionadaNombre ?? "Nombre no disponible";
+
             if (datos == null)
             {
-                //// Redirect to the error page if data retrieval fails
-                //return RedirectToAction("Error");
-
                 // Crear un modelo vacío
                 modelo = new DatosKpiViewModel
                 {
                     Cliente = string.Empty,
                     Producto = string.Empty,
                     PPM = 0,
+                    PPM_Disc = 0,
                     PM = 0,
                     ExtraPeso = 0,
                     HoraInicio = DateTime.Now,
@@ -45,30 +67,6 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             }
             else
             {
-
-                // Fetch available lines dynamically
-                var lineas = _context.DatosKpis
-                    .Select(d => new { d.IdLinea, d.NombreLinea })
-                    .ToList();
-
-                // Pass lines to the view using ViewBag
-                ViewBag.LineasDisponibles = lineas;
-
-                // If no line is selected, pick the first one
-                if (lineaSeleccionada == 0 && lineas.Any())
-                {
-                    lineaSeleccionada = lineas.First().IdLinea; // Set to the first available line's Id
-                }
-
-                // Set the selected line in ViewBag
-                ViewBag.LineaSeleccionada = lineaSeleccionada;
-
-                // Find the name of the selected line
-                var lineaSeleccionadaNombre = lineas.FirstOrDefault(l => l.IdLinea == lineaSeleccionada)?.NombreLinea;
-                ViewBag.NombreLineaSeleccionada = lineaSeleccionadaNombre ?? "Nombre no disponible";
-
-                // Fetch KPI data for the selected line
-                //var datos = ObtenerDatosPorLinea(lineaSeleccionada);
                 double mediaPaquetesPorMinuto = 0.0;
 
                 if (datos.HoraInicioProduccion != null && datos.HoraUltimoPaquete != null)
@@ -81,65 +79,12 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     mediaPaquetesPorMinuto = datos.PaquetesValidos / diferencia.TotalMinutes;
                 }
 
-                var ppm = _kpiService.CalcularPPM(
-                    datos.PaquetesValidos,
-                    datos.MinutosTrabajados ,
-                    datos.NumeroOperadores );
-
-                var ppm_disc = _kpiService.CalcularPPM(
-                    datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc,
-                    datos.MinutosTrabajados,
-                    datos.NumeroOperadores);
-
-                var pm = _kpiService.CalcularPM(
-                    datos.PaquetesValidos,
-                    datos.MinutosTrabajados );
-
-                var extraPeso = _kpiService.CalcularExtrapeso(
-                    datos.PesoTotalReal,
-                    datos.PesoObjetivo,
-                    datos.PaquetesValidos);
-
-                var horaFinAproximada = _kpiService.CalcularHoraFin(
-                    datos.HoraInicioProduccion,
-                    (int)(datos.PaquetesRequeridos - datos.PaquetesValidos),
-                    mediaPaquetesPorMinuto);
-
-                var porcentajePedido = _kpiService.CalcularPorcentajePedido(
-                    (int)(datos.PaquetesValidos),
-                    (int)(datos.PaquetesRequeridos));
-
-                var costeMOD = _kpiService.CalcularCosteMOD(
-                    datos.MinutosTrabajados,
-                    datos.CosteHora,
-                    datos.PaquetesValidos,
-                    datos.PesoObjetivo);
-
-                modelo = new DatosKpiViewModel
-                {
-                    Cliente = datos.NombreCliente ?? "*CLIENTE*",
-                    Producto = datos.NombreProducto ?? "*PRODUCTO*",
-                    PPM = ppm,
-                    PPM_Disc=ppm_disc,
-                    PM = pm,
-                    ExtraPeso = extraPeso,
-                    HoraInicio = datos.HoraInicioProduccion,
-                    HoraFinAproximada = horaFinAproximada,
-                    PorcentajePedido = porcentajePedido,
-                    CosteMOD = costeMOD
-                };
-
+                // Utilizar el servicio para generar el ViewModel
+                modelo = _kpiService.GenerarDatosKpiViewModel(datos, mediaPaquetesPorMinuto);
             }
-
-            //if (datos == null)
-            //{
-            //    return NotFound("No se encontraron datos para la línea seleccionada.");
-            //}
-
 
             return View(modelo);
         }
-
 
         public IActionResult ObtenerKPIs(short lineaSeleccionada)
         {
@@ -148,12 +93,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             if (datos == null)
             {
                 ViewBag.ErrorMessage = TempData["ErrorMessage"] ?? "An unexpected error occurred."; //JMB
-
                 // Redirect to the error page if data retrieval fails
                 return RedirectToAction("Error");
-
-
-                //return NotFound("No se encontraron datos para la línea seleccionada.");
             }
 
             double mediaPaquetesPorMinuto = 0.0;
@@ -167,79 +108,18 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 mediaPaquetesPorMinuto = datos.PaquetesValidos / diferencia.TotalMinutes;
             }
 
-            var ppm = _kpiService.CalcularPPM(
-                datos.PaquetesValidos,
-                datos.MinutosTrabajados,
-                datos.NumeroOperadores);
+            // Generar el ViewModel utilizando el servicio
+            var modelo = _kpiService.GenerarDatosKpiViewModel(datos, mediaPaquetesPorMinuto);
 
-            var ppm_disc = _kpiService.CalcularPPM(
-                datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc,
-                datos.MinutosTrabajados,
-                datos.NumeroOperadores);
+            // Realizar cálculos adicionales específicos para esta acción
+            modelo.PM_Disc = _kpiService.CalcularPM(datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc, datos.MinutosTrabajados);
+            modelo.PpmCardClass = GetColorClass(modelo.PPM, modelo.ppm_objetivo);
 
-            var pm = _kpiService.CalcularPM(
-                datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc,
-                datos.MinutosTrabajados);
-
-            var pm_disc = _kpiService.CalcularPM(
-                datos.PaquetesValidos,
-                datos.MinutosTrabajados);
-
-            var extraPeso = _kpiService.CalcularExtrapeso(
-                datos.PesoTotalReal,
-                datos.PesoObjetivo ,
-                datos.PaquetesValidos);
-
-            var extraPeso_disc = _kpiService.CalcularExtrapeso(
-                datos.PesoTotalRealDisc,
-                datos.PesoObjetivo,
-                datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc);
-
-            var horaFinAproximada = _kpiService.CalcularHoraFin(
-                datos.HoraInicioProduccion,
-                (int)(datos.PaquetesRequeridos - datos.PaquetesValidos),
-                mediaPaquetesPorMinuto);
-
-            var porcentajePedido = _kpiService.CalcularPorcentajePedido(
-                (int)(datos.PaquetesValidos),
-                (int)(datos.PaquetesRequeridos));
-
-            var costeMOD = _kpiService.CalcularCosteMOD(
-                datos.MinutosTrabajados,
-                datos.CosteHora,
-                datos.PaquetesValidos,
-                datos.PesoObjetivo);
-
-            var ftt = _kpiService.CalcularFTT(
-                datos.PaquetesTotalesDisc,
-                datos.PaquetesRechazadosDisc
-                );
-
-            var porcentajeTotalDesperdicio = _kpiService.CalcularPorcentajeDesperdicio(
-                datos.PesoTotalDesperdicio,
-                datos.PesoTotalReal
-                );
-
-
-
-            var modelo = new DatosKpiViewModel
-            {
-                Cliente = datos.NombreCliente ?? "*CLIENTE*",
-                Producto = datos.NombreProducto ?? "*PRODUCTO*",
-                PPM = ppm,
-                PPM_Disc= ppm_disc,
-                PM = pm,
-                PM_Disc= pm_disc,
-                ExtraPeso = extraPeso,
-                ExtraPeso_Disc = extraPeso_disc,
-                HoraInicio = datos.HoraInicioProduccion,
-                HoraFinAproximada = horaFinAproximada,
-                PorcentajePedido = porcentajePedido,
-                CosteMOD = costeMOD,
-                FTT=ftt,
-                PesoTotalDesperdicio=datos.PesoTotalDesperdicio,
-                PorcentajeTotalDesperdicio=porcentajeTotalDesperdicio
-            };
+            // Añadir otros campos específicos
+            modelo.FTT = _kpiService.CalcularFTT(datos.PaquetesTotalesDisc, datos.PaquetesRechazadosDisc);
+            modelo.PesoTotalDesperdicio = datos.PesoTotalDesperdicio;
+            modelo.PorcentajeTotalDesperdicio = _kpiService.CalcularPorcentajeDesperdicio(datos.PesoTotalDesperdicio, datos.PesoTotalReal);
+            modelo.ppm_objetivo = datos.PpmObjetivo;
 
             return PartialView("_KPIsPartial", modelo);
         }
@@ -248,7 +128,6 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         {
             try
             {
-                //return _context.DatosKpis.FirstOrDefault(d => d.IdLinea == linea);
                 return ExecuteWithRetry(() =>
                 {
                     return _context.DatosKpis.FirstOrDefault(d => d.IdLinea == linea);
@@ -257,11 +136,9 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             catch (Exception ex)
             {
                 Logger.LogError("Se ha producido un error al obtener los datos para los KPIs.", ex);
-                //throw new Exception(ex.Message);
                 throw; // Let the global exception handler deal with this
             }
         }
-
 
         // Recuperación de líneas activas desde la bbdd
         [HttpGet]
@@ -271,28 +148,35 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             {
                 var lineas = _context.DatosKpis
                     .Select(d => new { d.IdLinea, d.NombreLinea })
+                    .Distinct()
                     .ToList();
 
+                if (!lineas.Any())
+                {
+                    Console.WriteLine("No data found in DatosKpis table");
+                }
 
-
-            if (!lineas.Any())
-            {
-                Console.WriteLine("No data found in DatosKpis table");
-            }
-
-            return Json(lineas);
+                return Json(lineas);
             }
             catch (Exception ex)
             {
                 Logger.LogError("Se ha producido un error al obtener las líneas activas.", ex);
-                //throw new Exception(ex.Message);
-
                 TempData["ErrorMessage"] = "An error occurred while processing your request.";
-
-                //return null;
-                // Return an error response
                 return Json(new { success = false, message = "An error occurred while processing your request." });
             }
+        }
+
+        // Método para gestionar colores MARCO - Bizerba
+        private string GetColorClass(double actual, double objetivo)
+        {
+            double porcentaje = ((actual - objetivo) / objetivo) * 100;
+
+            if (porcentaje > 10)
+                return "bg-success";  // Verde
+            else if (porcentaje >= -10 && porcentaje <= 10)
+                return "bg-warning";  // Amarillo
+            else
+                return "bg-danger";   // Rojo
         }
 
         private T ExecuteWithRetry<T>(Func<T> operation, int retryCount = 3)
@@ -318,7 +202,5 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             }
             return default;
         }
-
     }
 }
-

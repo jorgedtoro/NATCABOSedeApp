@@ -1,5 +1,7 @@
 ﻿using System;
 using NATCABOSede.Interfaces;
+using NATCABOSede.Models;
+using NATCABOSede.ViewModels;
 
 namespace NATCABOSede.Services
 {
@@ -98,6 +100,36 @@ namespace NATCABOSede.Services
                 return totalCosto / totalProduccion;
             }
             else return 0;
+        }
+        public DatosKpiViewModel GenerarDatosKpiViewModel(DatosKpi datos, double mediaPaquetesPorMinuto)
+        {
+            //var ppm = CalcularPPM(datos.PaquetesValidos, datos.MinutosTrabajados, datos.NumeroOperadores);
+            //var ppm_disc = CalcularPPM(datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc, datos.MinutosTrabajados, datos.NumeroOperadores);
+            var ppm = datos.PPM_Marco;
+            var ppm_disc = datos.PPM_Bizerba;
+            var pm = CalcularPM(datos.PaquetesValidos, datos.MinutosTrabajados);
+            var extraPeso = CalcularExtrapeso(datos.PesoTotalReal, datos.PesoObjetivo, datos.PaquetesValidos);
+            var extraPeso_Disc = CalcularExtrapeso(datos.PesoTotalRealDisc, datos.PesoObjetivo, datos.PaquetesTotalesDisc);
+            //var horaFinAproximada = CalcularHoraFin(datos.HoraInicioProduccion, (int)(datos.PaquetesRequeridos - datos.PaquetesValidos), mediaPaquetesPorMinuto);
+            var horaFinAproximada = CalcularHoraFin(datos.HoraInicioProduccion, (int)(datos.PaquetesRequeridos - datos.PaquetesValidos), datos.PpmPromedio_5min);
+            var porcentajePedido = CalcularPorcentajePedido((int)(datos.PaquetesValidos), (int)(datos.PaquetesRequeridos));
+            var costeMOD = CalcularCosteMOD(datos.MinutosTrabajados, datos.CosteHora, datos.PaquetesValidos, datos.PesoObjetivo);
+
+
+            return new DatosKpiViewModel
+            {
+                Cliente = datos.NombreCliente ?? "*CLIENTE*",
+                Producto = datos.NombreProducto ?? "*PRODUCTO*",
+                PPM = ppm,
+                PPM_Disc = ppm_disc,
+                PM = pm,
+                ExtraPeso = extraPeso,
+                ExtraPeso_Disc= extraPeso_Disc,
+                HoraInicio = datos.HoraInicioProduccion,
+                HoraFinAproximada = horaFinAproximada,
+                PorcentajePedido = porcentajePedido,
+                CosteMOD = costeMOD
+            };
         }
     }
 }

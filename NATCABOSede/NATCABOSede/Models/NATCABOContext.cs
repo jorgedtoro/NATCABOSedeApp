@@ -21,7 +21,8 @@ public partial class NATCABOContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=LAPTOP-1J2AKLMQ\\SQLEXPRESS01;Database=dbGrupalia_aux;User ID=sa;Password=870104;TrustServerCertificate=True;Encrypt=False;");
+        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=dbGrupalia_aux;User ID=sa;Password=870104;TrustServerCertificate=True;Encrypt=False;");
+        //=> optionsBuilder.UseSqlServer("Server=C0K3\\SQLEXPRESS;Database=NATCABO;User ID=sa;Password=080506;TrustServerCertificate=True;Encrypt=False;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,7 +30,7 @@ public partial class NATCABOContext : DbContext
         {
             entity
                 .HasNoKey()
-                .ToTable("datosKPIS");
+                .ToTable("DatosKPIs_Live");
 
             entity.Property(e => e.CosteHora).HasColumnName("costeHora");
             entity.Property(e => e.CosteKg).HasColumnName("costeKg");
@@ -67,13 +68,17 @@ public partial class NATCABOContext : DbContext
             entity.Property(e => e.PesoTotalReal).HasColumnName("pesoTotalReal");
             entity.Property(e => e.PesoTotalRealDisc).HasColumnName("pesoTotalReal_Disc");
             entity.Property(e => e.PpmObjetivo).HasColumnName("ppm_Objetivo");
+
+            entity.Property(e => e.PpmPromedio_5min).HasColumnName("nPaquetes_5min");
+            entity.Property(e => e.PPM_Marco).HasColumnName("PPM_Marco");
+            entity.Property(e => e.PPM_Bizerba).HasColumnName("PPM_Bizerba");
         });
 
         modelBuilder.Entity<KpisHistorico>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToTable("KPIsHistorico");
+                .ToTable("DatosKPIS_Historico");
 
             entity.Property(e => e.Confeccion).HasMaxLength(255);
             entity.Property(e => e.FTarget).HasColumnName("fTarget");
@@ -81,14 +86,14 @@ public partial class NATCABOContext : DbContext
             entity.Property(e => e.KpiExtrapeso).HasColumnName("KPI_Extrapeso");
             entity.Property(e => e.KpiPm).HasColumnName("KPI_PM");
             entity.Property(e => e.KpiPpm).HasColumnName("KPI_PPM");
-            entity.Property(e => e.LineaId).HasColumnName("LineaID");
+            entity.Property(e => e.LineaId).HasColumnName("IdLinea");
             entity.Property(e => e.Lote).HasMaxLength(255);
             entity.Property(e => e.NMinutos).HasColumnName("N_Minutos");
             entity.Property(e => e.NOperarios).HasColumnName("N_Operarios");
             entity.Property(e => e.NPaquetes).HasColumnName("N_Paquetes");
-            entity.Property(e => e.SName)
+            entity.Property(e => e.NombreLinea)
                 .HasMaxLength(255)
-                .HasColumnName("sName");
+                .HasColumnName("NombreLinea");
         });
 
         OnModelCreatingPartial(modelBuilder);

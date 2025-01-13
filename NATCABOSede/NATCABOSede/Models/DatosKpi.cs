@@ -48,4 +48,8 @@ public partial class DatosKpi
     public int PaquetesTotalesDisc { get; set; }
 
     public int PesoTotalRealDisc { get; set; }
+
+    public double PpmPromedio_5min { get; set; }
+    public double PPM_Marco { get; set; }
+    public double PPM_Bizerba { get; set; }
 }

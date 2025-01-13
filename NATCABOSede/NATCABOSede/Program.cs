@@ -5,6 +5,22 @@ using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+//**************
+// Configure logging to include EventLog for IIS
+builder.Logging.AddEventLog(settings =>
+{
+    settings.SourceName = "NATCABOSedeApp"; // Customize with your application name
+});
+Console.WriteLine("HOLA!");
+
+Console.WriteLine($"Current Environment: {builder.Environment.EnvironmentName}");       //JMB
+// Log the connection string for debugging
+var connectionString = builder.Configuration.GetConnectionString("NATCABOConnection");
+Console.WriteLine($"Connection String: {connectionString}");
+
+//****************
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

@@ -1,4 +1,4 @@
-﻿ @model IEnumerable<NATCABOSede.Models.KpisHistorico> 
+﻿ @model IEnumerable<NATCABOSede.Models.KpisHistorico>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,8 +15,18 @@
                 <div class="mb-3">
                     <label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
                     <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
+                        @if (ViewBag.LineasDisponibles != null)
+                        {
+                            foreach (var linea in ViewBag.LineasDisponibles)
+                            {
+                                <option value="@linea.LineaId" @(ViewBag.LineaSeleccionada == linea.LineaId ? "selected" : "")>
+                                    @linea.NombreLinea
+                                </option>
+                            }
+                        }
                         <option value="" disabled selected>Cargando líneas...</option>
                     </select>
+               
                 </div>
             </div>
             <div class="col-md-3">
@@ -27,6 +37,7 @@
                     </select>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <label for="desde" class="form-label">Desde</label>
                 <input type="date" class="form-control" id="desde" name="desde">
@@ -54,34 +65,33 @@
                     <th>Lote</th>
                     <th>Confección</th>
                     <th class="numeric">N° Paquetes</th>
-                    <!--<th class="numeric">N° Minutos</th>-->
                     <th class="numeric">N° Operarios</th>
                     <th class="numeric">Peso Total (Kg)</th>
-                    <!--<th class="numeric">Objetivo</th>-->
                     <th class="numeric">PPM</th>
                     <th class="numeric">PM</th>
                     <th class="numeric">Extrapeso (Kg)</th>
                     <th class="numeric">Fecha Lote</th>
+                    <th class="numeric">KPI Extrapeso</th>
+                    <th class="numeric">Fecha de registro</th>
                 </tr>
             </thead>
             <tbody id="tabla-historico">
-                @foreach (var item in Model)
+                <!-- Inicialmente vacío -->
+               @*  @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.SName</td>
+                        <td>@item.NombreLinea</td>
                         <td>@item.Lote</td>
                         <td>@item.Confeccion</td>
                         <td class="numeric">@item.NPaquetes?.ToString("N0")</td>
-                        <!--<td class="numeric">@item.NMinutos?.ToString("N0")</td>-->
                         <td class="numeric">@item.NOperarios</td>
                         <td class="numeric">@item.TotalWeight?.ToString("N0")</td>
-                        <!--<td class="numeric">@item.FTarget</td>-->
                         <td class="numeric">@item.KpiPpm?.ToString("F2")</td>
                         <td class="numeric">@item.KpiPm?.ToString("F2")</td>
                         <td class="numeric">@item.KpiExtrapeso?.ToString("N0")</td>
                         <td class="numeric">@item.Fecha?.ToString("dd/MM/yyyy")</td>
                     </tr>
-                }
+                } *@
             </tbody>
         </table>
     </div>
@@ -131,7 +141,7 @@
 </div>
 
 @section Scripts {
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         window.appSettings = {
@@ -140,6 +150,6 @@
         };
     </script>
 
-<script src="~/js/HistoricoKPIs.js"></script>
-    
+    <script src="~/js/HistoricoKPIs.js"></script>
+
 }

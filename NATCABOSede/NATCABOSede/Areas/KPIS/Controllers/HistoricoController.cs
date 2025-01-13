@@ -22,35 +22,65 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
         public IActionResult Historico(int page = 1, int pageSize = 25)
         {
+            // No cargar datos históricos inicialmente
+            // Obtener líneas disponibles
+            var lineas = _context.KpisHistoricos
+                .Select(d => new { d.LineaId, d.NombreLinea })
+                .Distinct()
+                .ToList();
 
-            var historico = _context.KpisHistoricos
-               .OrderByDescending(h => h.Fecha)
-               .Skip((page - 1) * pageSize)
-               .Take(pageSize)
-               .ToList();
+            ViewBag.LineasDisponibles = lineas;
 
-            // Total de registros
-            var totalRecords = _context.KpisHistoricos.Count();
+            // Obtener confecciones disponibles
+            var confecciones = _context.KpisHistoricos
+                .Select(d => d.Confeccion)
+                .Distinct()
+                .ToList();
 
-            // Pasar datos a la vista
-            ViewBag.Historico = historico;
-            ViewBag.Page = page;
-            ViewBag.PageSize = pageSize;
-            ViewBag.TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+            ViewBag.ConfeccionesDisponibles = confecciones;
 
-            
-            return View(historico);
+            return View();
+            // var historico = _context.KpisHistoricos
+            //    .OrderByDescending(h => h.Fecha)
+            //    .Skip((page - 1) * pageSize)
+            //    .Take(pageSize)
+            //    .ToList();
+            ////lineas disponibles en el histórico
+            // var lineas = _context.KpisHistoricos
+            //    .Select(d => new { d.LineaId, d.SName })
+            //    .ToList();
+
+            // // Total de registros
+            // var totalRecords = _context.KpisHistoricos.Count();
+
+            // // Pasar datos a la vista
+            // ViewBag.Historico = historico;
+            // ViewBag.Page = page;
+            // ViewBag.PageSize = pageSize;
+            // ViewBag.TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+            // ViewBag.LineasDisponibles = lineas;
+
+            // return View(historico);
         }
         [HttpPost]
         public IActionResult Filtrar([FromBody] FiltrarRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Solicitud inválida.");
+            }
             var query = _context.KpisHistoricos.AsQueryable();
 
+            //Filtro de linea si se proporciona
             if (request.LineaId.HasValue)
             {
                 query = query.Where(h => h.LineaId == request.LineaId.Value);
             }
-
+            // Filtrar por Confección si se proporciona y no está vacío
+            if (!string.IsNullOrWhiteSpace(request.Confeccion))
+            {
+                query = query.Where(h => h.Confeccion == request.Confeccion);
+            }
             if (request.Desde.HasValue)
             {
                 query = query.Where(h => h.Fecha >= request.Desde.Value);
@@ -61,27 +91,55 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 query = query.Where(h => h.Fecha <= request.Hasta.Value);
             }
 
-            var resultados = query.OrderByDescending(h => h.Fecha).ToList();
+            //var resultados = query.OrderByDescending(h => h.Fecha).ToList();
+            // Ordenar y aplicar paginación
+            var totalRecords = query.Count();
+            var totalPages = (int)Math.Ceiling(totalRecords / (double)request.PageSize);
 
-            return Json(resultados);
+            var resultados = query.OrderByDescending(h => h.Fecha)
+                                  .Skip((request.Page - 1) * request.PageSize)
+                                  .Take(request.PageSize)
+                                  .ToList();
+
+            ////Preparar respuesta
+            var response = new
+            {
+                Data = resultados,
+                TotalPages = totalPages
+            };
+
+            return Json(response);
             
         }
         [HttpPost]
         public IActionResult ExportarExcel([FromBody] FiltrarRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Solicitud inválida.");
+            }
 
             var query = _context.KpisHistoricos.AsQueryable();
 
+            // Filtrar por Línea si se proporciona
             if (request.LineaId.HasValue)
             {
                 query = query.Where(h => h.LineaId == request.LineaId.Value);
             }
 
+            // Filtrar por Confección si se proporciona y no está vacío
+            if (!string.IsNullOrWhiteSpace(request.Confeccion))
+            {
+                query = query.Where(h => h.Confeccion == request.Confeccion);
+            }
+
+            // Filtrar por fecha desde si se proporciona
             if (request.Desde.HasValue)
             {
                 query = query.Where(h => h.Fecha >= request.Desde.Value);
             }
 
+            // Filtrar por fecha hasta si se proporciona
             if (request.Hasta.HasValue)
             {
                 query = query.Where(h => h.Fecha <= request.Hasta.Value);
@@ -116,7 +174,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 int row = 2;
                 foreach (var item in resultados)
                 {
-                    worksheet.Cell(row, 1).Value = item.SName;
+                    worksheet.Cell(row, 1).Value = item.NombreLinea;
                     worksheet.Cell(row, 2).Value = item.Lote;
                     worksheet.Cell(row, 3).Value = item.Confeccion;
                     worksheet.Cell(row, 4).Value = item.NPaquetes;
@@ -148,7 +206,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         public JsonResult ObtenerLineasHistorico()
         {
             var lineas = _context.KpisHistoricos
-                .Select(d => new { d.LineaId, d.SName })
+                .Select(d => new { d.LineaId, d.NombreLinea })
                 .ToList();
 
             if (!lineas.Any())

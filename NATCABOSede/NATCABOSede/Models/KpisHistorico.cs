@@ -7,7 +7,7 @@ public partial class KpisHistorico
 {
     public int? LineaId { get; set; }
 
-    public string? SName { get; set; }
+    public string? NombreLinea { get; set; }
 
     public string? Lote { get; set; }
 
@@ -28,8 +28,6 @@ public partial class KpisHistorico
     public double? KpiPm { get; set; }
 
     public double? KpiExtrapeso { get; set; }
-    //public double? KpiFTT { get; set; }
-    //public double? KpiMOD { get; set; }
 
     public DateTime? Fecha { get; set; }
 }

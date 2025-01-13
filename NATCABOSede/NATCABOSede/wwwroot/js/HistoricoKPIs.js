@@ -200,6 +200,11 @@ function loadPage(page) {
         alert("Por favor, complete todos los campos del filtro antes de cambiar de página.");
         return;
     }
+    // Validación: 'hasta' debe ser mayor o igual a 'desde'
+    if (!validarFechas(desde, hasta)) {
+        mostrarAlerta("La fecha 'Hasta' debe ser posterior o igual a la fecha 'Desde'.");
+        return;
+    }
     // Preparar los datos de la solicitud
     const requestData = {
         lineaId,
@@ -245,7 +250,11 @@ document.getElementById("btn-filtrar").addEventListener("click", function () {
         mostrarAlerta("Por favor, complete los campos de Línea, Desde y Hasta.");
         return;
     }
-
+    // Validación: 'hasta' debe ser mayor o igual a 'desde'
+    if (!validarFechas(desde, hasta)) {
+        mostrarAlerta("La fecha 'Hasta' debe ser posterior o igual a la fecha 'Desde'.");
+        return;
+    }
     // Preparar los datos de la solicitud
     const requestData = {
         lineaId,

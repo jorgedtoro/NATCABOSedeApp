@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función para obtener y actualizar los KPIs
     function obtenerYActualizarKPIs(element) {
+        console.log('HOLA...1');
         var linea = element.value;
 
         if (!linea || linea === 'No existen líneas activas') {
@@ -95,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         var lineaText = element.options[element.selectedIndex]?.text || 'Línea desconocida';
-
+        console.log('HOLA...2');
         fetch(obtenerDatosUrlAction + '?lineaSeleccionada=' + linea)
             .then(function (response) {
                 if (!response.ok) {

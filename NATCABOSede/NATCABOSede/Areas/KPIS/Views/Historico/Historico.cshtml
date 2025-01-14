@@ -61,40 +61,29 @@
         <table class="table table-bordered table-striped">
             <thead class="table-primary">
                 <tr>
-                    <th>Línea</th>
-                    <th>Lote</th>
-                    <th>Confección</th>
-                    <th class="numeric">N° Paquetes</th>
-                    <th class="numeric">N° Operarios</th>
-                    <th class="numeric">Peso Total (Kg)</th>
-                    <th class="numeric">PPM</th>
-                    <th class="numeric">PM</th>
-                    <th class="numeric">Extrapeso (Kg)</th>
                     <th class="numeric">Fecha Lote</th>
-                    <th class="numeric">KPI Extrapeso</th>
-                    <th class="numeric">Fecha de registro</th>
+                    <th>Línea</th>
+                    <!--th>Lote</th>-->
+                    <th>Confección</th>
+                    <th class="numeric">PPM</th>
+                    <th class="numeric">PM Marco</th>
+                    <th class="numeric">PM Bizerba</th>
+                    <th class="numeric">Extrapeso (Kg)</th>
+                    <th class="numeric">Desecho (Kg)</th>
+                    <th class="numeric">Desecho (%)</th>
+                    <th class="numeric">FTT</th>
+                    <th class="numeric">MOD</th>
                 </tr>
             </thead>
-            <tbody id="tabla-historico">
-                <!-- Inicialmente vacío -->
-               @*  @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.NombreLinea</td>
-                        <td>@item.Lote</td>
-                        <td>@item.Confeccion</td>
-                        <td class="numeric">@item.NPaquetes?.ToString("N0")</td>
-                        <td class="numeric">@item.NOperarios</td>
-                        <td class="numeric">@item.TotalWeight?.ToString("N0")</td>
-                        <td class="numeric">@item.KpiPpm?.ToString("F2")</td>
-                        <td class="numeric">@item.KpiPm?.ToString("F2")</td>
-                        <td class="numeric">@item.KpiExtrapeso?.ToString("N0")</td>
-                        <td class="numeric">@item.Fecha?.ToString("dd/MM/yyyy")</td>
-                    </tr>
-                } *@
-            </tbody>
+                <tbody id="tabla-historico">
+                    <!-- Inicialmente vacío -->
+                <tr>
+                    <td colspan="12" class="text-center">Por favor, realice un filtrado de datos para mostrar resultados</td>
+                </tr>
+              
+                </tbody>
         </table>
-    </div>
+      </div>
     <!-- Paginación -->
     <nav aria-label="Paginación">
         <ul class="pagination justify-content-center">
@@ -125,9 +114,9 @@
         <div class="col-md-3">
             <label for="kpiSelect" class="form-label">Seleccione el KPI:</label>
             <select id="kpiSelect" class="form-select">
-                <option value="kpiPpm">KPI PPM</option>
-                <option value="kpiPm">KPI PM</option>
-                <option value="kpiExtrapeso">KPI Extrapeso</option>
+                <option value="ppM_Marco">KPI PPM</option>
+                <option value="pM_Marco">KPI PM</option>
+                <option value="extrapeso_Marco">KPI Extrapeso</option>
             </select>
         </div>
     </div>

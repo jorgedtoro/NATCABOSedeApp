@@ -66,15 +66,15 @@
                 <div class="card text-white bg-success shadow-sm @Model.PpmCardClass">
                     <div class="card-body text-center">
                         <h5 class="card-title" style="font-weight: bold;">PPM</h5>
-                        <!--<p class="display-6">@Model.PPM.ToString("F2") PPM</p>-->
                         <p class="display-6">
                             <span class="kpi-MARCO">@Model.PPM.ToString("F1")</span>
-                            /
-                            <span class="kpi-Bizerba">@Model.PPM_Disc.ToString("F1")</span>
+                            <!--De momento, no mostramos el PPM del discriminador, al ser un cálculo complejo y para compara se puede emplear directamente PM-->
+                            <!--/
+                            <span class="kpi-Bizerba">@Model.PPM_Disc.ToString("F1")</span>-->
                         </p>
 
                         <h5 class="card-title">
-                            <span class="kpi-MARCO">MARCO</span> / <span class="kpi-Bizerba">Bizerba</span>
+                            <span class="kpi-MARCO">MARCO</span><!-- / <span class="kpi-Bizerba">Bizerba</span>-->
                         </h5>
                     </div>
                 </div>

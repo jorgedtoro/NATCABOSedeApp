@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NATCABOSede.Interfaces;
 using NATCABOSede.Models;
 using NATCABOSede.ViewModels;
@@ -74,10 +75,14 @@ namespace NATCABOSede.Services
         // Porcentaje del pedido completado
         public double CalcularPorcentajePedido(int paquetesProducidos, int paquetesRequeridos)
         {
-            if (paquetesRequeridos <= 0)
-                throw new ArgumentException("El número total de paquetes debe ser mayor a 0.");
-
-            return (double)paquetesProducidos / paquetesRequeridos * 100;
+            //if (paquetesRequeridos <= 0)
+            //    throw new ArgumentException("El número total de paquetes debe ser mayor a 0.");
+            if (paquetesRequeridos > 0)
+            {
+                return (double)paquetesProducidos / paquetesRequeridos * 100;
+            }
+            else return 0;
+            
         }
 
         /// <summary>

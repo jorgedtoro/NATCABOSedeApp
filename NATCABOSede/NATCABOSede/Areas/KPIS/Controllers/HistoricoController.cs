@@ -152,18 +152,18 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 var worksheet = workbook.Worksheets.Add("KPIs");
 
                 // Encabezados
-                worksheet.Cell(1, 1).Value = "Producto";
-                worksheet.Cell(1, 2).Value = "Lote";
+                worksheet.Cell(1, 1).Value = "Fecha Lote";
+                worksheet.Cell(1, 2).Value = "Línea";
                 worksheet.Cell(1, 3).Value = "Confección";
-                worksheet.Cell(1, 4).Value = "N° Paquetes";
-                worksheet.Cell(1, 5).Value = "N° Minutos";
-                worksheet.Cell(1, 6).Value = "N° Operarios";
-                worksheet.Cell(1, 7).Value = "Peso Total";
-                worksheet.Cell(1, 8).Value = "Target";
-                worksheet.Cell(1, 9).Value = "KPI PPM";
-                worksheet.Cell(1, 10).Value = "KPI PM";
-                worksheet.Cell(1, 11).Value = "KPI Extrapeso";
-                worksheet.Cell(1, 12).Value = "Fecha Registro";
+                worksheet.Cell(1, 4).Value = "PPM";
+                worksheet.Cell(1, 5).Value = "PM Marco";
+                worksheet.Cell(1, 6).Value = "PM Bizerba";
+                worksheet.Cell(1, 7).Value = "Extrapeso Marco";
+                worksheet.Cell(1, 8).Value = "Extrapeso Bizerba";
+                worksheet.Cell(1, 9).Value = "Desecho (Kg)";
+                worksheet.Cell(1, 10).Value = "Desecho (%)";
+                worksheet.Cell(1, 11).Value = "FTT";
+                worksheet.Cell(1, 12).Value = "MOD";
 
                 // Estilo a los encabezados
                 var headerRange = worksheet.Range("A1:L1");
@@ -174,18 +174,18 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 int row = 2;
                 foreach (var item in resultados)
                 {
-                    worksheet.Cell(row, 1).Value = item.NombreLinea;
-                    worksheet.Cell(row, 2).Value = item.Lote;
+                    worksheet.Cell(row, 1).Value = item.Fecha?.ToString("dd/MM/yyyy");
+                    worksheet.Cell(row, 2).Value = item.NombreLinea;
                     worksheet.Cell(row, 3).Value = item.Confeccion;
-                    worksheet.Cell(row, 4).Value = item.NPaquetes;
-                    worksheet.Cell(row, 5).Value = item.NMinutos;
-                    worksheet.Cell(row, 6).Value = item.NOperarios;
-                    worksheet.Cell(row, 7).Value = item.TotalWeight;
-                    worksheet.Cell(row, 8).Value = item.FTarget;
-                    worksheet.Cell(row, 9).Value = item.KpiPpm;
-                    worksheet.Cell(row, 10).Value = item.KpiPm;
-                    worksheet.Cell(row, 11).Value = item.KpiExtrapeso;
-                    worksheet.Cell(row, 12).Value = item.Fecha?.ToString("dd/MM/yyyy");
+                    worksheet.Cell(row, 4).Value = item.PPM_Marco;
+                    worksheet.Cell(row, 5).Value = item.PM_Marco;
+                    worksheet.Cell(row, 6).Value = item.PM_Bizerba;
+                    worksheet.Cell(row, 7).Value = item.Extrapeso_Marco;
+                    worksheet.Cell(row, 8).Value = item.Extrapeso_Bizerba;
+                    worksheet.Cell(row, 9).Value = item.Desecho_Kg;
+                    worksheet.Cell(row, 10).Value = item.Desecho_Perc;
+                    worksheet.Cell(row, 11).Value = item.FTT;
+                    worksheet.Cell(row, 12).Value = item.MOD;
                     row++;
                 }
 

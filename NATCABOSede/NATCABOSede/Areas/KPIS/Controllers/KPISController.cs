@@ -88,6 +88,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
         public IActionResult ObtenerKPIs(short lineaSeleccionada)
         {
+
             var datos = ObtenerDatosPorLinea(lineaSeleccionada);
 
             if (datos == null)

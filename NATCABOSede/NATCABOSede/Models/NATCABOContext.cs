@@ -72,6 +72,9 @@ public partial class NATCABOContext : DbContext
             entity.Property(e => e.PpmPromedio_5min).HasColumnName("nPaquetes_5min");
             entity.Property(e => e.PPM_Marco).HasColumnName("PPM_Marco");
             entity.Property(e => e.PPM_Bizerba).HasColumnName("PPM_Bizerba");
+            entity.Property(e => e.PM_Bizerba).HasColumnName("PM_Bizerba");
+            entity.Property(e => e.HorasTotales).HasColumnName("TotalHours");
+
         });
 
         modelBuilder.Entity<KpisHistorico>(entity =>

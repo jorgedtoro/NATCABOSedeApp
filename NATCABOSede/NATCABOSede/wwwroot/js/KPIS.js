@@ -8,6 +8,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función para actualizar el dropdown de líneas activas
     //TODO: quitar esta forma. Lineas desde el controller
+
+    //*** OVERLAY ***/
+    // Show loading overlay
+    function showLoading() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+    }
+
+    // Hide loading overlay
+    function hideLoading() {
+        document.getElementById('loading-overlay').style.display = 'none';
+    }
+    //***************/
+
     function actualizarDropdownLineasActivas() {
         console.log('Fetching lines from:', obtenerLineasUrlAction);
 
@@ -87,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función para obtener y actualizar los KPIs
     function obtenerYActualizarKPIs(element) {
-        console.log('HOLA...1');
+
         var linea = element.value;
 
         if (!linea || linea === 'No existen líneas activas') {
@@ -96,7 +109,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         var lineaText = element.options[element.selectedIndex]?.text || 'Línea desconocida';
-        console.log('HOLA...2');
+
+        showLoading(); // Show loading overlay
+
         fetch(obtenerDatosUrlAction + '?lineaSeleccionada=' + linea)
             .then(function (response) {
                 if (!response.ok) {
@@ -115,6 +130,9 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(function (error) {
                 console.error('Error:', error);
+            })
+            .finally(function () {
+                hideLoading(); // Hide loading overlay
             });
     }
 

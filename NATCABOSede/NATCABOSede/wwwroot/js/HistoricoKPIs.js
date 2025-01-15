@@ -251,8 +251,9 @@ function actualizarGraficos(data) {
         const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
         // Validación: Línea, Desde y Hasta son obligatorios
-        if (!lineaId || !desde || !hasta) {
-            mostrarAlerta("Por favor, complete los campos de Línea, Desde y Hasta.");
+        //if (!lineaId || !desde || !hasta) {
+        if (!desde || !hasta) {
+        mostrarAlerta("Por favor, complete los campos de Línea, Desde y Hasta.");
             return;
         }
         // Validación: 'hasta' debe ser mayor o igual a 'desde'

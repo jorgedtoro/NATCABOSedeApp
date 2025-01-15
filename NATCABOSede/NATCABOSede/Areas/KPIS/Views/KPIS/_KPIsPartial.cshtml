@@ -34,8 +34,8 @@
     <div class="card-body text-center">
         <h5 class="card-title">Estado del Pedido</h5>
         <div class="progress" style="height: 30px;">
-            <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: @Model.PorcentajePedido.ToString("F2")%;" aria-valuenow="@Model.PorcentajePedido.ToString("F2")" aria-valuemin="0" aria-valuemax="100">
-                @Model.PorcentajePedido.ToString("F2")%
+            <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: @Model.PorcentajePedido.ToString("F0")%;" aria-valuenow="@Model.PorcentajePedido.ToString("F0")" aria-valuemin="0" aria-valuemax="100">
+                    @Model.PorcentajePedido.ToString("F0")%
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title" style="font-weight: bold;">PPM</h5>
                         <p class="display-6">
-                            <span class="kpi-MARCO">@Model.PPM.ToString("F1")</span>
+                            <span class="kpi-MARCO">@Model.PPM.ToString("F2")</span>
                             <!--De momento, no mostramos el PPM del discriminador, al ser un cálculo complejo y para compara se puede emplear directamente PM-->
                             <!--/
                             <span class="kpi-Bizerba">@Model.PPM_Disc.ToString("F1")</span>-->

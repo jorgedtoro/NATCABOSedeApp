@@ -58,6 +58,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     PPM = 0,
                     PPM_Disc = 0,
                     PM = 0,
+                    PM_Disc=0,
                     ExtraPeso = 0,
                     HoraInicio = DateTime.Now,
                     HoraFinAproximada = DateTime.Now,
@@ -113,7 +114,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             var modelo = _kpiService.GenerarDatosKpiViewModel(datos, mediaPaquetesPorMinuto);
 
             // Realizar cálculos adicionales específicos para esta acción
-            modelo.PM_Disc = _kpiService.CalcularPM(datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc, datos.MinutosTrabajados);
+            //modelo.PM_Disc = _kpiService.CalcularPM(datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc, datos.MinutosTrabajados);
+            modelo.PM_Disc = datos.PM_Bizerba;
             modelo.PpmCardClass = GetColorClass(modelo.PPM, modelo.ppm_objetivo);
 
             // Añadir otros campos específicos

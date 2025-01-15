@@ -12,7 +12,6 @@ builder.Logging.AddEventLog(settings =>
 {
     settings.SourceName = "NATCABOSedeApp"; // Customize with your application name
 });
-Console.WriteLine("HOLA!");
 
 Console.WriteLine($"Current Environment: {builder.Environment.EnvironmentName}");       //JMB
 // Log the connection string for debugging
@@ -60,7 +59,8 @@ app.UseEndpoints(endpoints =>
     // Ruta por defecto
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+         //pattern: "{controller=Home}/{action=Index}/{id?}");
+         pattern: "{area=KPIS}/{controller=KPIS}/{action=Index}/{id?}");
 });
 
 //app.UseExceptionHandler("/Home/Error");     //JMB

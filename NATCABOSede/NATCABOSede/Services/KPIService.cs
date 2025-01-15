@@ -118,7 +118,7 @@ namespace NATCABOSede.Services
             //var horaFinAproximada = CalcularHoraFin(datos.HoraInicioProduccion, (int)(datos.PaquetesRequeridos - datos.PaquetesValidos), mediaPaquetesPorMinuto);
             var horaFinAproximada = CalcularHoraFin(datos.HoraInicioProduccion, (int)(datos.PaquetesRequeridos - datos.PaquetesValidos), datos.PpmPromedio_5min);
             var porcentajePedido = CalcularPorcentajePedido((int)(datos.PaquetesValidos), (int)(datos.PaquetesRequeridos));
-            var costeMOD = CalcularCosteMOD(datos.MinutosTrabajados, datos.CosteHora, datos.PaquetesValidos, datos.PesoObjetivo);
+            var costeMOD = CalcularCosteMOD(datos.HorasTotales, datos.CosteHora, datos.PaquetesValidos, datos.PesoObjetivo);
 
 
             return new DatosKpiViewModel

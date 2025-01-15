@@ -52,4 +52,6 @@ public partial class DatosKpi
     public double PpmPromedio_5min { get; set; }
     public double PPM_Marco { get; set; }
     public double PPM_Bizerba { get; set; }
+    public double PM_Bizerba { get; set; }
+    public double HorasTotales { get; set; }
 }

@@ -119,7 +119,7 @@ namespace NATCABOSede.Services
             var horaFinAproximada = CalcularHoraFin(datos.HoraInicioProduccion, (int)(datos.PaquetesRequeridos - datos.PaquetesValidos), datos.PpmPromedio_5min);
             var porcentajePedido = CalcularPorcentajePedido((int)(datos.PaquetesValidos), (int)(datos.PaquetesRequeridos));
             var costeMOD = CalcularCosteMOD(datos.HorasTotales, datos.CosteHora, datos.PaquetesValidos, datos.PesoObjetivo);
-
+            var ppm5min = datos.PpmPromedio_5min / datos.NumeroOperadores;
 
             return new DatosKpiViewModel
             {
@@ -133,7 +133,8 @@ namespace NATCABOSede.Services
                 HoraInicio = datos.HoraInicioProduccion,
                 HoraFinAproximada = horaFinAproximada,
                 PorcentajePedido = porcentajePedido,
-                CosteMOD = costeMOD
+                CosteMOD = costeMOD,
+                Ppm_5min = ppm5min
             };
         }
     }

@@ -195,7 +195,10 @@ function actualizarGraficos(data) {
      * Carga una página específica con los filtros aplicados.
      * @param {number} page - Número de página a cargar.
      */
-    function loadPage(page) {
+function loadPage(page) {
+
+    overlayManager.show(); // Show overlay before the request
+
         const lineaId = document.getElementById("lineaSeleccionada").value;
         const confeccion = document.getElementById("confeccionSeleccionada").value; // Opcional
         const desde = document.getElementById("desde").value;
@@ -236,7 +239,12 @@ function actualizarGraficos(data) {
                 actualizarGraficos(datosFiltrados); // Actualizar el gráfico
                 actualizarPaginacion(); // Actualizar la paginación
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error))
+
+                .finally(function () {
+        //hideLoading(); // Hide loading overlay
+                    overlayManager.hide(); // Hide overlay after content is updated
+    });
     }
 
     // ----------------------------
@@ -244,7 +252,9 @@ function actualizarGraficos(data) {
     // ----------------------------
 
     // Manejar el clic en el botón "Filtrar"
-    document.getElementById("btn-filtrar").addEventListener("click", function () {
+document.getElementById("btn-filtrar").addEventListener("click", function () {
+    overlayManager.show(); // Show overlay before the request
+
         const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
         const confeccion = document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
         const desde = new Date(document.getElementById("desde").value).toISOString();
@@ -297,17 +307,26 @@ function actualizarGraficos(data) {
                     exportBtn.setAttribute("title", "No hay datos para exportar, realice un filtro");
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error))
+
+            .finally(function () {
+                //hideLoading(); // Hide loading overlay
+                overlayManager.hide(); // Hide overlay after content is updated
+            });
+            
     });
 
     // Manejar el cambio en la selección de KPI
-    document.getElementById("kpiSelect").addEventListener("change", function () {
-        actualizarGraficos(datosFiltrados);
-    });
+document.getElementById("kpiSelect").addEventListener("change", function () {
+    overlayManager.show();
+    actualizarGraficos(datosFiltrados);
+
+ });
 
 
     // Manejar el clic en el botón "Exportar a Excel"
-    document.getElementById("btn-export-excel").addEventListener("click", function () {
+document.getElementById("btn-export-excel").addEventListener("click", function () {
+    overlayManager.show();
         const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
         const desde = new Date(document.getElementById("desde").value).toISOString();
         const hasta = new Date(document.getElementById("hasta").value).toISOString();
@@ -331,7 +350,11 @@ function actualizarGraficos(data) {
                 link.click();
                 document.body.removeChild(link);
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error))
+            .finally(function () {
+                //hideLoading(); // Hide loading overlay
+                overlayManager.hide(); // Hide overlay after content is updated
+            });
     });
 
 
@@ -403,10 +426,27 @@ function actualizarGraficos(data) {
             (item) => item.confeccion
         );
     }
-    // Cargar las líneas al cargar la página
-    cargarLineasHistorico();
-    // Cargar las confecciones al cargar la página (sin filtrar por línea)
-    cargarConfeccionesHistorico();
+
+//// Cargar las líneas al cargar la página
+//cargarLineasHistorico();
+//// Cargar las confecciones al cargar la página (sin filtrar por línea)
+//cargarConfeccionesHistorico();
+
+
+//overlayManager.show(); // Show overlay before fetching data
+
+Promise.all([cargarLineasHistorico(), cargarConfeccionesHistorico()])
+    .then(() => {
+        //overlayManager.hide(); // Hide overlay after both fetches are complete
+    })
+    .catch(error => {
+        console.error("Error loading data:", error);
+        //overlayManager.hide(); // Ensure overlay is hidden even if there's an error
+    });
+
+
+
+
 
 //document.addEventListener('DOMContentLoaded', function () {
 //    const obtenerLineasHistoricoUrlAction = window.appSettings.obtenerLineasHistoricoUrlAction;

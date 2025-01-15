@@ -49,13 +49,14 @@
                                asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @(currentController == "KPIS" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
+                            <a id="kpisLive-link" class="nav-link @(currentController == "KPIS" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="KPIS" asp-action="Index">KPIS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @(currentController == "Historico" && currentAction == "Historico" && currentArea == "KPIS" ? "active" : "")"
+                            <a id="historico-link" class="nav-link @(currentController == "Historico" && currentAction == "Historico" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="Historico" asp-action="Historico">Historico</a>
                         </li>
+
                     </ul>
                 </div>
                 <span style="float: right;">Parque Nat S.C.A</span>
@@ -92,6 +93,32 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/overlayManager.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const historicoLink = document.getElementById('historico-link');
+            const kpisLiveLink = document.getElementById('kpisLive-link');
+
+            if (historicoLink) {
+                historicoLink.addEventListener('click', function () {
+                    overlayManager.show(); // Show the overlay before navigating
+                });
+            }
+            if (kpisLiveLink) {
+                 kpisLiveLink.addEventListener('click', function () {
+                    overlayManager.show(); // Show the overlay before navigating
+                });
+            }
+        });
+
+       // Hide overlay once the page is fully loaded
+        window.onload = function () {
+            overlayManager.hide(); // Hide the overlay when all resources are loaded
+        };
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -6,7 +6,16 @@
         if (!document.getElementById(overlayId)) {
             const overlay = document.createElement('div');
             overlay.id = overlayId;
-            overlay.textContent = 'Loading...'; // Add loading text or spinner
+            overlay.className = 'loading-overlay'; // Apply the CSS class
+            overlay.style.display = 'none'; // Initially hidden
+
+            // Add the spinner content
+            overlay.innerHTML = `
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            `;
+
             document.body.appendChild(overlay);
         }
     }
@@ -15,7 +24,7 @@
     function showOverlay() {
         const overlay = document.getElementById(overlayId);
         if (overlay) {
-            overlay.style.display = 'flex';
+            overlay.style.display = 'flex'; // Show the overlay
         }
     }
 
@@ -23,7 +32,7 @@
     function hideOverlay() {
         const overlay = document.getElementById(overlayId);
         if (overlay) {
-            overlay.style.display = 'none';
+            overlay.style.display = 'none'; // Hide the overlay
         }
     }
 

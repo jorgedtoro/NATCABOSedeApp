@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using NATCABOSede.Services;
 using NATCABOSede.Interfaces;
 using System;
+using ClosedXML.Parser;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,8 +26,15 @@ Console.WriteLine($"Connection String: {connectionString}");
 builder.Services.AddControllersWithViews();
 
 //TODO: Registrar el contexto de base de datos
+//builder.Services.AddDbContext<NATCABOSede.Models.NATCABOContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("NATCABOConnection")));
+// Register the database context with a custom CommandTimeout
 builder.Services.AddDbContext<NATCABOSede.Models.NATCABOContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("NATCABOConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("NATCABOConnection"), sqlServerOptions =>
+    {
+        sqlServerOptions.CommandTimeout(60); // Set timeout to 60 seconds
+    }));
+
 
 
 // Registro del servicio KPIService J.Toro

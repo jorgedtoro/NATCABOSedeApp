@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var lineaText = element.options[element.selectedIndex]?.text || 'Línea desconocida';
 
-        //showLoading(); // Show loading overlay
+        overlayManager.show(); // Show overlay before the request
 
         fetch(obtenerDatosUrlAction + '?lineaSeleccionada=' + linea)
             .then(function (response) {
@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .finally(function () {
                 //hideLoading(); // Hide loading overlay
+                overlayManager.hide(); // Hide overlay after content is updated
             });
     }
 

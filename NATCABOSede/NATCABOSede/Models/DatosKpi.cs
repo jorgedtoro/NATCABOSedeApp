@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Permissions;
 
 namespace NATCABOSede.Models;
 
@@ -54,4 +55,5 @@ public partial class DatosKpi
     public double PPM_Bizerba { get; set; }
     public double PM_Bizerba { get; set; }
     public double HorasTotales { get; set; }
+    //Public double PPM_5min { get; set; }
 }

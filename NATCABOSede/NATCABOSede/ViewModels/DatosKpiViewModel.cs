@@ -25,6 +25,9 @@
 
         //Propiedades para manejo de colores
         public double ppm_objetivo { get; set; }
+
+        public double Ppm_5min { get; set; }
+
         public string PpmCardClass { get; set; }
     }
 }

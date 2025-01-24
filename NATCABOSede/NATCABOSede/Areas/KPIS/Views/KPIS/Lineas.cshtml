@@ -1,0 +1,37 @@
+﻿@model List<NATCABOSede.ViewModels.DatosKpiViewModel>
+
+<h1 class="text-center">KPIs por Línea</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="table-primary">
+            <tr>
+                <th>Cliente</th>
+                <th>Producto</th>
+                <th>PPM</th>
+                <th>PM</th>
+                <th>Extra Peso (Kg)</th>
+                <th>Inicio</th>
+                <th>Fin Aproximada</th>
+                <th>% Pedido</th>
+                <th>Coste MOD</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Cliente</td>
+                    <td>@item.Producto</td>
+                    <td>@item.PPM.ToString("F2")</td>
+                    <td>@item.PM.ToString("F2")</td>
+                    <td>@item.ExtraPeso.ToString("F2")</td>
+                    <td>@item.HoraInicio.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@item.HoraFinAproximada.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@item.PorcentajePedido.ToString("F2")%</td>
+                    <td>@item.CosteMOD.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

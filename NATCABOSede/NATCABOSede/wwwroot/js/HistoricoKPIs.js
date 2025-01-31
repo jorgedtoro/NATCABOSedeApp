@@ -67,18 +67,18 @@ function updateTable(data) {
     } else {
         contenido = data.map(item => `
             <tr>
-                <td>${item.NombreLinea || item.NombreLinea}</td>
-                <td>${item.lote}</td>
-                <td>${item.confeccion || item.Confeccion}</td>
-                <td class="numeric">${item.nPaquetes}</td>
-                <td class="numeric">${item.nMinutos}</td>
-                <td class="numeric">${item.nOperarios}</td>
-                <td class="numeric">${formatearNumero(item.totalWeight)}</td>
-                <td class="numeric">${item.fTarget}</td>
-                <td class="numeric">${formatearNumero(item.kpiPpm)}</td>
-                <td class="numeric">${formatearNumero(item.kpiPm)}</td>
-                <td class="numeric">${formatearNumero(item.kpiExtrapeso)}</td>
                 <td class="numeric">${new Date(item.fecha).toLocaleDateString()}</td>
+                <td>${item.nombreLinea || item.NombreLinea}</td>
+                <td>${item.confeccion || item.Confeccion}</td>
+                <td class="numeric">${formatearNumero(item.ppM_Marco)}</td>
+                <td class="numeric">${formatearNumero(item.pM_Marco)}</td>
+                <td class="numeric">${formatearNumero(item.pM_Bizerba)}</td>
+                <td class="numeric">${formatearNumero(item.extrapeso_Marco)}</td>
+                <td class="numeric">${formatearNumero(item.desecho_Kg)}</td>
+                <td class="numeric">${formatearNumero(item.desecho_Perc)}</td>
+                <td class="numeric">${formatearNumero(item.ftt)}</td>
+                <td class="numeric">${formatearNumero(item.mod)}</td>
+               
             </tr>
         `).join('');
     }
@@ -98,13 +98,13 @@ function actualizarGraficos(data) {
     const valores = data.map(item => {
         switch (kpiSeleccionado) {
             case "kpiPpm":
-                return item.kpiPpm;
+                return item.ppM_Marco;
             case "kpiPm":
-                return item.kpiPm;
+                return item.pM_Marco;
             case "kpiExtrapeso":
-                return item.kpiExtrapeso;
+                return item.extrapeso_Marco;
             default:
-                return item.kpiPpm;
+                return item.ppM_Marco;
         }
     });
 
@@ -409,100 +409,3 @@ cargarLineasHistorico();
 // Cargar las confecciones al cargar la página (sin filtrar por línea)
 cargarConfeccionesHistorico();
 
-//document.addEventListener('DOMContentLoaded', function () {
-//    const obtenerLineasHistoricoUrlAction = window.appSettings.obtenerLineasHistoricoUrlAction;
-//    const obtenerConfeccionesHistoricoUrlAction = window.appSettings.obtenerConfeccionesHistoricoUrlAction;
-
-//    const lineaSeleccionada = document.getElementById("lineaSeleccionada");
-//    const confeccionSeleccionada = document.getElementById("confeccionSeleccionada");
-
-//    /**
-//     * Carga las líneas históricas desde el servidor y las agrega al dropdown.
-//     */
-//    function cargarLineasHistorico() {
-//        fetch(obtenerLineasHistoricoUrlAction)
-//            .then(response => {
-//                if (!response.ok) throw new Error('Error fetching lineas historico');
-//                return response.json();
-//            })
-//            .then(lineas => {
-//                lineaSeleccionada.innerHTML = ''; // Clear existing options
-//                const placeholderOption = document.createElement('option');
-//                placeholderOption.value = '';
-//                placeholderOption.textContent = 'Seleccione una línea';
-//                placeholderOption.disabled = true;
-//                placeholderOption.selected = true;
-//                lineaSeleccionada.appendChild(placeholderOption);
-
-//                if (lineas.length === 0) {
-//                    const noLinesOption = document.createElement('option');
-//                    noLinesOption.textContent = 'No existen líneas';
-//                    noLinesOption.disabled = true;
-//                    noLinesOption.selected = true;
-//                    lineaSeleccionada.appendChild(noLinesOption);
-//                    return;
-//                }
-
-//                const uniqueLineas = new Set();
-//                lineas.forEach(linea => uniqueLineas.add(JSON.stringify(linea)));
-//                const filteredLineas = Array.from(uniqueLineas).map(linea => JSON.parse(linea));
-//                filteredLineas.sort((a, b) => a.NombreLinea.localeCompare(b.NombreLinea));
-
-//                filteredLineas.forEach(linea => {
-//                    const option = document.createElement('option');
-//                    option.value = linea.lineaId;
-//                    option.textContent = linea.NombreLinea;
-//                    lineaSeleccionada.appendChild(option);
-//                });
-//            })
-//            .catch(error => console.error('Error cargando líneas:', error));
-//    }
-//    /**
-//     * Carga las confecciones históricas desde el servidor y las agrega al dropdown.
-//     * @param {number} [lineaId=null] - Opcional. Filtra las confecciones por línea.
-//     */
-//    function cargarConfeccionesHistorico() {
-//       // console.log('Cargando Confecciones disponibles para el histórico...')
-//        fetch(obtenerConfeccionesHistoricoUrlAction)
-//            .then(response => {
-//                if (!response.ok) throw new Error('Error fetching confecciones historico');
-//                return response.json();
-//            })
-
-//            .then(confecciones => {
-//                confeccionSeleccionada.innerHTML = ''; // Clear existing options
-//                const placeholderOption = document.createElement('option');
-//                placeholderOption.value = '';
-//                placeholderOption.textContent = 'Seleccione una confección';
-//                placeholderOption.disabled = true;
-//                placeholderOption.selected = true;
-//                confeccionSeleccionada.appendChild(placeholderOption);
-//                if (confecciones.length === 0) {
-//                    const noConfeccionesOption = document.createElement('option');
-//                    noConfeccionesOption.textContent = 'No existen confecciones';
-//                    noConfeccionesOption.disabled = true;
-//                    noConfeccionesOption.selected = true;
-//                    confeccionSeleccionada.appendChild(noConfeccionesOption);
-//                    return;
-//                }
-
-//                const uniqueConfecciones = new Set();
-//                confecciones.forEach(confeccion => uniqueConfecciones.add(JSON.stringify(confeccion)));
-//                const filteredConfecciones = Array.from(uniqueConfecciones).map(confeccion => JSON.parse(confeccion));
-//                filteredConfecciones.sort((a, b) => a.confeccion.localeCompare(b.confeccion));
-
-
-//                filteredConfecciones.forEach(confeccion => {
-//                    const option = document.createElement('option');
-//                    option.value = confeccion.confeccion;
-//                    option.textContent = confeccion.confeccion;
-//                    confeccionSeleccionada.appendChild(option);
-//                });
-//            })
-//            .catch(error => console.error('Error cargando confecciones:', error));
-//    }
-//    // Cargar las líneas al cargar la página
-//    cargarLineasHistorico();
-//    // Cargar las confecciones al cargar la página (sin filtrar por línea)
-//    cargarConfeccionesHistorico();
-//});

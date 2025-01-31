@@ -48,4 +48,12 @@ public partial class DatosKpi
     public int PaquetesTotalesDisc { get; set; }
 
     public int PesoTotalRealDisc { get; set; }
+
+    public int? NPaquetes5min { get; set; }
+
+    public int? PpmMarco { get; set; }
+
+    public int? PpmBizerba { get; set; }
+
+    public int? TotalHours { get; set; }
 }

@@ -11596,25 +11596,25 @@
     ]
   },
   "packageFolders": {
-    "/Users/jorgedetoro/.nuget/packages/": {}
+    "C:\\Users\\jorge\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jorgedetoro/Desktop/Code/NATCABOSedeApp/NATCABOSede/NATCABOSede/NATCABOSede.csproj",
+      "projectUniqueName": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
       "projectName": "NATCABOSede",
-      "projectPath": "/Users/jorgedetoro/Desktop/Code/NATCABOSedeApp/NATCABOSede/NATCABOSede/NATCABOSede.csproj",
-      "packagesPath": "/Users/jorgedetoro/.nuget/packages/",
-      "outputPath": "/Users/jorgedetoro/Desktop/Code/NATCABOSedeApp/NATCABOSede/NATCABOSede/obj/",
+      "projectPath": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
+      "packagesPath": "C:\\Users\\jorge\\.nuget\\packages\\",
+      "outputPath": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/jorgedetoro/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\jorge\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/sdk/7.0.317/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -11627,6 +11627,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -11681,7 +11686,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.317/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.405\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -67,7 +67,7 @@ function updateTable(data) {
     } else {
         contenido = data.map(item => `
             <tr>
-                <td>${item.sName || item.SName}</td>
+                <td>${item.NombreLinea || item.NombreLinea}</td>
                 <td>${item.lote}</td>
                 <td>${item.confeccion || item.Confeccion}</td>
                 <td class="numeric">${item.nPaquetes}</td>
@@ -94,7 +94,7 @@ function actualizarGraficos(data) {
     if (!data || data.length === 0) return;
 
     const kpiSeleccionado = document.getElementById("kpiSelect").value;
-    const etiquetas = data.map(item => item.sName);
+    const etiquetas = data.map(item => item.NombreLinea);
     const valores = data.map(item => {
         switch (kpiSeleccionado) {
             case "kpiPpm":
@@ -127,7 +127,7 @@ function actualizarGraficos(data) {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                x: { title: { display: true, text: 'sName' } },
+                x: { title: { display: true, text: 'NombreLinea' } },
                 y: { title: { display: true, text: kpiSeleccionado.toUpperCase() } }
             }
         }
@@ -373,7 +373,7 @@ function cargarDropdown(url, selectElement, placeholderText, formatOption) {
 
             const uniqueItems = Array.from(new Set(items.map(item => JSON.stringify(item)))).map(item => JSON.parse(item));
             uniqueItems.sort((a, b) => {
-                if (a.sName && b.sName) return a.sName.localeCompare(b.sName);
+                if (a.NombreLinea && b.NombreLinea) return a.NombreLinea.localeCompare(b.NombreLinea);
                 if (a.confeccion && b.confeccion) return a.confeccion.localeCompare(b.confeccion);
                 return 0;
             });
@@ -392,7 +392,7 @@ function cargarLineasHistorico() {
         window.appSettings.obtenerLineasHistoricoUrlAction,
         document.getElementById("lineaSeleccionada"),
         'Seleccione una línea',
-        (item, isText = false) => isText ? item.sName : item.lineaId
+        (item, isText = false) => isText ? item.NombreLinea : item.lineaId
     );
 }
 
@@ -446,12 +446,12 @@ cargarConfeccionesHistorico();
 //                const uniqueLineas = new Set();
 //                lineas.forEach(linea => uniqueLineas.add(JSON.stringify(linea)));
 //                const filteredLineas = Array.from(uniqueLineas).map(linea => JSON.parse(linea));
-//                filteredLineas.sort((a, b) => a.sName.localeCompare(b.sName));
+//                filteredLineas.sort((a, b) => a.NombreLinea.localeCompare(b.NombreLinea));
 
 //                filteredLineas.forEach(linea => {
 //                    const option = document.createElement('option');
 //                    option.value = linea.lineaId;
-//                    option.textContent = linea.sName;
+//                    option.textContent = linea.NombreLinea;
 //                    lineaSeleccionada.appendChild(option);
 //                });
 //            })

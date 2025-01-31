@@ -25,7 +25,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             // No cargar datos históricos inicialmente
             // Obtener líneas disponibles
             var lineas = _context.KpisHistoricos
-                .Select(d => new { d.LineaId, d.SName })
+                .Select(d => new { d.LineaId, d.NombreLinea })
                 .Distinct()
                 .ToList();
 
@@ -174,17 +174,17 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 int row = 2;
                 foreach (var item in resultados)
                 {
-                    worksheet.Cell(row, 1).Value = item.SName;
-                    worksheet.Cell(row, 2).Value = item.Lote;
+                   // worksheet.Cell(row, 1).Value = item.SName;
+                   // worksheet.Cell(row, 2).Value = item.Lote;
                     worksheet.Cell(row, 3).Value = item.Confeccion;
-                    worksheet.Cell(row, 4).Value = item.NPaquetes;
-                    worksheet.Cell(row, 5).Value = item.NMinutos;
-                    worksheet.Cell(row, 6).Value = item.NOperarios;
-                    worksheet.Cell(row, 7).Value = item.TotalWeight;
-                    worksheet.Cell(row, 8).Value = item.FTarget;
-                    worksheet.Cell(row, 9).Value = item.KpiPpm;
-                    worksheet.Cell(row, 10).Value = item.KpiPm;
-                    worksheet.Cell(row, 11).Value = item.KpiExtrapeso;
+                   // worksheet.Cell(row, 4).Value = item.NPaquetes;
+                   // worksheet.Cell(row, 5).Value = item.NMinutos;
+                  //  worksheet.Cell(row, 6).Value = item.NOperarios;
+                  //  worksheet.Cell(row, 7).Value = item.TotalWeight;
+                  //  worksheet.Cell(row, 8).Value = item.FTarget;
+                   // worksheet.Cell(row, 9).Value = item.KpiPpm;
+                  //  worksheet.Cell(row, 10).Value = item.KpiPm;
+                  //  worksheet.Cell(row, 11).Value = item.KpiExtrapeso;
                     worksheet.Cell(row, 12).Value = item.Fecha?.ToString("dd/MM/yyyy");
                     row++;
                 }
@@ -206,7 +206,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         public JsonResult ObtenerLineasHistorico()
         {
             var lineas = _context.KpisHistoricos
-                .Select(d => new { d.LineaId, d.SName })
+                .Select(d => new { d.LineaId, d.NombreLinea })
                 .ToList();
 
             if (!lineas.Any())

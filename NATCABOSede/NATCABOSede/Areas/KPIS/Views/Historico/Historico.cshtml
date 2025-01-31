@@ -26,7 +26,7 @@
                         }
                         <option value="" disabled selected>Cargando líneas...</option>
                     </select>
-               
+
                 </div>
             </div>
             <div class="col-md-3">
@@ -58,34 +58,34 @@
 
     <!-- Tabla -->
     <div class="table-responsive mt-4">
-        
-            <table class="table table-bordered table-striped">
-                <thead class="table-primary">
-                    <tr>
-                        <th>Línea</th>
-                        <th>Lote</th>
-                        <th>Confección</th>
-                        <th class="numeric">N° Paquetes</th>
-                        <th class="numeric">N° Operarios</th>
-                        <th class="numeric">Peso Total (Kg)</th>
-                        <th class="numeric">PPM</th>
-                        <th class="numeric">PM</th>
-                        <th class="numeric">Extrapeso (Kg)</th>
-                        <th class="numeric">Fecha Lote</th>
-                        <th class="numeric">KPI Extrapeso</th>
-                        <th class="numeric">Fecha de registro</th>
-                    </tr>
-                </thead>
-                <tbody id="tabla-historico">
-                    <!-- Inicialmente vacío -->
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-primary">
+                <tr>
+                    <th class="numeric">Fecha Lote</th>
+                    <th>Línea</th>
+                    <th>Confección</th>
+                    <th class="numeric">PPM</th>
+                    <th class="numeric">PM Marco</th>
+                    <th class="numeric">PM Bizerba</th>
+                    <th class="numeric">Extrapeso (Kg)</th>
+                    <th class="numeric">Desecho (Kg)</th>
+                    <th class="numeric">Desecho (%)</th>
+                    <th class="numeric">FTT</th>
+                    <th class="numeric">MOD</th>
+                </tr>
+
+            </thead>
+            <tbody id="tabla-historico">
+                <!-- Inicialmente vacío -->
                 <tr>
                     <td colspan="12" class="text-center">Por favor, realice un filtrado de datos para mostrar resultados</td>
                 </tr>
-              
-                </tbody>
-            </table>
-        
-        
+
+            </tbody>
+        </table>
+
+
 
     </div>
     <!-- Paginación -->
@@ -118,9 +118,9 @@
         <div class="col-md-3">
             <label for="kpiSelect" class="form-label">Seleccione el KPI:</label>
             <select id="kpiSelect" class="form-select">
-                <option value="kpiPpm">KPI PPM</option>
-                <option value="kpiPm">KPI PM</option>
-                <option value="kpiExtrapeso">KPI Extrapeso</option>
+                <option value="ppM_Marco">KPI PPM</option>
+                <option value="pM_Marco">KPI PM</option>
+                <option value="extrapeso_Marco">KPI Extrapeso</option>
             </select>
         </div>
     </div>

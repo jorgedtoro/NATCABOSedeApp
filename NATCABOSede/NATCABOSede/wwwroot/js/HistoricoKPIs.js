@@ -272,7 +272,7 @@ document.getElementById("btn-filtrar").addEventListener("click", function () {
             return;
         }
         // Preparar los datos de la solicitud
-        const requestData = {
+        const request = {
             lineaId,
             Confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
             desde: desde ? desde : null,
@@ -285,7 +285,7 @@ document.getElementById("btn-filtrar").addEventListener("click", function () {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             // body: JSON.stringify({ lineaId, desde, hasta })
-            body: JSON.stringify(requestData)
+            body: JSON.stringify(request)
         })
             .then(response => response.json())
             .then(data => {

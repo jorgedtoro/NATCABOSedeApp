@@ -21,7 +21,7 @@ public partial class NATCABOContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=dbGrupalia_aux;User ID=sa;Password=870104;TrustServerCertificate=True;Encrypt=False;");
+        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS01;Database=dbGrupalia_aux;User ID=sa;Password=870104;TrustServerCertificate=True;Encrypt=False;");
         //=> optionsBuilder.UseSqlServer("Server=C0K3\\SQLEXPRESS;Database=NATCABO;User ID=sa;Password=080506;TrustServerCertificate=True;Encrypt=False;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -81,7 +81,7 @@ public partial class NATCABOContext : DbContext
         {
             entity
                 .HasNoKey()
-                .ToTable("DatosKPIS_Historico");
+                .ToTable("DatosKPIs_Historico");
 
             //entity.Property(e => e.Confeccion).HasMaxLength(255); //??
 
@@ -101,10 +101,9 @@ public partial class NATCABOContext : DbContext
             entity.Property(e => e.LineaId).HasColumnName("IdLinea");
             entity.Property(e => e.Desecho_Kg).HasColumnName("Desecho_Kg");
             entity.Property(e => e.Desecho_Perc).HasColumnName("Desecho_Perc");
-            //entity.Property(e => e.Lote).HasMaxLength(255);
-            //entity.Property(e => e.NMinutos).HasColumnName("N_Minutos");
-            //entity.Property(e => e.NOperarios).HasColumnName("N_Operarios");
-            //entity.Property(e => e.NPaquetes).HasColumnName("N_Paquetes");
+            entity.Property(e => e.MOD).HasColumnName("MOD");
+            entity.Property(e => e.FTT).HasColumnName("FTT");
+
 
 
             entity.Property(e => e.NombreCliente)

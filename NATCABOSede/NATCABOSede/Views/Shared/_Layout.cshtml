@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    
+
 </head>
 <body>
     @{
@@ -48,8 +48,14 @@
                             <a class="nav-link @(currentController == "Home" && currentAction == "Index" && currentArea == "" ? "active" : "")"
                                asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        @*
                         <li class="nav-item">
-                            <a id="kpisLive-link" class="nav-link @(currentController == "KPIS" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
+                            <a class="nav-link @(currentController == "KPIS" && currentAction == "Lineas" && currentArea == "KPIS" ? "active" : "")"
+                               asp-area="KPIS" asp-controller="KPIS" asp-action="Lineas">KPIs Líneas</a>
+                        </li>
+                        *@
+                        <li class="nav-item">
+                            <a id="kpisLiveLineas-link" class="nav-link @(currentController == "KPIS" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="KPIS" asp-action="Index">KPIS</a>
                         </li>
                         <li class="nav-item">

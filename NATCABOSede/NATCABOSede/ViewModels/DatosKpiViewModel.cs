@@ -3,6 +3,7 @@
     public class DatosKpiViewModel
     {
         // Información general
+        public string NombreLinea { get; set; }
         public string Cliente { get; set; }
         public string Producto { get; set; }
        

@@ -114,7 +114,7 @@ namespace NATCABOSede.Services
             var ppm_disc = datos.PPM_Bizerba;
             var pm = CalcularPM(datos.PaquetesValidos, datos.MinutosTrabajados);
             var extraPeso = CalcularExtrapeso(datos.PesoTotalReal, datos.PesoObjetivo, datos.PaquetesValidos);
-            var extraPeso_Disc = CalcularExtrapeso(datos.PesoTotalRealDisc, datos.PesoObjetivo, datos.PaquetesTotalesDisc);
+            var extraPeso_Disc = CalcularExtrapeso(datos.PesoTotalRealDisc, datos.PesoObjetivo, datos.PaquetesTotalesDisc-datos.PaquetesRechazadosDisc);
             //var horaFinAproximada = CalcularHoraFin(datos.HoraInicioProduccion, (int)(datos.PaquetesRequeridos - datos.PaquetesValidos), mediaPaquetesPorMinuto);
             var horaFinAproximada = CalcularHoraFin(datos.HoraInicioProduccion, (int)(datos.PaquetesRequeridos - datos.PaquetesValidos), datos.PpmPromedio_5min);
             var porcentajePedido = CalcularPorcentajePedido((int)(datos.PaquetesValidos), (int)(datos.PaquetesRequeridos));

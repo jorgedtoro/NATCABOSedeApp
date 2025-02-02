@@ -205,5 +205,29 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             }
             return default;
         }
+
+        //Código nuevo para la inclusión de las líneas activas en una misma tabla
+        public IActionResult Lineas()
+        {
+            var kpisLineas = _context.DatosKpis
+                .Select(d => new DatosKpiViewModel
+                {
+                    NombreLinea=d.NombreLinea,
+                    Cliente = d.NombreCliente,
+                    Producto = d.NombreProducto,
+                    PPM = _kpiService.CalcularPPM(d.PaquetesValidos, d.MinutosTrabajados, d.NumeroOperadores),
+                    PM = _kpiService.CalcularPM(d.PaquetesValidos, d.MinutosTrabajados),
+                    ExtraPeso = _kpiService.CalcularExtrapeso(d.PesoTotalReal, d.PesoObjetivo, d.PaquetesValidos),
+                    HoraInicio = d.HoraInicioProduccion,
+                    HoraFinAproximada = _kpiService.CalcularHoraFin(d.HoraInicioProduccion, d.PaquetesRequeridos - d.PaquetesValidos, d.PaquetesValidos / d.MinutosTrabajados),
+                    PorcentajePedido = _kpiService.CalcularPorcentajePedido(d.PaquetesValidos, d.PaquetesRequeridos),
+                    CosteMOD=_kpiService.CalcularCosteMOD(d.HorasTotales,d.CosteHora,d.PaquetesValidos,d.PesoObjetivo),
+                    ppm_objetivo=d.PpmObjetivo
+                })
+                .ToList();
+
+            return View(kpisLineas);
+        }
+
     }
 }

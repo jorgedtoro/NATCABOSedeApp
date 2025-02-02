@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Actualización del último timestamp
         var now = new Date();
         lastUpdatedElement.innerText = 'Última actualización: ' + now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-    }, 60000);
+    }, 120000);
 });
 
 

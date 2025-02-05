@@ -248,13 +248,14 @@ function loadPage(page) {
 
 // Manejar el clic en el botón "Filtrar"
 document.getElementById("btn-filtrar").addEventListener("click", function () {
-    const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    // const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    lineaId = 1;
     const confeccion = document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
     const desde = new Date(document.getElementById("desde").value).toISOString();
     const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
     // Validación: Línea, Desde y Hasta son obligatorios
-    if (!lineaId || !desde || !hasta) {
+    if (!desde || !hasta) {
         mostrarAlerta("Por favor, complete los campos de Línea, Desde y Hasta.");
         return;
     }
@@ -279,6 +280,7 @@ document.getElementById("btn-filtrar").addEventListener("click", function () {
         // body: JSON.stringify({ lineaId, desde, hasta })
         body: JSON.stringify(requestData)
     })
+       
         .then(response => response.json())
         .then(data => {
             datosFiltrados = data.data;
@@ -392,7 +394,7 @@ function cargarLineasHistorico() {
         window.appSettings.obtenerLineasHistoricoUrlAction,
         document.getElementById("lineaSeleccionada"),
         'Seleccione una línea',
-        (item, isText = false) => isText ? item.NombreLinea : item.lineaId
+        (item, isText = false) => isText ? item.NombreLinea : item.Idlinea
     );
 }
 

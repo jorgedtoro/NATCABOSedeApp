@@ -2,7 +2,7 @@
 {
     public class FiltrarRequest
     {
-        public int? LineaId { get; set; }
+        public int? IdLinea { get; set; }
         public string Confeccion { get; set; }
         public DateTime? Desde { get; set; }
         public DateTime? Hasta { get; set; }

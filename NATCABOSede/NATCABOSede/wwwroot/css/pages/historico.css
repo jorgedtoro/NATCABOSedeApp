@@ -5,5 +5,8 @@
 .numeric {
     text-align: center; /* Centers the content horizontally */
 }
+#lineaSeleccionada{
+    color:black !important;
+}
 
 

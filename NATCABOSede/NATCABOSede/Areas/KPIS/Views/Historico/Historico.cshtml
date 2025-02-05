@@ -14,17 +14,17 @@
             <div class="col-md-3">
                 <div class="mb-3">
                     <label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
-                    <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
+                    <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select" style="color:black;">
                         @if (ViewBag.LineasDisponibles != null)
                         {
                             foreach (var linea in ViewBag.LineasDisponibles)
                             {
-                                <option value="@linea.LineaId" @(ViewBag.LineaSeleccionada == linea.LineaId ? "selected" : "")>
+                                <option value="@linea.IdLinea" @(ViewBag.LineaSeleccionada == linea.IdLinea ? "selected" : "")>
                                     @linea.NombreLinea
                                 </option>
                             }
                         }
-                        <option value="" disabled selected>Cargando líneas...</option>
+                        @* <option value="" disabled selected>Cargando líneas...</option> *@
                     </select>
 
                 </div>

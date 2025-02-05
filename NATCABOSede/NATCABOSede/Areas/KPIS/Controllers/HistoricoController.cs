@@ -98,7 +98,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             }
 
             // Preparar parámetros para el SP
-            var IdLineaParam = new SqlParameter("@lineaId", System.Data.SqlDbType.Int);
+            var IdLineaParam = new SqlParameter("@IdLinea", System.Data.SqlDbType.Int);
             IdLineaParam.Value = request.IdLinea.HasValue ? (object)request.IdLinea.Value : DBNull.Value;
 
             var confeccionParam = new SqlParameter("@confeccion", System.Data.SqlDbType.NVarChar, 50);
@@ -135,7 +135,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 worksheet.Cell(1, 14).Value = "paquetesValidos";
                 worksheet.Cell(1, 15).Value = "pesoTotalReal";
                 worksheet.Cell(1, 16).Value = "TotalHours";
-
+              
                 int row = 2;
                 foreach (var item in data)
                 {

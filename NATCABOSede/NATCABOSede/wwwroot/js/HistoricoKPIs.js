@@ -248,17 +248,17 @@ function loadPage(page) {
 
 // Manejar el clic en el botón "Filtrar"
 document.getElementById("btn-filtrar").addEventListener("click", function () {
-    // const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
-    lineaId = 1;
+    const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
     const confeccion = document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
     const desde = new Date(document.getElementById("desde").value).toISOString();
     const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
     // Validación: Línea, Desde y Hasta son obligatorios
-    if (!desde || !hasta) {
-        mostrarAlerta("Por favor, complete los campos de Línea, Desde y Hasta.");
+    if (!(lineaId || confeccion) || !desde || !hasta) {
+        alert("Por favor, complete todos los campos del filtro (linea o confección, y fecha inicio y fecha fin).");
         return;
     }
+
     // Validación: 'hasta' debe ser mayor o igual a 'desde'
     if (!validarFechas(desde, hasta)) {
         mostrarAlerta("La fecha 'Hasta' debe ser posterior o igual a la fecha 'Desde'.");
@@ -312,18 +312,20 @@ document.getElementById("kpiSelect").addEventListener("change", function () {
 // Manejar el clic en el botón "Exportar a Excel"
 document.getElementById("btn-export-excel").addEventListener("click", function () {
     const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    const confeccion = document.getElementById("confeccionSeleccionada").value;   
     const desde = new Date(document.getElementById("desde").value).toISOString();
     const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
-    if (!lineaId || !desde || !hasta) {
+    if (!(lineaId || confeccion) || !desde || !hasta) {
         alert("Por favor, para exportar datos complete todos los campos del filtro.");
         return;
     }
 
+
     fetch('/KPIS/Historico/ExportarExcel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lineaId, desde, hasta })
+        body: JSON.stringify({ lineaId, confeccion,desde, hasta })
     })
         .then(response => response.blob())
         .then(blob => {

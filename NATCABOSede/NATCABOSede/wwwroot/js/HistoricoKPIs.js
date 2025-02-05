@@ -396,7 +396,13 @@ function cargarLineasHistorico() {
         window.appSettings.obtenerLineasHistoricoUrlAction,
         document.getElementById("lineaSeleccionada"),
         'Seleccione una línea',
-        (item, isText = false) => isText ? item.NombreLinea : item.Idlinea
+        (item, isText = false) => {
+            if (isText) {
+                return item.NombreLinea || item.nombreLinea;
+            } else {
+                return item.IdLinea || item.idLinea;
+            }
+        }
     );
 }
 

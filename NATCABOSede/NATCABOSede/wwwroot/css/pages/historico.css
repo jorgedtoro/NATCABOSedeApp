@@ -1,9 +1,15 @@
 ﻿body {
-
+    color:black;
 }
 
 .numeric {
     text-align: center; /* Centers the content horizontally */
 }
+#lineaSeleccionada{
+    color:black !important;
+}
 
+.center-text {
+    text-align: center;
+}
 

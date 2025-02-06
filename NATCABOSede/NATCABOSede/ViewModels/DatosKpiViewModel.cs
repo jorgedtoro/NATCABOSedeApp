@@ -6,7 +6,7 @@
         public string NombreLinea { get; set; }
         public string Cliente { get; set; }
         public string Producto { get; set; }
-       
+
         // KPIs
         public double PPM { get; set; }
         public double PPM_Disc { get; set; }

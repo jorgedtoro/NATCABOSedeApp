@@ -108,13 +108,11 @@ namespace NATCABOSede.Services
         }
         public DatosKpiViewModel GenerarDatosKpiViewModel(DatosKpi datos, double mediaPaquetesPorMinuto)
         {
-            //var ppm = CalcularPPM(datos.PaquetesValidos, datos.MinutosTrabajados, datos.NumeroOperadores);
-            //var ppm_disc = CalcularPPM(datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc, datos.MinutosTrabajados, datos.NumeroOperadores);
             var ppm = datos.PPM_Marco;
             var ppm_disc = datos.PPM_Bizerba;
             var pm = CalcularPM(datos.PaquetesValidos, datos.MinutosTrabajados);
             var extraPeso = CalcularExtrapeso(datos.PesoTotalReal, datos.PesoObjetivo, datos.PaquetesValidos);
-            var extraPeso_Disc = CalcularExtrapeso(datos.PesoTotalRealDisc, datos.PesoObjetivo, datos.PaquetesTotalesDisc-datos.PaquetesRechazadosDisc);
+            var extraPeso_Disc = CalcularExtrapeso(datos.PesoTotalRealDisc, datos.PesoObjetivo, datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc);
             //var horaFinAproximada = CalcularHoraFin(datos.HoraInicioProduccion, (int)(datos.PaquetesRequeridos - datos.PaquetesValidos), mediaPaquetesPorMinuto);
             var horaFinAproximada = CalcularHoraFin(datos.HoraInicioProduccion, (int)(datos.PaquetesRequeridos - datos.PaquetesValidos), datos.PpmPromedio_5min);
             var porcentajePedido = CalcularPorcentajePedido((int)(datos.PaquetesValidos), (int)(datos.PaquetesRequeridos));
@@ -129,12 +127,13 @@ namespace NATCABOSede.Services
                 PPM_Disc = ppm_disc,
                 PM = pm,
                 ExtraPeso = extraPeso,
-                ExtraPeso_Disc= extraPeso_Disc,
+                ExtraPeso_Disc = extraPeso_Disc,
                 HoraInicio = datos.HoraInicioProduccion,
                 HoraFinAproximada = horaFinAproximada,
                 PorcentajePedido = porcentajePedido,
                 CosteMOD = costeMOD,
                 Ppm_5min = ppm5min
+
             };
         }
     }

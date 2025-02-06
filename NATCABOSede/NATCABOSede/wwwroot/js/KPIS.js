@@ -8,19 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función para actualizar el dropdown de líneas activas
     //TODO: quitar esta forma. Lineas desde el controller
-
-    ////*** OVERLAY ***/
-    //// Show loading overlay
-    //function showLoading() {
-    //    document.getElementById('loading-overlay').style.display = 'flex';
-    //}
-
-    //// Hide loading overlay
-    //function hideLoading() {
-    //    document.getElementById('loading-overlay').style.display = 'none';
-    //}
-    ////***************/
-
     function actualizarDropdownLineasActivas() {
         console.log('Fetching lines from:', obtenerLineasUrlAction);
 
@@ -66,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     option.value = linea.idLinea;
                     option.textContent = linea.nombreLinea;
 
-                    // Mantenemos la lína seleccionada previamente, si es que sigue activa
+                    // Mantenemos la línea seleccionada previamente, si es que sigue activa
                     if (linea.idLinea == selectedValue) {
                         option.selected = true;
                         foundSelectedValue = true;

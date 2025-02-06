@@ -212,7 +212,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             var kpisLineas = _context.DatosKpis
                 .Select(d => new DatosKpiViewModel
                 {
-                    NombreLinea=d.NombreLinea,
+                    NombreLinea = d.NombreLinea,
                     Cliente = d.NombreCliente,
                     Producto = d.NombreProducto,
                     PPM = _kpiService.CalcularPPM(d.PaquetesValidos, d.MinutosTrabajados, d.NumeroOperadores),
@@ -221,13 +221,12 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     HoraInicio = d.HoraInicioProduccion,
                     HoraFinAproximada = _kpiService.CalcularHoraFin(d.HoraInicioProduccion, d.PaquetesRequeridos - d.PaquetesValidos, d.PaquetesValidos / d.MinutosTrabajados),
                     PorcentajePedido = _kpiService.CalcularPorcentajePedido(d.PaquetesValidos, d.PaquetesRequeridos),
-                    CosteMOD=_kpiService.CalcularCosteMOD(d.HorasTotales,d.CosteHora,d.PaquetesValidos,d.PesoObjetivo),
-                    ppm_objetivo=d.PpmObjetivo
+                    CosteMOD = _kpiService.CalcularCosteMOD(d.HorasTotales, d.CosteHora, d.PaquetesValidos, d.PesoObjetivo),
+                    ppm_objetivo = d.PpmObjetivo
                 })
                 .ToList();
 
             return View(kpisLineas);
         }
-
     }
 }

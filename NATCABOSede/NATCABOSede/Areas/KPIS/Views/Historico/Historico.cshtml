@@ -13,20 +13,23 @@
         <form id="filtro-form" class="row g-3">
             <div class="col-md-3">
                 <div class="mb-3">
-                    <label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
-                    <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
+                    @*<label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
+                    <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select" style="color:black;">
                         @if (ViewBag.LineasDisponibles != null)
                         {
                             foreach (var linea in ViewBag.LineasDisponibles)
                             {
-                                <option value="@linea.LineaId" @(ViewBag.LineaSeleccionada == linea.LineaId ? "selected" : "")>
+                                <option value="@linea.IdLinea" @(ViewBag.LineaSeleccionada == linea.IdLinea ? "selected" : "")>
                                     @linea.NombreLinea
                                 </option>
                             }
-                        }
+                        }*@
+                        @* <option value="" disabled selected>Cargando líneas...</option> *@
+                    @*</select>*@
+                    <label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
+                    <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
                         <option value="" disabled selected>Cargando líneas...</option>
                     </select>
-               
                 </div>
             </div>
             <div class="col-md-3">
@@ -58,12 +61,12 @@
 
     <!-- Tabla -->
     <div class="table-responsive mt-4">
+
         <table class="table table-bordered table-striped">
             <thead class="table-primary">
                 <tr>
                     <th class="numeric">Fecha Lote</th>
                     <th>Línea</th>
-                    <!--th>Lote</th>-->
                     <th>Confección</th>
                     <th class="numeric">PPM</th>
                     <th class="numeric">PM Marco</th>
@@ -74,16 +77,20 @@
                     <th class="numeric">FTT</th>
                     <th class="numeric">MOD</th>
                 </tr>
+
             </thead>
-                <tbody id="tabla-historico">
-                    <!-- Inicialmente vacío -->
+            <tbody id="tabla-historico">
+                <!-- Inicialmente vacío -->
                 <tr>
                     <td colspan="12" class="text-center">Por favor, realice un filtrado de datos para mostrar resultados</td>
                 </tr>
-              
-                </tbody>
+
+            </tbody>
         </table>
-      </div>
+
+
+
+    </div>
     <!-- Paginación -->
     <nav aria-label="Paginación">
         <ul class="pagination justify-content-center">
@@ -131,6 +138,22 @@
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            const today = new Date();
+            const yesterday = new Date();
+            yesterday.setDate(today.getDate() - 1); // Set to yesterday
+
+            // Format the date as YYYY-MM-DD for input type="date"
+            const formatDate = (date) => date.toISOString().split('T')[0];
+
+            document.getElementById("desde").value = formatDate(yesterday);
+            document.getElementById("hasta").value = formatDate(today);
+        });
+    </script>
+
+
     <script>
         window.appSettings = {
             obtenerLineasHistoricoUrlAction: '@Url.Action("ObtenerLineasHistorico", "Historico", new { area = "KPIS" })',

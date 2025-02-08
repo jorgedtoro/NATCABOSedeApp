@@ -52,62 +52,70 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         public async Task<IActionResult> Filtrar([FromBody] FiltrarRequest request)
         {
             if (request == null)
-
             {
                 return BadRequest("Solicitud inválida.");
             }
+
             var query = _context.KpisHistoricos.AsQueryable();
 
-            //Filtro de linea si se proporciona
-            if (request.LineaId.HasValue)
-
+            // Filtrar por IdLinea si se proporciona
+            if (request.IdLinea.HasValue)
             {
-                return BadRequest("Solicitud inválida.");
+                query = query.Where(h => h.IdLinea == request.IdLinea);
             }
 
             try
-            // Filtrar por Confección si se proporciona y no está vacío
-            if (!string.IsNullOrWhiteSpace(request.Confeccion))
             {
-                query = query.Where(h => h.Confeccion == request.Confeccion);
-            }
-            if (request.Desde.HasValue)
+                // Filtrar por Confección si se proporciona y no está vacío
+                if (!string.IsNullOrWhiteSpace(request.Confeccion))
+                {
+                    query = query.Where(h => h.Confeccion == request.Confeccion);
+                }
 
-            {
-                // Preparar los parámetros para el SP
-                var idLineaParam = new SqlParameter("@idLinea", System.Data.SqlDbType.Int);
-                idLineaParam.Value = request.IdLinea.HasValue ? (object)request.IdLinea.Value : DBNull.Value;
+                if (request.Desde.HasValue)
+                {
+                    // Preparar los parámetros para el SP
+                    var idLineaParam = new SqlParameter("@idLinea", System.Data.SqlDbType.Int)
+                    {
+                        Value = request.IdLinea.HasValue ? (object)request.IdLinea.Value : DBNull.Value
+                    };
 
-                var confeccionParam = new SqlParameter("@confeccion", System.Data.SqlDbType.NVarChar, 50);
-                confeccionParam.Value = string.IsNullOrWhiteSpace(request.Confeccion) ? (object)DBNull.Value : request.Confeccion;
+                    var confeccionParam = new SqlParameter("@confeccion", System.Data.SqlDbType.NVarChar, 50)
+                    {
+                        Value = string.IsNullOrWhiteSpace(request.Confeccion) ? (object)DBNull.Value : request.Confeccion
+                    };
 
-                var desdeParam = new SqlParameter("@desde", request.Desde);
-                var hastaParam = new SqlParameter("@hasta", request.Hasta);
+                    var desdeParam = new SqlParameter("@desde", request.Desde);
+                    var hastaParam = new SqlParameter("@hasta", request.Hasta);
 
-                // Ejecutar el procedimiento almacenado y mapear el resultado al DTO
-                var data = await _context.KpisHistoricoDtos
-                    .FromSqlRaw("EXEC dbo.Filtrar_DatosKPIs_Historico @idLinea, @confeccion, @desde, @hasta",
-                                idLineaParam, confeccionParam, desdeParam, hastaParam)
-                    .ToListAsync();
+                    // Ejecutar el procedimiento almacenado y mapear el resultado al DTO
+                    var data = await _context.KpisHistoricoDtos
+                        .FromSqlRaw("EXEC dbo.Filtrar_DatosKPIs_Historico @idLinea, @confeccion, @desde, @hasta",
+                                    idLineaParam, confeccionParam, desdeParam, hastaParam)
+                        .ToListAsync();
 
-                // Aplicar paginación en memoria (el SP no incluye paginación)
-                var totalRecords = data.Count;
-                var totalPages = (int)Math.Ceiling(totalRecords / (double)request.PageSize);
-                var pagedData = data
-                    .OrderByDescending(d => d.Fecha)
-                    .Skip((request.Page - 1) * request.PageSize)
-                    .Take(request.PageSize)
-                    .ToList();
+                    // Aplicar paginación en memoria (el SP no incluye paginación)
+                    var totalRecords = data.Count;
+                    var totalPages = (int)Math.Ceiling(totalRecords / (double)request.PageSize);
+                    var pagedData = data
+                        .OrderByDescending(d => d.Fecha)
+                        .Skip((request.Page - 1) * request.PageSize)
+                        .Take(request.PageSize)
+                        .ToList();
 
-                return Json(new { data = pagedData, totalPages });
+                    return Json(new { data = pagedData, totalPages });
+                }
+                else
+                {
+                    // Si no se proporciona la fecha 'Desde', retornar una lista vacía con 0 páginas.
+                    return Json(new { data = new List<object>(), totalPages = 0 });
+                }
             }
             catch (Exception ex)
             {
-                
                 Console.WriteLine(ex);
                 return StatusCode(500, new { error = ex.Message, stackTrace = ex.StackTrace });
             }
-
         }
 
         [HttpPost]
@@ -121,7 +129,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             var query = _context.KpisHistoricos.AsQueryable();
 
             // Filtrar por Línea si se proporciona
-            if (request.LineaId.HasValue)
+            if (request.IdLinea.HasValue)
             {
                 return BadRequest("Solicitud inválida.");
             }
@@ -193,7 +201,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 foreach (var item in data)
                 {
                     worksheet.Cell(row, 1).Value = item.Fecha?.ToString("dd/MM/yyyy");
-                    worksheet.Cell(row, 2).Value = item.NombreLinea;
+                    worksheet.Cell(row, 2).Value = item.nombreLinea;
                     worksheet.Cell(row, 3).Value = item.Confeccion;
                     worksheet.Cell(row, 4).Value = item.PPM_Marco;
                     worksheet.Cell(row, 5).Value = item.PM_Marco;
@@ -227,9 +235,9 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         //    var query = _context.KpisHistoricos.AsQueryable();
 
         //    //Filtro de linea si se proporciona
-        //    if (request.LineaId.HasValue)
+        //    if (request.IdLinea.HasValue)
         //    {
-        //        query = query.Where(h => h.IdLinea == request.LineaId.Value);
+        //        query = query.Where(h => h.IdLinea == request.IdLinea.Value);
         //    }
         //    // Filtrar por Confección si se proporciona y no está vacío
         //    if (!string.IsNullOrWhiteSpace(request.Confeccion))
@@ -277,9 +285,9 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         //    var query = _context.KpisHistoricos.AsQueryable();
 
         //    // Filtrar por Línea si se proporciona
-        //    if (request.LineaId.HasValue)
+        //    if (request.IdLinea.HasValue)
         //    {
-        //        query = query.Where(h => h.IdLinea == request.LineaId.Value);
+        //        query = query.Where(h => h.IdLinea == request.IdLinea.Value);
         //    }
 
         //    // Filtrar por Confección si se proporciona y no está vacío

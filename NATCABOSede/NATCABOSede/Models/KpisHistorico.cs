@@ -6,7 +6,7 @@ namespace NATCABOSede.Models;
 public partial class KpisHistorico
 {
     public double? Mod { get; set; }
-    
+
     public double? PpmMarco { get; set; }
 
     public double? PpmBizerba { get; set; }
@@ -28,6 +28,7 @@ public partial class KpisHistorico
     public string? NombreLinea { get; set; }
 
     public string? Confeccion { get; set; }
+
     public string? NombreCliente { get; set; }
 
     public DateTime? Fecha { get; set; }

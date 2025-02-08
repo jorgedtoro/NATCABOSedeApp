@@ -58,6 +58,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     PPM = 0,
                     PPM_Disc = 0,
                     PM = 0,
+                    PM_Disc=0,
                     ExtraPeso = 0,
                     HoraInicio = DateTime.Now,
                     HoraFinAproximada = DateTime.Now,
@@ -88,6 +89,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
         public IActionResult ObtenerKPIs(short lineaSeleccionada)
         {
+
             var datos = ObtenerDatosPorLinea(lineaSeleccionada);
 
             if (datos == null)
@@ -112,13 +114,15 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             var modelo = _kpiService.GenerarDatosKpiViewModel(datos, mediaPaquetesPorMinuto);
 
             // Realizar cálculos adicionales específicos para esta acción
-            modelo.PM_Disc = _kpiService.CalcularPM(datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc, datos.MinutosTrabajados);
+            //modelo.PM_Disc = _kpiService.CalcularPM(datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc, datos.MinutosTrabajados);
+            modelo.PM_Disc = datos.PM_Bizerba;
             modelo.PpmCardClass = GetColorClass(modelo.PPM, modelo.ppm_objetivo);
 
             // Añadir otros campos específicos
             modelo.FTT = _kpiService.CalcularFTT(datos.PaquetesTotalesDisc, datos.PaquetesRechazadosDisc);
+            modelo.PesoTotalDesperdicio = datos.PesoTotalDesperdicio;
             modelo.PorcentajeTotalDesperdicio = _kpiService.CalcularPorcentajeDesperdicio(datos.PesoTotalDesperdicio, datos.PesoTotalReal);
-            modelo.ppm_objetivo = 1.2; // Asignar el valor real según sea necesario
+            modelo.ppm_objetivo = datos.PpmObjetivo;
 
             return PartialView("_KPIsPartial", modelo);
         }
@@ -201,5 +205,29 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             }
             return default;
         }
+
+        //Código nuevo para la inclusión de las líneas activas en una misma tabla
+        public IActionResult Lineas()
+        {
+            var kpisLineas = _context.DatosKpis
+                .Select(d => new DatosKpiViewModel
+                {
+                    NombreLinea=d.NombreLinea,
+                    Cliente = d.NombreCliente,
+                    Producto = d.NombreProducto,
+                    PPM = _kpiService.CalcularPPM(d.PaquetesValidos, d.MinutosTrabajados, d.NumeroOperadores),
+                    PM = _kpiService.CalcularPM(d.PaquetesValidos, d.MinutosTrabajados),
+                    ExtraPeso = _kpiService.CalcularExtrapeso(d.PesoTotalReal, d.PesoObjetivo, d.PaquetesValidos),
+                    HoraInicio = d.HoraInicioProduccion,
+                    HoraFinAproximada = _kpiService.CalcularHoraFin(d.HoraInicioProduccion, d.PaquetesRequeridos - d.PaquetesValidos, d.PaquetesValidos / d.MinutosTrabajados),
+                    PorcentajePedido = _kpiService.CalcularPorcentajePedido(d.PaquetesValidos, d.PaquetesRequeridos),
+                    CosteMOD=_kpiService.CalcularCosteMOD(d.HorasTotales,d.CosteHora,d.PaquetesValidos,d.PesoObjetivo),
+                    ppm_objetivo=d.PpmObjetivo
+                })
+                .ToList();
+
+            return View(kpisLineas);
+        }
+
     }
 }

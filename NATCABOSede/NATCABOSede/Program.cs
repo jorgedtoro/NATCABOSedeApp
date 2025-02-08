@@ -2,15 +2,39 @@ using Microsoft.EntityFrameworkCore;
 using NATCABOSede.Services;
 using NATCABOSede.Interfaces;
 using System;
+using ClosedXML.Parser;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+//**************
+// Configure logging to include EventLog for IIS
+builder.Logging.AddEventLog(settings =>
+{
+    settings.SourceName = "NATCABOSedeApp"; // Customize with your application name
+});
+
+Console.WriteLine($"Current Environment: {builder.Environment.EnvironmentName}");       //JMB
+// Log the connection string for debugging
+var connectionString = builder.Configuration.GetConnectionString("NATCABOConnection");
+Console.WriteLine($"Connection String: {connectionString}");
+
+//****************
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 //TODO: Registrar el contexto de base de datos
+//builder.Services.AddDbContext<NATCABOSede.Models.NATCABOContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("NATCABOConnection")));
+// Register the database context with a custom CommandTimeout
 builder.Services.AddDbContext<NATCABOSede.Models.NATCABOContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("NATCABOConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("NATCABOConnection"), sqlServerOptions =>
+    {
+        sqlServerOptions.CommandTimeout(60); // Set timeout to 60 seconds
+    }));
+
 
 
 // Registro del servicio KPIService J.Toro
@@ -44,7 +68,8 @@ app.UseEndpoints(endpoints =>
     // Ruta por defecto
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+         //pattern: "{controller=Home}/{action=Index}/{id?}");
+         pattern: "{area=KPIS}/{controller=KPIS}/{action=Index}/{id?}");
 });
 
 //app.UseExceptionHandler("/Home/Error");     //JMB

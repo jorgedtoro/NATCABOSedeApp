@@ -14,7 +14,7 @@
             <div class="col-md-3">
                 <div class="mb-3">
                     <label for="lineaSeleccionada" class="form-label">Selecciona una Línea:</label>
-                    <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select" style="color:black;">
+                    <select id="lineaSeleccionada" name="lineaSeleccionada" class="form-select">
                         @if (ViewBag.LineasDisponibles != null)
                         {
                             foreach (var linea in ViewBag.LineasDisponibles)
@@ -24,9 +24,9 @@
                                 </option>
                             }
                         }
-                        @* <option value="" disabled selected>Cargando líneas...</option> *@
+                        <option value="" disabled selected>Cargando líneas...</option>
                     </select>
-
+               
                 </div>
             </div>
             <div class="col-md-3">
@@ -135,7 +135,6 @@
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script>
         window.appSettings = {
             obtenerLineasHistoricoUrlAction: '@Url.Action("ObtenerLineasHistorico", "Historico", new { area = "KPIS" })',

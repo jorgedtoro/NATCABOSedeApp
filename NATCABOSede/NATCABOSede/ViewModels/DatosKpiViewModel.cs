@@ -3,6 +3,7 @@
     public class DatosKpiViewModel
     {
         // Información general
+        public string NombreLinea { get; set; }
         public string Cliente { get; set; }
         public string Producto { get; set; }
        
@@ -25,6 +26,9 @@
 
         //Propiedades para manejo de colores
         public double ppm_objetivo { get; set; }
+
+        public double Ppm_5min { get; set; }
+
         public string PpmCardClass { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             DatosKpiViewModel modelo;
 
             // Fetch available lines dynamically
-            var lineas = _context.DatosKpis
+            var lineas = _context.DatosKpisLivesLives
                 .Select(d => new { d.IdLinea, d.NombreLinea })
                 .Distinct()
                 .ToList();
@@ -133,7 +133,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             {
                 return ExecuteWithRetry(() =>
                 {
-                    return _context.DatosKpis.FirstOrDefault(d => d.IdLinea == linea);
+                    return _context.DatosKpisLives.FirstOrDefault(d => d.IdLinea == linea);
                 });
             }
             catch (Exception ex)
@@ -149,14 +149,14 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         {
             try
             {
-                var lineas = _context.DatosKpis
+                var lineas = _context.DatosKpisLives
                     .Select(d => new { d.IdLinea, d.NombreLinea })
                     .Distinct()
                     .ToList();
 
                 if (!lineas.Any())
                 {
-                    Console.WriteLine("No data found in DatosKpis table");
+                    Console.WriteLine("No data found in DatosKpisLives table");
                 }
 
                 return Json(lineas);
@@ -209,7 +209,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         //Código nuevo para la inclusión de las líneas activas en una misma tabla
         public IActionResult Lineas()
         {
-            var kpisLineas = _context.DatosKpis
+            var kpisLineas = _context.DatosKpisLives
                 .Select(d => new DatosKpiViewModel
                 {
                     NombreLinea=d.NombreLinea,

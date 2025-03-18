@@ -22,6 +22,14 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xIaXN0b3JpY29cSGlzdG9yaWNvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/InfoDiscriminadora/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xJbmZvRGlzY3JpbWluYWRvcmFcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/InfoEnvasadoras/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xJbmZvRW52YXNhZG9yYXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/KPIS/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xLUElTXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

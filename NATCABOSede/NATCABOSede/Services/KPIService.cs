@@ -108,7 +108,7 @@ namespace NATCABOSede.Services
         }
         public DatosKpiViewModel GenerarDatosKpiViewModel(DatosKpisLive datos, double mediaPaquetesPorMinuto)
         {
-            // Manejo de valores nulos con ?? para evitar excepciones
+            //Jorge--> Manejo de valores nulos con ?? para evitar excepciones
             var ppm = datos.PpmMarco ?? 0.0;
             var ppm_disc = datos.PpmBizerba ?? 0.0;
             var pm = CalcularPM(datos.PaquetesValidos ?? 0, datos.MinutosTrabajados ?? 1);

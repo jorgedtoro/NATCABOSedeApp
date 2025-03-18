@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/css/pages/kpis.css" />
     <link rel="stylesheet" href="~/css/pages/historico.css" />
     <link rel="stylesheet" href="~/css/pages/overlay.css" />
+    <link rel="stylesheet" href="~/css/pages/Discriminadora.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NATCABOSede.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -61,6 +62,14 @@
                         <li class="nav-item">
                             <a id="historico-link" class="nav-link @(currentController == "Historico" && currentAction == "Historico" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="Historico" asp-action="Historico">Historico</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="envasadora-link" class="nav-link @(currentController == "InfoEnvasadoras" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
+                               asp-area="KPIS" asp-controller="InfoEnvasadoras" asp-action="Index">InfoEnvasadoras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="discriminadora-link" class="nav-link @(currentController == "InfoDiscriminadora" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
+                               asp-area="KPIS" asp-controller="InfoDiscriminadora" asp-action="Index">InfoDiscriminadora</a>
                         </li>
 
                     </ul>

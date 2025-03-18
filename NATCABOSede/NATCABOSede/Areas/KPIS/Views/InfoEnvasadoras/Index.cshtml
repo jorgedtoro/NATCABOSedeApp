@@ -1,0 +1,29 @@
+﻿@model NATCABOSede.ViewModels.DatosKpiViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Envasadoras";
+}
+
+<h2>Desperdicio - @Model.NombreLinea</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Producto</th>
+            <th>Peso Total Desperdicio (kg)</th>
+            <th>Porcentaje Total Desperdicio (%)</th>
+            <th>FTT (%)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Cliente</td>
+            <td>@Model.Producto</td>
+            <td>@Model.PesoTotalDesperdicio</td>
+            <td>@Model.PorcentajeTotalDesperdicio %</td>
+            <td>@Model.FTT %</td>
+        </tr>
+    </tbody>
+</table>

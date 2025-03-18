@@ -14,7 +14,7 @@ namespace NATCABOSede.Interfaces
         double CalcularCosteMOD(double tiempoTotal, double costoHora, int numeroPaquetes, double pesoMinimo);
         public double CalcularFTT(int paquetesTotales, int paquetesRechazados);
         public double CalcularPorcentajeDesperdicio(double pesoDesperdicio, double pesoReal);
-        DatosKpiViewModel GenerarDatosKpiViewModel(DatosKpi datos, double mediaPaquetesPorMinuto);
+        DatosKpiViewModel GenerarDatosKpiViewModel(DatosKpisLive datos, double mediaPaquetesPorMinuto);
 
     }
 }

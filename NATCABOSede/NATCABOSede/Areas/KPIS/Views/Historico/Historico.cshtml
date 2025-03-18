@@ -19,7 +19,7 @@
                         {
                             foreach (var linea in ViewBag.LineasDisponibles)
                             {
-                                <option value="@linea.LineaId" @(ViewBag.LineaSeleccionada == linea.LineaId ? "selected" : "")>
+                                <option value="@linea.IdLinea" @(ViewBag.LineaSeleccionada == linea.IdLinea ? "selected" : "")>
                                     @linea.NombreLinea
                                 </option>
                             }

@@ -38,9 +38,7 @@
 .traffic-light{
     gap:1rem;
     margin-bottom:1rem;
+    align-content:center;
     justify-content:center;
-    align-items:center;
-}
-.traffic-light p{
-    align-self:baseline;
+    text-align:start;
 }

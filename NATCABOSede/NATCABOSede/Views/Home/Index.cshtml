@@ -1,33 +1,59 @@
-﻿ @{
-    ViewData["Title"] = "Home";
+﻿@{
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="jumbotron text-center" style="background: url('~/images/hero.jpg') no-repeat center center; background-size:cover; color:white; padding:100px 0;">
-    <h1 class="display-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">NAT-CABO</h1>
-    <p class="lead" style="text-shadow: 1px 1px 3px rgba(0,0,0,1);">
-        Soluciones profesionales de análisis de datos de Pesaje Industrial
-    </p>
-    <hr class="my-4">
-    <p>Maximizamos tu productividad optimizando el pesaje y empaquetado de productos</p>
-    <a class="btn btn-primary btn-lg" href="/KPIS/KPIS/Index" role="button">Ver KPIs</a>
-  
-</div>
-<div class="container my-5">
+<div class="container mt-4">
     <div class="row">
-        <div class="col-md-4 text-center">
-            <i class="bi bi-speedometer2" style="font-size: 2rem; color: var(--principal-azul);"></i>
-            <h3 class="mt-3">Análisis en tiempo real</h3>
-            <p>Monitorea el rendimiento con datos precisos y actualizados, optimizando costos y eficiencia.</p>
+        <!-- Tarjeta 1: Ir a KPIs -->
+        <div class="col-md-4 mb-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">KPIs</h4>
+                    <p class="card-text">Revisa los KPIs en tiempo real</p>
+                    <a asp-area="KPIS" asp-controller="Access" asp-action="PasswordForm" class="btn btn-primary">
+                        Ver KPIs
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4 text-center">
-            <i class="bi bi-file-earmark-bar-graph" style="font-size: 2rem; color: var(--principal-azul);"></i>
-            <h3 class="mt-3">Reportes personalizados</h3>
-            <p>Genera informes adaptados a tus necesidades para decisiones más informadas.</p>
+
+        <!-- Tarjeta 2: Histórico -->
+        <div class="col-md-4 mb-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Histórico</h4>
+                    <p class="card-text">Consulta datos de producción pasados</p>
+                    <a asp-area="KPIS" asp-controller="Historico" asp-action="Historico" class="btn btn-primary">
+                        Ir a Histórico
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4 text-center">
-            <i class="bi bi-people" style="font-size: 2rem; color: var(--principal-azul);"></i>
-            <h3 class="mt-3">Soporte y consultoría</h3>
-            <p>Asesoramiento experto en interpretación de datos y mejoras de procesos.</p>
+
+        <!-- Tarjeta 3: Info Envasadoras -->
+        <div class="col-md-4 mb-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Envasadoras</h4>
+                    <p class="card-text">Información de Envasadoras en uso</p>
+                    <a asp-area="KPIS" asp-controller="InfoEnvasadoras" asp-action="Index" class="btn btn-primary">
+                        Ver Envasadoras
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 4: Info Discriminadora -->
+        <div class="col-md-4 mb-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Discriminadora</h4>
+                    <p class="card-text">Información de la Discriminadora</p>
+                    <a asp-area="KPIS" asp-controller="InfoDiscriminadora" asp-action="Index" class="btn btn-primary">
+                        Ver Discriminadora
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-</div> 
+</div>

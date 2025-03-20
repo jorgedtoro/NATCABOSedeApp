@@ -5,7 +5,7 @@
     ViewData["Title"] = "Discriminadora";
 }
 <link rel="stylesheet" href="~/css/pages/Discriminadora.css" />
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 <div class="container mt-4 text-center">
     <h1 class="display-4 fw-bold">@Model.NombreLinea</h1>
 </div>
@@ -27,6 +27,23 @@
                     <p class="card-text data-value">@Model.Producto</p>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-4 d-flex justify-content-between align-items-center w-100 p-2">
+    <!-- Hora Inicio -->
+    <div class="card shadow-sm">
+        <div class="card-body text-center">
+            <h4 class="card-title"><strong>Hora Inicio</strong></h4>
+            <p class="card-text fs-4">@Model.HoraInicio.ToString("HH:mm")</p>
+        </div>
+    </div>
+
+    <!-- Hora Fin Estimada -->
+    <div class="card shadow-sm mt-3">
+        <div class="card-body text-center">
+            <h4 class="card-title"><strong>Hora Fin Estimada</strong></h4>
+            <p class="card-text fs-4">@Model.HoraFinAproximada.ToString("HH:mm")</p>
         </div>
     </div>
 </div>
@@ -77,13 +94,13 @@
                     <div class="personal-indicator mb-4">9</div>
                     <h2 class="card-subtitle mb-4 mt-2">Distribución de Personal</h2>
                     <div class="d-flex flex-column">
-                    <p><strong>Personal en Balanza</strong></p>
+                        <p><strong>Personal en Balanza</strong></p>
                         <span class="data-large">31</span>
 
                     </div>
-                    <div class ="d-flex flex-column">
+                    <div class="d-flex flex-column">
 
-                    <p><strong>Personal Total</strong></p>
+                        <p><strong>Personal Total</strong></p>
                         <span class="data-large">40</span>
                     </div>
                 </div>
@@ -93,24 +110,32 @@
             <div class="card shadow-sm text-center">
                 <div class="card-body">
                     <h2 class="card-title">Estado del Discriminador</h2>
-                    <h3 class="card-subtitle mb-2 text-muted">Confección Usada</h3>
-                    <div class="d-flex traffic-light">
-
-                    <p><strong>Rangos de Peso:</strong> </p>
-                        <span class="status-indicator bg-danger">Incorrecto</span>
+                    <h3 class="card-subtitle mb-4 text-muted">Confección Usada</h3>
+                    <div class="traffic-light">
+                        <p><strong>Rangos de Peso:</strong></p>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="status-indicator status-red"></span>
+                            <span>Incorrecto</span>
+                        </div>
                     </div>
-                    <div class="d-flex traffic-light">
-
-                    <p><strong>Activo/Inactivo:</strong> </p>
-                        <span class="status-indicator bg-success">Correcto</span>
+                    <div class="traffic-light">
+                        <p><strong>Activo/Inactivo:</strong></p>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="status-indicator status-green"></span>
+                            <span>Incorrecto</span>
+                        </div>
                     </div>
-                    <div class="d-flex traffic-light">
-                    <p><strong>Expulsión por Aire:</strong> </p>
-                        <span class="status-indicator bg-success">Correcto</span>
-
+                    <div class="traffic-light">
+                        <p><strong>Expulsión por Aire</strong></p>
+                        <div class="d-flex align-items-center gap-2">
+                        <span class="status-indicator status-green"></span>
+                        <span>Incorrecto</span>
+                        </div>
                     </div>
+
                 </div>
             </div>
+
         </div>
     </div>
 </div>

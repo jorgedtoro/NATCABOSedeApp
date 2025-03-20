@@ -44,7 +44,7 @@ namespace NATCABOSede.Tests.Controllers
             mockSet.As<IQueryable<DatosKpi>>().Setup(m => m.ElementType).Returns(datosKpis.ElementType);
             mockSet.As<IQueryable<DatosKpi>>().Setup(m => m.GetEnumerator()).Returns(datosKpis.GetEnumerator());
 
-            mockContext.Setup(c => c.DatosKpis).Returns(mockSet.Object);
+            //mockContext.Setup(c => c.DatosKpisLives).Returns(mockSet.Object);
 
             // Configurar el servicio simulado
             mockService.Setup(s => s.CalcularPPM(It.IsAny<double>(), It.IsAny<double>(), It.IsAny<int>())).Returns(0.4);

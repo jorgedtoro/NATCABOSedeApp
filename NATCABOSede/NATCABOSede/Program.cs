@@ -4,6 +4,7 @@ using NATCABOSede.Interfaces;
 using System;
 using ClosedXML.Parser;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,21 +26,27 @@ Console.WriteLine($"Connection String: {connectionString}");
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//TODO: Registrar el contexto de base de datos
-//builder.Services.AddDbContext<NATCABOSede.Models.NATCABOContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("NATCABOConnection")));
+
 // Register the database context with a custom CommandTimeout
 builder.Services.AddDbContext<NATCABOSede.Models.NATCABOContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("NATCABOConnection"), sqlServerOptions =>
     {
         sqlServerOptions.CommandTimeout(60); // Set timeout to 60 seconds
     }));
-
+//Jorge --> servicio de Auth
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Login";
+        options.LogoutPath = "/Auth/Logout";
+        options.AccessDeniedPath = "/Auth/AccessDenied";
+    });
 
 
 // Registro del servicio KPIService J.Toro
 //builder.Services.AddScoped<NATCABOSede.Services.KPIService>();
 builder.Services.AddScoped<IKPIService, KPIService>();
+builder.Services.AddScoped<AuthService>();
 
 var app = builder.Build();
 
@@ -60,18 +67,16 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-    // Rutas para las áreas
+    // Ruta para áreas
     endpoints.MapControllerRoute(
         name: "areas",
         pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-    // Ruta por defecto
+    // Ruta por defecto (sin área)
     endpoints.MapControllerRoute(
         name: "default",
-         //pattern: "{controller=Home}/{action=Index}/{id?}");
-         pattern: "{area=KPIS}/{controller=KPIS}/{action=Index}/{id?}");
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 });
-
 //app.UseExceptionHandler("/Home/Error");     //JMB
 
 

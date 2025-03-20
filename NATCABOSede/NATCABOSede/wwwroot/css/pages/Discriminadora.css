@@ -21,24 +21,46 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%; /* Hace que sea un círculo */
+    border-radius: 50%; 
     margin: auto;
     padding:1rem,
 }
 
 /* Estilos para los indicadores de estado */
+
+.traffic-light {
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    gap: 12px; 
+    margin-bottom: 1rem;
+    width:80%;
+}
+.traffic-light p {
+    margin: 0;
+    margin-right: 0.5rem;
+}
+
+
 .status-indicator {
     display: inline-block;
-    padding: 5px 15px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border-radius: 10px;
-    color:white;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, var(--estado-color) 70%);
 }
-.traffic-light{
-    gap:1rem;
-    margin-bottom:1rem;
-    align-content:center;
-    justify-content:center;
-    text-align:start;
+
+/* Clases de color */
+.status-red {
+    --estado-color: #e74c3c;
 }
+
+.status-green {
+    --estado-color: #2ecc71;
+}
+
+.status-yellow {
+    --estado-color: #f1c40f;
+}
+

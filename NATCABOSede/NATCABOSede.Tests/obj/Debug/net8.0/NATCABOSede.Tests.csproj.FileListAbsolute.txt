@@ -667,3 +667,14 @@ D:\Proyectos_VS\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\re
 D:\Proyectos_VS\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.pdb
 D:\Proyectos_VS\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\NATCABOSede.Tests.genruntimeconfig.cache
 D:\Proyectos_VS\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\obj\Debug\net8.0\ref\NATCABOSede.Tests.dll
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\BCrypt.Net-Next.dll
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\Microsoft.Extensions.WebEncoders.dll
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede.Tests\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

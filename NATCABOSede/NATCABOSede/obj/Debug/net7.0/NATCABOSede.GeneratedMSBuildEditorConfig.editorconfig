@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = G:\gitPersonal\NATCABOSedeApp\NATCABOSede\NATCABOSede
 build_property._RazorSourceGeneratorDebug = 
 
+[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xBdXRoXExvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/Historico/Historico.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xIaXN0b3JpY29cSGlzdG9yaWNvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -44,10 +48,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Views/Shared/Error.cshtml]

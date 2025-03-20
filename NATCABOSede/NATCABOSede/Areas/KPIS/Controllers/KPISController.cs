@@ -6,6 +6,7 @@ using NATCABOSede.ViewModels;
 using NATCABOSede.Interfaces;
 using NATCABOSede.Utilities;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NATCABOSede.Areas.KPIS.Controllers
 {
@@ -20,7 +21,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             _context = context;
             _kpiService = kpiService;
         }
-
+        [Authorize]
         public IActionResult Index(short lineaSeleccionada = 0) // Default to 0, indicating no line selected yet
         {
             var datos = ObtenerDatosPorLinea(lineaSeleccionada);

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Web NAT-CABO</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/normalize.css" />
     <link rel="stylesheet" href="~/css/utilities/variables.css" />
     <link rel="stylesheet" href="~/css/components/navbar.css" />
     <link rel="stylesheet" href="~/css/components/hero-section.css" />
@@ -49,12 +50,7 @@
                             <a class="nav-link @(currentController == "Home" && currentAction == "Index" && currentArea == "" ? "active" : "")"
                                asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @*
-                        <li class="nav-item">
-                            <a class="nav-link @(currentController == "KPIS" && currentAction == "Lineas" && currentArea == "KPIS" ? "active" : "")"
-                               asp-area="KPIS" asp-controller="KPIS" asp-action="Lineas">KPIs Líneas</a>
-                        </li>
-                        *@
+                                       
                         <li class="nav-item">
                             <a id="kpisLiveLineas-link" class="nav-link @(currentController == "KPIS" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="KPIS" asp-action="Index">KPIS</a>
@@ -76,6 +72,23 @@
                 </div>
                 <span style="float: right;">Parque Nat S.C.A</span>
             </div>
+            <ul class="navbar-nav">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <span class="nav-link">Bienvenido, @User.Identity.Name</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="KPIS" asp-controller="Auth" asp-action="Logout">Cerrar Sesión</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="KPIS" asp-controller="Auth" asp-action="Login">Iniciar Sesión</a>
+                    </li>
+                }
+            </ul>
         </nav>
     </header>
 

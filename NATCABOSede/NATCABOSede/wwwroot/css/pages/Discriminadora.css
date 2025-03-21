@@ -1,0 +1,100 @@
+﻿
+
+
+.container {
+    background: #F7F9FC !important
+}
+/* Estilos generales para los valores destacados */
+.data-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.data-large {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* Estilo para el número de Personal Periférico */
+/*.personal-indicator {
+    width: 80px;
+    height: 80px;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: auto;
+    padding: 1rem;
+    background-image: url('../../assets/GreenLight.jpg');
+}*/
+.personal-indicator {
+    display: flex;  
+    align-items: center; 
+    justify-content: center;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    color: white;
+    font-size: 2.75rem;
+    font-weight: 800;
+    background-size: cover; /* Ajusta la imagen para cubrir el div */
+    background-position: center;
+    background-image: url('../../assets/GreenLight.jpg');
+}
+.status-personal-indicator-red {
+    background-image: url('../../assets/RedLight.jpg');
+}
+.status-personal-indicator-green {
+    background-image: url('../../assets/GreenLight.jpg');
+}
+
+
+/* Estilos para los indicadores de estado */
+
+.traffic-light {
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    gap: 12px; 
+    margin-bottom: 1rem;
+    width:80%;
+}
+.traffic-light p {
+    margin: 0;
+    margin-right: 0.5rem;
+}
+
+
+.status-indicator {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    color: black;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background-size: cover; 
+    background-position: center;
+    /*background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, var(--estado-color) 70%);*/
+}
+
+/* Clases de color */
+.status-red {
+    /*--estado-color: #e74c3c;*/
+    background-image: url('../../assets/RedLight.jpg');
+}
+
+.status-green {
+    /*--estado-color: #2ecc71;*/
+    background-image: url('../../assets/GreenLight.jpg');
+}
+
+.status-yellow {
+    --estado-color: #f1c40f;
+}
+

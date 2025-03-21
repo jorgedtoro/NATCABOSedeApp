@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Web NAT-CABO</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/normalize.css" />
     <link rel="stylesheet" href="~/css/utilities/variables.css" />
     <link rel="stylesheet" href="~/css/components/navbar.css" />
     <link rel="stylesheet" href="~/css/components/hero-section.css" />
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="~/css/pages/kpis.css" />
     <link rel="stylesheet" href="~/css/pages/historico.css" />
     <link rel="stylesheet" href="~/css/pages/overlay.css" />
+    <link rel="stylesheet" href="~/css/pages/Discriminadora.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NATCABOSede.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -29,12 +31,12 @@
     }
     <header>
         <!--<nav class="navbar navbar-expand-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #F5F5F7;">-->
-            <nav class="navbar navbar-expand-sm navbar-light border-bottom box-shadow mb-3" >
+        <nav class="navbar navbar-expand-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <!-- Logo -->
                 <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="/images/Logo_Natursur.png" alt="Logo" style="height: 40px; width: auto; margin-right: 10px;">
-                    
+
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
                         aria-controls="navbarSupportedContent"
@@ -43,30 +45,59 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav mx-auto">
-                       
+
                         <li class="nav-item">
                             <a class="nav-link @(currentController == "Home" && currentAction == "Index" && currentArea == "" ? "active" : "")"
                                asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @*
-                        <li class="nav-item">
-                            <a class="nav-link @(currentController == "KPIS" && currentAction == "Lineas" && currentArea == "KPIS" ? "active" : "")"
-                               asp-area="KPIS" asp-controller="KPIS" asp-action="Lineas">KPIs Líneas</a>
-                        </li>
-                        *@
-                        <li class="nav-item">
-                            <a id="kpisLiveLineas-link" class="nav-link @(currentController == "KPIS" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
-                               asp-area="KPIS" asp-controller="KPIS" asp-action="Index">KPIS</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a id="kpisLiveLineas-link" class="nav-link @(currentController == "KPIS" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
+                                   asp-area="KPIS" asp-controller="KPIS" asp-action="Index">KPIS</a>
+                            </li>
+                        }
+
                         <li class="nav-item">
                             <a id="historico-link" class="nav-link @(currentController == "Historico" && currentAction == "Historico" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="Historico" asp-action="Historico">Historico</a>
                         </li>
+                        <li class="nav-item">
+                            <a id="envasadora-link" class="nav-link @(currentController == "InfoEnvasadoras" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
+                               asp-area="KPIS" asp-controller="InfoEnvasadoras" asp-action="Index">InfoEnvasadoras</a>
+                        </li>
+                        @* <li class="nav-item">
+                            <a id="discriminadora-link" class="nav-link @(currentController == "InfoDiscriminadora" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
+                               asp-area="KPIS" asp-controller="InfoDiscriminadora" asp-action="Index">InfoDiscriminadora</a>
+                        </li> *@
+                        <li class="nav-item">
+                            <a id="infoDiscriminadora-link" class="nav-link" href="#">InfoDiscriminadora</a>
+                        </li>
 
                     </ul>
                 </div>
-                <span style="float: right;">Parque Nat S.C.A</span>
+                @*   <span style="float: right;">Parque Nat S.C.A</span> *@
             </div>
+            <ul class="navbar-nav p-2">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    
+                    <li class="nav-item">
+                        <span class="nav-link">Bienvenido, @User.Identity.Name</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="KPIS" asp-controller="Auth" asp-action="Logout"><i class="fa-solid fa-user-minus fa-xl"></i></a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="KPIS" asp-controller="Auth" asp-action="Login">
+                            <i class="fa-solid fa-user fa-xl"></i>
+                   </a>
+                    </li>
+                }
+            </ul>
         </nav>
     </header>
 
@@ -100,8 +131,9 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/overlayManager.js"></script>
+    <script src="~/js/infoDiscriminadora.js" asp-append-version="true"></script>
 
-    <script>
+   @*  <script>
         document.addEventListener('DOMContentLoaded', function () {
 
             const historicoLink = document.getElementById('historico-link');
@@ -113,18 +145,18 @@
                 });
             }
             if (kpisLiveLink) {
-                 kpisLiveLink.addEventListener('click', function () {
+                kpisLiveLink.addEventListener('click', function () {
                     overlayManager.show(); // Show the overlay before navigating
                 });
             }
         });
 
-       // Hide overlay once the page is fully loaded
+        // Hide overlay once the page is fully loaded
         window.onload = function () {
             overlayManager.hide(); // Hide the overlay when all resources are loaded
         };
-    </script>
-
+    </script> *@
+  
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

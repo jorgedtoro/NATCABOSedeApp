@@ -24,15 +24,15 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         {
             // No cargar datos históricos inicialmente
             // Obtener líneas disponibles
-            var lineas = _context.KpisHistoricos
-                .Select(d => new { d.LineaId, d.NombreLinea })
+            var lineas = _context.DatosKpisHistoricos
+                .Select(d => new { d.IdLinea, d.NombreLinea })
                 .Distinct()
                 .ToList();
 
             ViewBag.LineasDisponibles = lineas;
 
             // Obtener confecciones disponibles
-            var confecciones = _context.KpisHistoricos
+            var confecciones = _context.DatosKpisHistoricos
                 .Select(d => d.Confeccion)
                 .Distinct()
                 .ToList();
@@ -69,12 +69,12 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             {
                 return BadRequest("Solicitud inválida.");
             }
-            var query = _context.KpisHistoricos.AsQueryable();
+            var query = _context.DatosKpisHistoricos.AsQueryable();
 
             //Filtro de linea si se proporciona
             if (request.LineaId.HasValue)
             {
-                query = query.Where(h => h.LineaId == request.LineaId.Value);
+                query = query.Where(h => h.IdLinea == request.LineaId.Value);
             }
             // Filtrar por Confección si se proporciona y no está vacío
             if (!string.IsNullOrWhiteSpace(request.Confeccion))
@@ -119,12 +119,12 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 return BadRequest("Solicitud inválida.");
             }
 
-            var query = _context.KpisHistoricos.AsQueryable();
+            var query = _context.DatosKpisHistoricos.AsQueryable();
 
             // Filtrar por Línea si se proporciona
             if (request.LineaId.HasValue)
             {
-                query = query.Where(h => h.LineaId == request.LineaId.Value);
+                query = query.Where(h => h.IdLinea == request.LineaId.Value);
             }
 
             // Filtrar por Confección si se proporciona y no está vacío
@@ -177,15 +177,15 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     worksheet.Cell(row, 1).Value = item.Fecha?.ToString("dd/MM/yyyy");
                     worksheet.Cell(row, 2).Value = item.NombreLinea;
                     worksheet.Cell(row, 3).Value = item.Confeccion;
-                    worksheet.Cell(row, 4).Value = item.PPM_Marco;
-                    worksheet.Cell(row, 5).Value = item.PM_Marco;
-                    worksheet.Cell(row, 6).Value = item.PM_Bizerba;
-                    worksheet.Cell(row, 7).Value = item.Extrapeso_Marco;
-                    worksheet.Cell(row, 8).Value = item.Extrapeso_Bizerba;
-                    worksheet.Cell(row, 9).Value = item.Desecho_Kg;
-                    worksheet.Cell(row, 10).Value = item.Desecho_Perc;
-                    worksheet.Cell(row, 11).Value = item.FTT;
-                    worksheet.Cell(row, 12).Value = item.MOD;
+                    worksheet.Cell(row, 4).Value = item.PmMarco;
+                    worksheet.Cell(row, 5).Value = item.PmMarco;
+                    worksheet.Cell(row, 6).Value = item.PmBizerba;
+                    worksheet.Cell(row, 7).Value = item.ExtrapesoMarco;
+                    worksheet.Cell(row, 8).Value = item.ExtrapesoBizerba;
+                    worksheet.Cell(row, 9).Value = item.DesechoKg;
+                    worksheet.Cell(row, 10).Value = item.DesechoPerc;
+                    worksheet.Cell(row, 11).Value = item.Ftt;
+                    worksheet.Cell(row, 12).Value = item.Mod;
                     row++;
                 }
 
@@ -205,8 +205,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         [HttpGet]
         public JsonResult ObtenerLineasHistorico()
         {
-            var lineas = _context.KpisHistoricos
-                .Select(d => new { d.LineaId, d.NombreLinea })
+            var lineas = _context.DatosKpisHistoricos
+                .Select(d => new { d.IdLinea, d.NombreLinea })
                 .ToList();
 
             if (!lineas.Any())
@@ -221,7 +221,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         [HttpGet]
         public JsonResult ObtenerConfeccionesHistorico()
         {
-            var confecciones = _context.KpisHistoricos
+            var confecciones = _context.DatosKpisHistoricos
                 .Select(d => new { d.Confeccion })
                 .ToList();
 

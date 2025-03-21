@@ -6,6 +6,7 @@ using NATCABOSede.ViewModels;
 using NATCABOSede.Interfaces;
 using NATCABOSede.Utilities;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NATCABOSede.Areas.KPIS.Controllers
 {
@@ -20,14 +21,14 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             _context = context;
             _kpiService = kpiService;
         }
-
+        [Authorize]
         public IActionResult Index(short lineaSeleccionada = 0) // Default to 0, indicating no line selected yet
         {
             var datos = ObtenerDatosPorLinea(lineaSeleccionada);
             DatosKpiViewModel modelo;
 
             // Fetch available lines dynamically
-            var lineas = _context.DatosKpis
+            var lineas = _context.DatosKpisLives
                 .Select(d => new { d.IdLinea, d.NombreLinea })
                 .Distinct()
                 .ToList();
@@ -38,7 +39,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             // If no line is selected, pick the first one
             if (lineaSeleccionada == 0 && lineas.Any())
             {
-                lineaSeleccionada = lineas.First().IdLinea; // Set to the first available line's Id
+                lineaSeleccionada = lineas.First().IdLinea ?? 0; // Set to the first available line's Id
             }
 
             
@@ -70,14 +71,17 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             {
                 double mediaPaquetesPorMinuto = 0.0;
 
-                if (datos.HoraInicioProduccion != null && datos.HoraUltimoPaquete != null)
+                if (datos.HoraInicioProduccion.HasValue && datos.HoraUltimoPaquete.HasValue)
                 {
-                    var inicio = datos.HoraInicioProduccion;
-                    var fin = datos.HoraUltimoPaquete;
+                    var inicio = datos.HoraInicioProduccion.Value;
+                    var fin = datos.HoraUltimoPaquete.Value;
 
                     // Calculate time difference
                     TimeSpan diferencia = fin - inicio;
-                    mediaPaquetesPorMinuto = datos.PaquetesValidos / diferencia.TotalMinutes;
+                    if (diferencia.TotalMinutes > 0) // Evitar división por cero
+                    {
+                        mediaPaquetesPorMinuto = (datos.PaquetesValidos ?? 0) / diferencia.TotalMinutes;
+                    }
                 }
 
                 // Utilizar el servicio para generar el ViewModel
@@ -102,12 +106,17 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             double mediaPaquetesPorMinuto = 0.0;
             if (datos.HoraInicioProduccion != null && datos.HoraUltimoPaquete != null)
             {
-                var inicio = datos.HoraInicioProduccion;
-                var fin = datos.HoraUltimoPaquete;
+                var inicio = datos.HoraInicioProduccion.Value;
+                var fin = datos.HoraUltimoPaquete.Value;
 
                 // Calculate time difference
-                TimeSpan diferencia = fin - inicio;
-                mediaPaquetesPorMinuto = datos.PaquetesValidos / diferencia.TotalMinutes;
+                // Evitar división por cero
+                double minutos = (fin - inicio).TotalMinutes;
+                if (minutos > 0)
+                {
+                    mediaPaquetesPorMinuto = (datos.PaquetesValidos ?? 0) / minutos;
+                }
+           
             }
 
             // Generar el ViewModel utilizando el servicio
@@ -115,25 +124,25 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
             // Realizar cálculos adicionales específicos para esta acción
             //modelo.PM_Disc = _kpiService.CalcularPM(datos.PaquetesTotalesDisc - datos.PaquetesRechazadosDisc, datos.MinutosTrabajados);
-            modelo.PM_Disc = datos.PM_Bizerba;
+            modelo.PM_Disc = datos.PmBizerba ?? 0.0;
             modelo.PpmCardClass = GetColorClass(modelo.PPM, modelo.ppm_objetivo);
 
             // Añadir otros campos específicos
-            modelo.FTT = _kpiService.CalcularFTT(datos.PaquetesTotalesDisc, datos.PaquetesRechazadosDisc);
-            modelo.PesoTotalDesperdicio = datos.PesoTotalDesperdicio;
-            modelo.PorcentajeTotalDesperdicio = _kpiService.CalcularPorcentajeDesperdicio(datos.PesoTotalDesperdicio, datos.PesoTotalReal);
-            modelo.ppm_objetivo = datos.PpmObjetivo;
+            modelo.FTT = _kpiService.CalcularFTT(datos.PaquetesTotalesDisc ?? 0, datos.PaquetesRechazadosDisc ?? 0);
+            modelo.PesoTotalDesperdicio = datos.PesoTotalDesperdicio ?? 0.0;
+            modelo.PorcentajeTotalDesperdicio = _kpiService.CalcularPorcentajeDesperdicio(datos.PesoTotalDesperdicio ?? 0.0, datos.PesoTotalReal ?? 0.0);
+            modelo.ppm_objetivo = datos.PpmObjetivo ?? 0.0;
 
             return PartialView("_KPIsPartial", modelo);
         }
 
-        private DatosKpi ObtenerDatosPorLinea(short linea)
+        private DatosKpisLive ObtenerDatosPorLinea(short linea)
         {
             try
             {
                 return ExecuteWithRetry(() =>
                 {
-                    return _context.DatosKpis.FirstOrDefault(d => d.IdLinea == linea);
+                    return _context.DatosKpisLives.FirstOrDefault(d => d.IdLinea == linea);
                 });
             }
             catch (Exception ex)
@@ -149,14 +158,14 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         {
             try
             {
-                var lineas = _context.DatosKpis
+                var lineas = _context.DatosKpisLives
                     .Select(d => new { d.IdLinea, d.NombreLinea })
                     .Distinct()
                     .ToList();
 
                 if (!lineas.Any())
                 {
-                    Console.WriteLine("No data found in DatosKpis table");
+                    Console.WriteLine("No data found in DatosKpisLives table");
                 }
 
                 return Json(lineas);
@@ -209,20 +218,20 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         //Código nuevo para la inclusión de las líneas activas en una misma tabla
         public IActionResult Lineas()
         {
-            var kpisLineas = _context.DatosKpis
+            var kpisLineas = _context.DatosKpisLives
                 .Select(d => new DatosKpiViewModel
                 {
                     NombreLinea=d.NombreLinea,
                     Cliente = d.NombreCliente,
                     Producto = d.NombreProducto,
-                    PPM = _kpiService.CalcularPPM(d.PaquetesValidos, d.MinutosTrabajados, d.NumeroOperadores),
-                    PM = _kpiService.CalcularPM(d.PaquetesValidos, d.MinutosTrabajados),
-                    ExtraPeso = _kpiService.CalcularExtrapeso(d.PesoTotalReal, d.PesoObjetivo, d.PaquetesValidos),
-                    HoraInicio = d.HoraInicioProduccion,
-                    HoraFinAproximada = _kpiService.CalcularHoraFin(d.HoraInicioProduccion, d.PaquetesRequeridos - d.PaquetesValidos, d.PaquetesValidos / d.MinutosTrabajados),
-                    PorcentajePedido = _kpiService.CalcularPorcentajePedido(d.PaquetesValidos, d.PaquetesRequeridos),
-                    CosteMOD=_kpiService.CalcularCosteMOD(d.HorasTotales,d.CosteHora,d.PaquetesValidos,d.PesoObjetivo),
-                    ppm_objetivo=d.PpmObjetivo
+                    //PPM = _kpiService.CalcularPPM(d.PaquetesValidos, d.MinutosTrabajados, d.NumeroOperadores),
+                    //PM = _kpiService.CalcularPM(d.PaquetesValidos, d.MinutosTrabajados),
+                    //ExtraPeso = _kpiService.CalcularExtrapeso(d.PesoTotalReal, d.PesoObjetivo, d.PaquetesValidos),
+                    //HoraInicio = d.HoraInicioProduccion,
+                    //HoraFinAproximada = _kpiService.CalcularHoraFin(d.HoraInicioProduccion, d.PaquetesRequeridos - d.PaquetesValidos, d.PaquetesValidos / d.MinutosTrabajados),
+                    //PorcentajePedido = _kpiService.CalcularPorcentajePedido(d.PaquetesValidos, d.PaquetesRequeridos),
+                    //CosteMOD=_kpiService.CalcularCosteMOD(d.TotalHours,d.CosteHora,d.PaquetesValidos,d.PesoObjetivo),
+                    //ppm_objetivo=d.PpmObjetivo
                 })
                 .ToList();
 

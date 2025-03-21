@@ -1,10 +1,13 @@
 
 @import url('utilities/variables.css');
-
+*{
+    box-sizing:border-box;
+}
 body {
     color: var(--texto-gris);
     font-family: 'Open Sans', sans-serif;
     margin-bottom: 60px;
+    background-color:#F7F9FC
 }
 
 

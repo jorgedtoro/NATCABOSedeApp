@@ -66,9 +66,12 @@
                             <a id="envasadora-link" class="nav-link @(currentController == "InfoEnvasadoras" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="InfoEnvasadoras" asp-action="Index">InfoEnvasadoras</a>
                         </li>
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a id="discriminadora-link" class="nav-link @(currentController == "InfoDiscriminadora" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="InfoDiscriminadora" asp-action="Index">InfoDiscriminadora</a>
+                        </li> *@
+                        <li class="nav-item">
+                            <a id="infoDiscriminadora-link" class="nav-link" href="#">InfoDiscriminadora</a>
                         </li>
 
                     </ul>
@@ -128,8 +131,9 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/overlayManager.js"></script>
+    <script src="~/js/infoDiscriminadora.js" asp-append-version="true"></script>
 
-    <script>
+   @*  <script>
         document.addEventListener('DOMContentLoaded', function () {
 
             const historicoLink = document.getElementById('historico-link');
@@ -151,8 +155,8 @@
         window.onload = function () {
             overlayManager.hide(); // Hide the overlay when all resources are loaded
         };
-    </script>
-
+    </script> *@
+  
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

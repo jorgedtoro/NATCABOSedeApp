@@ -98,6 +98,25 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             }
             return default;
         }
+        [HttpGet]
+        public IActionResult ObtenerLineasDisponibles()
+        {
+            try
+            {
+                var lineas = _context.DatosKpisLives
+                    .Select(d => d.IdLinea)
+                    .Distinct()
+                    .ToList();
+
+                return Json(lineas);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Error al obtener líneas disponibles.", ex);
+                return StatusCode(500, "Error interno del servidor.");
+            }
+        }
+
     }
 
 }

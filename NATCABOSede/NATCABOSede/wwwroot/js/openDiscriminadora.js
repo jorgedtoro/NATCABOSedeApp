@@ -1,4 +1,5 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+﻿/*Para abrir una pestaña por cada linea activa*/
+document.addEventListener("DOMContentLoaded", function () {
     const infoDiscriminadoraLink = document.getElementById("infoDiscriminadora-link");
 
     if (infoDiscriminadoraLink) {

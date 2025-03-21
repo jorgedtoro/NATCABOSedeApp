@@ -4,6 +4,7 @@ using NATCABOSede.Interfaces;
 using NATCABOSede.Models;
 using NATCABOSede.Utilities;
 using NATCABOSede.ViewModels;
+using System.Linq;
 
 namespace NATCABOSede.Areas.KPIS.Controllers
 {
@@ -12,31 +13,26 @@ namespace NATCABOSede.Areas.KPIS.Controllers
     {
         private readonly NATCABOContext _context;
         private readonly IKPIService _kpiService;
+
         public InfoDiscriminadoraController(NATCABOContext context, IKPIService kpiService)
         {
             _context = context;
             _kpiService = kpiService;
         }
-        public IActionResult Index(short lineaSeleccionada = 0)
+
+        public IActionResult Index(short lineaSeleccionada)
         {
-           
-            var datos = ObtenerDatosPorLinea(lineaSeleccionada);
-            DatosKpiViewModel modelo;
-            if (datos == null) {
-                 modelo = new DatosKpiViewModel
+            // Obtener los datos de la línea seleccionada
+            var datos = _context.DatosKpisLives.FirstOrDefault(d => d.IdLinea == lineaSeleccionada);
+
+            InfoDiscriminadoraViewModel modelo;
+
+            if (datos == null)
+            {
+                modelo = new InfoDiscriminadoraViewModel
                 {
-                     Cliente = string.Empty,
-                     Producto = string.Empty,
-                     PPM = 0,
-                     PPM_Disc = 0,
-                     PM = 0,
-                     PM_Disc = 0,
-                     ExtraPeso = 0,
-                     HoraInicio = DateTime.Now,
-                     HoraFinAproximada = DateTime.Now,
-                     PorcentajePedido = 0,
-                     CosteMOD = 0
-                 };
+                    LineaSeleccionada = lineaSeleccionada // Asignamos la línea seleccionada
+                };
             }
             else
             {
@@ -47,57 +43,36 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     var inicio = datos.HoraInicioProduccion.Value;
                     var fin = datos.HoraUltimoPaquete.Value;
 
-                    // Calculate time difference
                     TimeSpan diferencia = fin - inicio;
-                    if (diferencia.TotalMinutes > 0) // Evitar división por cero
+                    if (diferencia.TotalMinutes > 0)
                     {
                         mediaPaquetesPorMinuto = (datos.PaquetesValidos ?? 0) / diferencia.TotalMinutes;
                     }
                 }
-                modelo = _kpiService.GenerarDatosKpiViewModel(datos, mediaPaquetesPorMinuto);
+
+                modelo = new InfoDiscriminadoraViewModel
+                {
+                    //TODO: recuperar bien los datos de la vista pasada del back.
+                    LineaSeleccionada = lineaSeleccionada,
+                    NombreCliente = datos.NombreCliente ?? "**CLIENTE**",
+                    NombreProducto = datos.NombreProducto ?? "**PRODUCTO**",
+                    PPM = datos.PpmMarco ?? 0,
+                    PPM_Disc = datos.PpmBizerba ?? 0,
+                    PMObjetivo = datos.PpmObjetivo ?? 0,
+                    ExtraPeso = _kpiService.CalcularExtrapeso(datos.PesoTotalReal ?? 0.0, datos.PesoObjetivo ?? 0.0, datos.PaquetesValidos ?? 0),
+                    HoraInicio = datos.HoraInicioProduccion ?? DateTime.Now,
+                    HoraFinAproximada = datos.HoraUltimoPaquete ?? DateTime.Now,
+                    PorcentajePedido = _kpiService.CalcularPorcentajePedido(datos.PaquetesValidos ?? 0, datos.PaquetesTotales ?? 0),
+                    CosteMOD = datos.CosteKg ?? 0,
+                    PersonalEnBalanza = 31,
+                    PersonalTotal = 40,
+                };
+                ViewBag.PersonasExtra = 9;
             }
-          
 
             return View(modelo);
         }
-        private DatosKpisLive ObtenerDatosPorLinea(short linea)
-        {
-            try
-            {
-                return ExecuteWithRetry(() =>
-                {
-                    return _context.DatosKpisLives.FirstOrDefault(d => d.IdLinea == linea);
-                });
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError("Se ha producido un error al obtener los datos para los KPIs.", ex);
-                throw; // Let the global exception handler deal with this
-            }
-        }
-        private T ExecuteWithRetry<T>(Func<T> operation, int retryCount = 3)
-        {
-            for (int i = 0; i < retryCount; i++)
-            {
-                try
-                {
-                    return operation();
-                }
-                catch (SqlException ex) when (ex.Number == 1205) // Deadlock error number
-                {
-                    if (i == retryCount - 1)
-                    {
-                        // Log and rethrow the exception if retries are exhausted
-                        Logger.LogError("Deadlock occurred. Retries exhausted.", ex);
-                        throw;
-                    }
 
-                    // Wait a short time before retrying
-                    Task.Delay(1000).Wait();
-                }
-            }
-            return default;
-        }
         [HttpGet]
         public IActionResult ObtenerLineasDisponibles()
         {
@@ -116,7 +91,5 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 return StatusCode(500, "Error interno del servidor.");
             }
         }
-
     }
-
 }

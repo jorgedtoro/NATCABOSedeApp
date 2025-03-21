@@ -32,6 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\assets\GreenLight.jpg" />
+    <None Include="wwwroot\assets\RedLight.jpg" />
     <None Include="wwwroot\js\KPIS.js" />
   </ItemGroup>
 

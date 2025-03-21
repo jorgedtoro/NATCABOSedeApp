@@ -1,4 +1,9 @@
 ﻿
+
+
+.container {
+    background: #F7F9FC !important
+}
 /* Estilos generales para los valores destacados */
 .data-value {
     font-size: 1.8rem;

@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Objetivos";
+
+    //Mock lineas a falta de back chema
+    var lineas = new[]
+    {
+        new { Nombre = "Linea 1", PpmActual = 2.5, ModActual = 1.2, FttActual = 98.5 },
+        new { Nombre = "Linea 2", PpmActual = 3.1, ModActual = 1.0, FttActual = 97.0 },
+        new { Nombre = "Linea 3", PpmActual = 2.7, ModActual = 1.5, FttActual = 95.2 },
+        new { Nombre = "Linea 4", PpmActual = 2.9, ModActual = 1.3, FttActual = 96.1 }
+    };
+    var operarios = new[]
+           {
+        new { Nombre = "Linea 1", OperariosActuales = 25, OperariosExtra = 6 },
+        new { Nombre = "Linea 2", OperariosActuales = 30, OperariosExtra = 4 },
+        new { Nombre = "Linea 3", OperariosActuales = 31, OperariosExtra = 7 },
+        new { Nombre = "Linea 4", OperariosActuales = 10, OperariosExtra = 2 },
+    };
+}
+@* Tabla objetivos *@
+<div class="container mt-4">
+    <h3 class="mb-3">Configuración de objetivos</h3>
+
+    <table class="table table-hover table-bordered align-middle text-center">
+        <thead class="table-primary">
+            <tr>
+                <th scope="col">Linea</th>
+                <th scope="col">PPM Actual</th>
+                <th scope="col">MOD Actual</th>
+                <th scope="col">FTT Actual</th>
+                <th scope="col">Nuevo PPM</th>
+                <th scope="col">Nuevo MOD</th>
+                <th scope="col">Nuevo FTT</th>
+                <th scope="col" class="text-center">Guardar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var linea in lineas)
+            {
+                <tr>
+                    <td>@linea.Nombre</td>
+                    <!-- Columna PPM Actual -->
+                    <td>
+                        @linea.PpmActual
+
+                    </td>
+
+                    <!-- Columna MOD Actual -->
+                    <td>@linea.ModActual</td>
+
+                    <!-- Columna FTT Actual -->
+                    <td>@linea.FttActual %</td>
+
+                    <!-- Columna editable Nuevo PPM -->
+                    <td>
+                        <input type="text" class="form-control" placeholder="Nuevo PPM" />
+                    </td>
+
+                    <!-- Columna editable Nuevo MOD -->
+                    <td>
+                        <input type="text" class="form-control" placeholder="Nuevo MOD" />
+                    </td>
+
+                    <!-- Columna editable Nuevo FTT -->
+                    <td>
+                        <input type="text" class="form-control" placeholder="Nuevo FTT" />
+                    </td>
+
+                    <!-- Columna 7: Botón Guardar con icono -->
+                    <td class="text-center">
+                        <button class="btn btn-primary">
+                            <i class="fa-solid fa-floppy-disk"></i>
+
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@* Tabla personal *@
+<div class="container mt-4">
+    <h3 class="mb-3">Configuración de personal</h3>
+
+    <table class="table table-hover table-bordered align-middle text-center">
+        <thead class="table-primary">
+            <tr>
+                <th scope="col">Linea</th>
+                <th scope="col">Operarios Actuales</th>
+                <th scope="col">Operarios Extra Actuales</th>
+                <th scope="col">Nuevo total Operarios</th>
+                <th scope="col">Nuevo Extra de operarios</th>
+
+                <th scope="col" class="text-center">Guardar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var linea in operarios)
+            {
+                <tr>
+                    <!-- Columna Linea -->
+                    <td>
+                        @linea.Nombre
+                    </td>
+                    <!-- Columna Operarios Actuales -->
+                    <td>
+                        @linea.OperariosActuales
+                    </td>
+
+                    <!-- Columna Operarios Extra -->
+                    <td>@linea.OperariosExtra</td>
+
+
+                    <!-- Columna editable Cambio Operarios Actuales -->
+                    <td>
+                        <input type="text" class="form-control" placeholder="Nuevo total Operarios" />
+                    </td>
+
+                    <!-- Columna editable Cambio Operarios Extra -->
+                    <td>
+                        <input type="text" class="form-control" placeholder="Nuevo Extra de operarios" />
+                    </td>
+
+                    <!-- Columna 7: Botón Guardar con icono -->
+                    <td class="text-center">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

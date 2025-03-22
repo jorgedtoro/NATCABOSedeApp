@@ -22,6 +22,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xBdXRoXExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/ConfigurarObjetivos/ObjetivosConfigurables.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xDb25maWd1cmFyT2JqZXRpdm9zXE9iamV0aXZvc0NvbmZpZ3VyYWJsZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [G:/gitPersonal/NATCABOSedeApp/NATCABOSede/NATCABOSede/Areas/KPIS/Views/Historico/Historico.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcS1BJU1xWaWV3c1xIaXN0b3JpY29cSGlzdG9yaWNvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

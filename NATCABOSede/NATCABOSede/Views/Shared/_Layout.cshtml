@@ -64,16 +64,19 @@
                         </li>
                         <li class="nav-item">
                             <a id="envasadora-link" class="nav-link @(currentController == "InfoEnvasadoras" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
-                               asp-area="KPIS" asp-controller="InfoEnvasadoras" asp-action="Index">InfoEnvasadoras</a>
+                               asp-area="KPIS" asp-controller="InfoEnvasadoras" asp-action="Index">Info Envasadoras</a>
                         </li>
                         @* <li class="nav-item">
                             <a id="discriminadora-link" class="nav-link @(currentController == "InfoDiscriminadora" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="InfoDiscriminadora" asp-action="Index">InfoDiscriminadora</a>
                         </li> *@
                         <li class="nav-item">
-                            <a id="infoDiscriminadora-link" class="nav-link" href="#">InfoDiscriminadora</a>
+                            <a id="infoDiscriminadora-link" class="nav-link" href="#">Info Linea</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a id="objetivos-link" class="nav-link @(currentController == "ConfigurarObjetivos" && currentAction == "ObjetivosConfigurables" && currentArea == "KPIS" ? "active" : "")"
+                               asp-area="KPIS" asp-controller="ConfigurarObjetivos" asp-action="ObjetivosConfigurables">Configurar objetivos</a>
+                        </li>
                     </ul>
                 </div>
                 @*   <span style="float: right;">Parque Nat S.C.A</span> *@

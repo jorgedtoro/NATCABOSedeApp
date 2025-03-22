@@ -28,7 +28,6 @@
     <Folder Include="Areas\KPIS\Data\" />
     <Folder Include="Repositories\" />
     <Folder Include="Scripts\" />
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>

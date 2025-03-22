@@ -5,6 +5,7 @@ namespace NATCABOSede.ViewModels
     public class InfoDiscriminadoraViewModel
     {
         public short LineaSeleccionada { get; set; }
+        public string NombreLinea { get; set; }
         public string NombreCliente { get; set; }
         public string NombreProducto { get; set; }
         public double PM { get; set; }
@@ -24,6 +25,7 @@ namespace NATCABOSede.ViewModels
         // Constructor por defecto
         public InfoDiscriminadoraViewModel()
         {
+            NombreLinea = "No disponible";
             NombreCliente = "No disponible";
             NombreProducto = "No disponible";
             PPM = 0;

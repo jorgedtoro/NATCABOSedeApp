@@ -134,298 +134,298 @@ function actualizarGraficos(data) {
 /**
  * Actualiza la paginación en la vista.
  */
-    function actualizarPaginacion() {
-        const pagination = document.querySelector(".pagination");
-        pagination.innerHTML = ''; // Limpiar la paginación existente
+function actualizarPaginacion() {
+    const pagination = document.querySelector(".pagination");
+    pagination.innerHTML = ''; // Limpiar la paginación existente
 
-        // Botón "Anterior"
-        if (currentPage > 1) {
-            const prevLi = document.createElement('li');
-            prevLi.classList.add('page-item');
-            const prevLink = document.createElement('a');
-            prevLink.classList.add('page-link');
-            prevLink.href = '#';
-            prevLink.textContent = 'Anterior';
-            prevLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                loadPage(currentPage - 1);
-            });
-            prevLi.appendChild(prevLink);
-            pagination.appendChild(prevLi);
-        }
-
-        // Botones de página
-        for (let i = 1; i <= totalPages; i++) {
-            const pageLi = document.createElement('li');
-            pageLi.classList.add('page-item');
-            if (i === currentPage) {
-                pageLi.classList.add('active');
-            }
-
-            const pageLink = document.createElement('a');
-            pageLink.classList.add('page-link');
-            pageLink.href = '#';
-            pageLink.textContent = i;
-            pageLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                loadPage(i);
-            });
-
-            pageLi.appendChild(pageLink);
-            pagination.appendChild(pageLi);
-        }
-
-        // Botón "Siguiente"
-        if (currentPage < totalPages) {
-            const nextLi = document.createElement('li');
-            nextLi.classList.add('page-item');
-            const nextLink = document.createElement('a');
-            nextLink.classList.add('page-link');
-            nextLink.href = '#';
-            nextLink.textContent = 'Siguiente';
-            nextLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                loadPage(currentPage + 1);
-            });
-            nextLi.appendChild(nextLink);
-            pagination.appendChild(nextLi);
-        }
+    // Botón "Anterior"
+    if (currentPage > 1) {
+        const prevLi = document.createElement('li');
+        prevLi.classList.add('page-item');
+        const prevLink = document.createElement('a');
+        prevLink.classList.add('page-link');
+        prevLink.href = '#';
+        prevLink.textContent = 'Anterior';
+        prevLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            loadPage(currentPage - 1);
+        });
+        prevLi.appendChild(prevLink);
+        pagination.appendChild(prevLi);
     }
-    /**
-     * Carga una página específica con los filtros aplicados.
-     * @param {number} page - Número de página a cargar.
-     */
+
+    // Botones de página
+    for (let i = 1; i <= totalPages; i++) {
+        const pageLi = document.createElement('li');
+        pageLi.classList.add('page-item');
+        if (i === currentPage) {
+            pageLi.classList.add('active');
+        }
+
+        const pageLink = document.createElement('a');
+        pageLink.classList.add('page-link');
+        pageLink.href = '#';
+        pageLink.textContent = i;
+        pageLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            loadPage(i);
+        });
+
+        pageLi.appendChild(pageLink);
+        pagination.appendChild(pageLi);
+    }
+
+    // Botón "Siguiente"
+    if (currentPage < totalPages) {
+        const nextLi = document.createElement('li');
+        nextLi.classList.add('page-item');
+        const nextLink = document.createElement('a');
+        nextLink.classList.add('page-link');
+        nextLink.href = '#';
+        nextLink.textContent = 'Siguiente';
+        nextLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            loadPage(currentPage + 1);
+        });
+        nextLi.appendChild(nextLink);
+        pagination.appendChild(nextLi);
+    }
+}
+/**
+ * Carga una página específica con los filtros aplicados.
+ * @param {number} page - Número de página a cargar.
+ */
 function loadPage(page) {
 
     overlayManager.show(); // Show overlay before the request
 
-        const lineaId = document.getElementById("lineaSeleccionada").value;
-        const confeccion = document.getElementById("confeccionSeleccionada").value; // Opcional
-        const desde = document.getElementById("desde").value;
-        const hasta = document.getElementById("hasta").value;
+    const lineaId = document.getElementById("lineaSeleccionada").value;
+    const confeccion = document.getElementById("confeccionSeleccionada").value; // Opcional
+    const desde = document.getElementById("desde").value;
+    const hasta = document.getElementById("hasta").value;
 
-        if (!lineaId || !desde || !hasta) {
-            alert("Por favor, complete todos los campos del filtro antes de cambiar de página.");
-            return;
-        }
-        // Validación: 'hasta' debe ser mayor o igual a 'desde'
-        if (!validarFechas(desde, hasta)) {
-            mostrarAlerta("La fecha 'Hasta' debe ser posterior o igual a la fecha 'Desde'.");
-            return;
-        }
-        // Preparar los datos de la solicitud
-        const requestData = {
-            lineaId,
-            confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
-            desde: desde ? desde : null,
-            hasta: hasta ? hasta : null,
-            page: page,
-            pageSize: pageSize
-        };
-
-        // Realizar la solicitud de filtrado para la página específica
-        fetch('/KPIS/Historico/Filtrar', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                datosFiltrados = data.data;
-                totalPages = data.totalPages;
-                currentPage = page;
-
-                updateTable(datosFiltrados); // Actualizar la tabla
-                actualizarGraficos(datosFiltrados); // Actualizar el gráfico
-                actualizarPaginacion(); // Actualizar la paginación
-            })
-            .catch(error => console.error('Error:', error))
-
-                .finally(function () {
-        //hideLoading(); // Hide loading overlay
-                    overlayManager.hide(); // Hide overlay after content is updated
-    });
+    if (!lineaId || !desde || !hasta) {
+        alert("Por favor, complete todos los campos del filtro antes de cambiar de página.");
+        return;
     }
+    // Validación: 'hasta' debe ser mayor o igual a 'desde'
+    if (!validarFechas(desde, hasta)) {
+        mostrarAlerta("La fecha 'Hasta' debe ser posterior o igual a la fecha 'Desde'.");
+        return;
+    }
+    // Preparar los datos de la solicitud
+    const requestData = {
+        lineaId,
+        confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
+        desde: desde ? desde : null,
+        hasta: hasta ? hasta : null,
+        page: page,
+        pageSize: pageSize
+    };
 
-    // ----------------------------
-    // 4. Manejadores de Eventos
-    // ----------------------------
+    // Realizar la solicitud de filtrado para la página específica
+    fetch('/KPIS/Historico/Filtrar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            datosFiltrados = data.data;
+            totalPages = data.totalPages;
+            currentPage = page;
 
-    // Manejar el clic en el botón "Filtrar"
+            updateTable(datosFiltrados); // Actualizar la tabla
+            actualizarGraficos(datosFiltrados); // Actualizar el gráfico
+            actualizarPaginacion(); // Actualizar la paginación
+        })
+        .catch(error => console.error('Error:', error))
+
+        .finally(function () {
+            //hideLoading(); // Hide loading overlay
+            overlayManager.hide(); // Hide overlay after content is updated
+        });
+}
+
+// ----------------------------
+// 4. Manejadores de Eventos
+// ----------------------------
+
+// Manejar el clic en el botón "Filtrar"
 document.getElementById("btn-filtrar").addEventListener("click", function () {
     overlayManager.show(); // Show overlay before the request
 
-        const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
-        const confeccion = document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
-        const desde = new Date(document.getElementById("desde").value).toISOString();
-        const hasta = new Date(document.getElementById("hasta").value).toISOString();
+    const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    const confeccion = document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
+    const desde = new Date(document.getElementById("desde").value).toISOString();
+    const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
-        // Validación: Línea, Desde y Hasta son obligatorios
-        //if (!lineaId || !desde || !hasta) {
-        if (!desde || !hasta) {
+    // Validación: Línea, Desde y Hasta son obligatorios
+    //if (!lineaId || !desde || !hasta) {
+    if (!desde || !hasta) {
         mostrarAlerta("Por favor, complete los campos de Línea, Desde y Hasta.");
-            return;
-        }
-        // Validación: 'hasta' debe ser mayor o igual a 'desde'
-        if (!validarFechas(desde, hasta)) {
-            mostrarAlerta("La fecha 'Hasta' debe ser posterior o igual a la fecha 'Desde'.");
-            return;
-        }
-        // Preparar los datos de la solicitud
-        const request = {
-            lineaId,
-            Confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
-            desde: desde ? desde : null,
-            hasta: hasta ? hasta : null,
-            page: 1,
-            pageSize: pageSize
-        };
+        return;
+    }
+    // Validación: 'hasta' debe ser mayor o igual a 'desde'
+    if (!validarFechas(desde, hasta)) {
+        mostrarAlerta("La fecha 'Hasta' debe ser posterior o igual a la fecha 'Desde'.");
+        return;
+    }
+    // Preparar los datos de la solicitud
+    const request = {
+        lineaId,
+        Confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
+        desde: desde ? desde : null,
+        hasta: hasta ? hasta : null,
+        page: 1,
+        pageSize: pageSize
+    };
 
-        fetch('/KPIS/Historico/Filtrar', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            // body: JSON.stringify({ lineaId, desde, hasta })
-            body: JSON.stringify(request)
+    fetch('/KPIS/Historico/Filtrar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        // body: JSON.stringify({ lineaId, desde, hasta })
+        body: JSON.stringify(request)
+    })
+        .then(response => response.json())
+        .then(data => {
+            datosFiltrados = data.data;
+            totalPages = data.totalPages;
+            currentPage = 1; //reseteamos a la primera página
+            console.log(datosFiltrados);
+            updateTable(datosFiltrados); // Actualiza tabla
+            actualizarGraficos(data.data); // Actualiza gráfico
+            actualizarPaginacion(); // Actualizar la paginación
+
+            // Enable the "Exportar a Excel" button if there is data
+            const exportBtn = document.getElementById("btn-export-excel");
+            if (datosFiltrados && datosFiltrados.length > 0) {
+                exportBtn.removeAttribute("disabled");
+                exportBtn.setAttribute("title", "Exportar datos a Excel");
+            } else {
+                exportBtn.setAttribute("disabled", "true");
+                exportBtn.setAttribute("title", "No hay datos para exportar, realice un filtro");
+            }
         })
-            .then(response => response.json())
-            .then(data => {
-                datosFiltrados = data.data;
-                totalPages = data.totalPages;
-                currentPage = 1; //reseteamos a la primera página
-                console.log(datosFiltrados);
-                updateTable(datosFiltrados); // Actualiza tabla
-                actualizarGraficos(data.data); // Actualiza gráfico
-                actualizarPaginacion(); // Actualizar la paginación
+        .catch(error => console.error('Error:', error))
 
-                // Enable the "Exportar a Excel" button if there is data
-                const exportBtn = document.getElementById("btn-export-excel");
-                if (datosFiltrados && datosFiltrados.length > 0) {
-                    exportBtn.removeAttribute("disabled");
-                    exportBtn.setAttribute("title", "Exportar datos a Excel");
-                } else {
-                    exportBtn.setAttribute("disabled", "true");
-                    exportBtn.setAttribute("title", "No hay datos para exportar, realice un filtro");
-                }
-            })
-            .catch(error => console.error('Error:', error))
+        .finally(function () {
+            //hideLoading(); // Hide loading overlay
+            overlayManager.hide(); // Hide overlay after content is updated
+        });
 
-            .finally(function () {
-                //hideLoading(); // Hide loading overlay
-                overlayManager.hide(); // Hide overlay after content is updated
-            });
-            
-    });
+});
 
-    // Manejar el cambio en la selección de KPI
+// Manejar el cambio en la selección de KPI
 document.getElementById("kpiSelect").addEventListener("change", function () {
     overlayManager.show();
     actualizarGraficos(datosFiltrados);
 
- });
+});
 
 
-    // Manejar el clic en el botón "Exportar a Excel"
+// Manejar el clic en el botón "Exportar a Excel"
 document.getElementById("btn-export-excel").addEventListener("click", function () {
     overlayManager.show();
-        const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
-        const desde = new Date(document.getElementById("desde").value).toISOString();
-        const hasta = new Date(document.getElementById("hasta").value).toISOString();
+    const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    const desde = new Date(document.getElementById("desde").value).toISOString();
+    const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
-        if (!lineaId || !desde || !hasta) {
-            alert("Por favor, para exportar datos complete todos los campos del filtro.");
-            return;
-        }
+    if (!lineaId || !desde || !hasta) {
+        alert("Por favor, para exportar datos complete todos los campos del filtro.");
+        return;
+    }
 
-        fetch('/KPIS/Historico/ExportarExcel', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ lineaId, desde, hasta })
+    fetch('/KPIS/Historico/ExportarExcel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lineaId, desde, hasta })
+    })
+        .then(response => response.blob())
+        .then(blob => {
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "KpisHistorico.xlsx";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         })
-            .then(response => response.blob())
-            .then(blob => {
-                const link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = "KpisHistorico.xlsx";
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            })
-            .catch(error => console.error('Error:', error))
-            .finally(function () {
-                //hideLoading(); // Hide loading overlay
-                overlayManager.hide(); // Hide overlay after content is updated
+        .catch(error => console.error('Error:', error))
+        .finally(function () {
+            //hideLoading(); // Hide loading overlay
+            overlayManager.hide(); // Hide overlay after content is updated
+        });
+});
+
+
+// ----------------------------
+// 5. Carga Inicial de Dropdowns
+// ----------------------------
+/**
+ * Carga opciones en un dropdown desde una URL específica.
+ * @param {string} url - URL para obtener los datos.
+ * @param {HTMLElement} selectElement - Elemento select donde se cargarán las opciones.
+ * @param {string} placeholderText - Texto del placeholder.
+ * @param {function} formatOption - Función para formatear cada opción.
+ */
+function cargarDropdown(url, selectElement, placeholderText, formatOption) {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error(`Error fetching data from ${url}`);
+            return response.json();
+        })
+        .then(items => {
+            selectElement.innerHTML = ''; // Limpiar opciones existentes
+
+            const placeholderOption = document.createElement('option');
+            placeholderOption.value = '';
+            placeholderOption.textContent = placeholderText;
+            placeholderOption.disabled = true;
+            placeholderOption.selected = true;
+            selectElement.appendChild(placeholderOption);
+
+            if (items.length === 0) {
+                const noItemsOption = document.createElement('option');
+                noItemsOption.textContent = `No existen ${placeholderText.toLowerCase()}`;
+                noItemsOption.disabled = true;
+                noItemsOption.selected = true;
+                selectElement.appendChild(noItemsOption);
+                return;
+            }
+
+            const uniqueItems = Array.from(new Set(items.map(item => JSON.stringify(item)))).map(item => JSON.parse(item));
+            uniqueItems.sort((a, b) => {
+                if (a.nombreLinea && b.nombreLinea) return a.nombreLinea.localeCompare(b.nombreLinea);
+                if (a.confeccion && b.confeccion) return a.confeccion.localeCompare(b.confeccion);
+                return 0;
             });
-    });
 
+            uniqueItems.forEach(item => {
+                const option = document.createElement('option');
+                option.value = formatOption(item);
+                option.textContent = formatOption(item, true);
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => console.error(`Error cargando ${placeholderText.toLowerCase()}:`, error));
+}
+function cargarLineasHistorico() {
+    cargarDropdown(
+        window.appSettings.obtenerLineasHistoricoUrlAction,
+        document.getElementById("lineaSeleccionada"),
+        'Seleccione una línea',
+        (item, isText = false) => isText ? item.nombreLinea : item.lineaId
+    );
+}
 
-    // ----------------------------
-    // 5. Carga Inicial de Dropdowns
-    // ----------------------------
-    /**
-     * Carga opciones en un dropdown desde una URL específica.
-     * @param {string} url - URL para obtener los datos.
-     * @param {HTMLElement} selectElement - Elemento select donde se cargarán las opciones.
-     * @param {string} placeholderText - Texto del placeholder.
-     * @param {function} formatOption - Función para formatear cada opción.
-     */
-    function cargarDropdown(url, selectElement, placeholderText, formatOption) {
-        fetch(url)
-            .then(response => {
-                if (!response.ok) throw new Error(`Error fetching data from ${url}`);
-                return response.json();
-            })
-            .then(items => {
-                selectElement.innerHTML = ''; // Limpiar opciones existentes
-
-                const placeholderOption = document.createElement('option');
-                placeholderOption.value = '';
-                placeholderOption.textContent = placeholderText;
-                placeholderOption.disabled = true;
-                placeholderOption.selected = true;
-                selectElement.appendChild(placeholderOption);
-
-                if (items.length === 0) {
-                    const noItemsOption = document.createElement('option');
-                    noItemsOption.textContent = `No existen ${placeholderText.toLowerCase()}`;
-                    noItemsOption.disabled = true;
-                    noItemsOption.selected = true;
-                    selectElement.appendChild(noItemsOption);
-                    return;
-                }
-
-                const uniqueItems = Array.from(new Set(items.map(item => JSON.stringify(item)))).map(item => JSON.parse(item));
-                uniqueItems.sort((a, b) => {
-                    if (a.nombreLinea && b.nombreLinea) return a.nombreLinea.localeCompare(b.nombreLinea);
-                    if (a.confeccion && b.confeccion) return a.confeccion.localeCompare(b.confeccion);
-                    return 0;
-                });
-
-                uniqueItems.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = formatOption(item);
-                    option.textContent = formatOption(item, true);
-                    selectElement.appendChild(option);
-                });
-            })
-            .catch(error => console.error(`Error cargando ${placeholderText.toLowerCase()}:`, error));
-    }
-    function cargarLineasHistorico() {
-        cargarDropdown(
-            window.appSettings.obtenerLineasHistoricoUrlAction,
-            document.getElementById("lineaSeleccionada"),
-            'Seleccione una línea',
-            (item, isText = false) => isText ? item.nombreLinea : item.lineaId
-        );
-    }
-
-    function cargarConfeccionesHistorico() {
-        cargarDropdown(
-            window.appSettings.obtenerConfeccionesHistoricoUrlAction,
-            document.getElementById("confeccionSeleccionada"),
-            'Seleccione una confección',
-            (item) => item.confeccion
-        );
-    }
+function cargarConfeccionesHistorico() {
+    cargarDropdown(
+        window.appSettings.obtenerConfeccionesHistoricoUrlAction,
+        document.getElementById("confeccionSeleccionada"),
+        'Seleccione una confección',
+        (item) => item.confeccion
+    );
+}
 
 
 Promise.all([cargarLineasHistorico(), cargarConfeccionesHistorico()])
@@ -438,9 +438,10 @@ Promise.all([cargarLineasHistorico(), cargarConfeccionesHistorico()])
     });
 
 
+
+// 6. Actualiza fechas del dropdown ayer y hoy.
 // ----------------------------
-// 6. Actualiza dropdown fechas ayer y hoy
-// ----------------------------
+
 document.addEventListener("DOMContentLoaded", function () {
     const today = new Date();
     const yesterday = new Date();

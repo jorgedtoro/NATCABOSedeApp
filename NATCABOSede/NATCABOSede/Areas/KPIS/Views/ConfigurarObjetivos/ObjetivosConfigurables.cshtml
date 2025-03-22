@@ -1,0 +1,108 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Objetivos";
+    <link rel="stylesheet" href="~/css/pages/Objetivos.css" />
+
+
+    // Datos de ejemplo
+    var lineas = new[]
+    {
+        new { Nombre = "Linea 1", PpmActual = 2.5, ModActual = 1.2, FttActual = 98.5 },
+        new { Nombre = "Linea 2", PpmActual = 3.1, ModActual = 1.0, FttActual = 97.0 },
+        new { Nombre = "Linea 3", PpmActual = 2.7, ModActual = 1.5, FttActual = 95.2 },
+        new { Nombre = "Linea 4", PpmActual = 2.9, ModActual = 1.3, FttActual = 96.1 }
+    };
+
+    var operarios = new[]
+    {
+        new { Nombre = "Linea 1", OperariosActuales = 25, OperariosExtra = 6 },
+        new { Nombre = "Linea 2", OperariosActuales = 30, OperariosExtra = 4 },
+        new { Nombre = "Linea 3", OperariosActuales = 31, OperariosExtra = 7 },
+        new { Nombre = "Linea 4", OperariosActuales = 10, OperariosExtra = 2 },
+    };
+}
+
+<!-- Tabla objetivos -->
+<div class="container mt-4">
+    <h3 class="mb-3">Configuración de objetivos</h3>
+
+    <table class="table-custom text-center">
+        <thead>
+            <tr>
+                <th scope="col">Línea</th>
+                <th scope="col">PPM Actual</th>
+                <th scope="col">MOD Actual</th>
+                <th scope="col">FTT Actual</th>
+                <th scope="col">Nuevo PPM</th>
+                <th scope="col">Nuevo MOD</th>
+                <th scope="col">Nuevo FTT</th>
+                <th scope="col">Guardar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var linea in lineas)
+            {
+                <tr>
+                    <td>@linea.Nombre</td>
+                    <td>@linea.PpmActual</td>
+                    <td>@linea.ModActual</td>
+                    <td>@linea.FttActual %</td>
+
+                    <td>
+                        <input type="text" class="form-control" placeholder="Nuevo PPM" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" placeholder="Nuevo MOD" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" placeholder="Nuevo FTT" />
+                    </td>
+                    <td>
+                        <button class="btn btn-save">
+                            <i class="fas fa-save"></i> Guardar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Tabla personal -->
+<div class="container mt-4">
+    <h3 class="mb-3">Configuración de personal</h3>
+
+    <table class="table-custom text-center">
+        <thead>
+            <tr>
+                <th scope="col">Línea</th>
+                <th scope="col">Operarios Actuales</th>
+                <th scope="col">Operarios Extra Actuales</th>
+                <th scope="col">Nuevo total Operarios</th>
+                <th scope="col">Nuevo Extra de Operarios</th>
+                <th scope="col">Guardar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var linea in operarios)
+            {
+                <tr>
+                    <td>@linea.Nombre</td>
+                    <td>@linea.OperariosActuales</td>
+                    <td>@linea.OperariosExtra</td>
+                    <td>
+                        <input type="text" class="form-control" placeholder="Nuevo total Operarios" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" placeholder="Nuevo Extra de Operarios" />
+                    </td>
+                    <td>
+                        <button class="btn btn-save">
+                            <i class="fas fa-save"></i> Guardar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

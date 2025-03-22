@@ -54,6 +54,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 {
                     //TODO: recuperar bien los datos de la vista pasada del back.
                     LineaSeleccionada = lineaSeleccionada,
+                    NombreLinea = datos.NombreLinea ?? "Nombre de Linea" ,
                     NombreCliente = datos.NombreCliente ?? "**CLIENTE**",
                     NombreProducto = datos.NombreProducto ?? "**PRODUCTO**",
                     PPM = datos.PpmMarco ?? 0,

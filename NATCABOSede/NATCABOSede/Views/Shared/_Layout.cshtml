@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="~/css/pages/historico.css" />
     <link rel="stylesheet" href="~/css/pages/overlay.css" />
     <link rel="stylesheet" href="~/css/pages/Discriminadora.css" />
+    <link rel="stylesheet" href="~/css/Objetivos.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NATCABOSede.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -31,11 +32,11 @@
     }
     <header>
         <!--<nav class="navbar navbar-expand-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #F5F5F7;">-->
-        <nav class="navbar navbar-expand-sm navbar-light border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <!-- Logo -->
                 <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="/images/Logo_Natursur.png" alt="Logo" style="height: 40px; width: auto; margin-right: 10px;">
+                    <img src="/images/UnicaLogo.jpg" alt="Logo" style="height: 40px; width: auto; margin-right: 10px;">
 
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -64,18 +65,25 @@
                         </li>
                         <li class="nav-item">
                             <a id="envasadora-link" class="nav-link @(currentController == "InfoEnvasadoras" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
-                               asp-area="KPIS" asp-controller="InfoEnvasadoras" asp-action="Index">InfoEnvasadoras</a>
+                               asp-area="KPIS" asp-controller="InfoEnvasadoras" asp-action="Index">Info Envasadoras</a>
                         </li>
                         @* <li class="nav-item">
                             <a id="discriminadora-link" class="nav-link @(currentController == "InfoDiscriminadora" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="InfoDiscriminadora" asp-action="Index">InfoDiscriminadora</a>
                         </li> *@
                         <li class="nav-item">
-                            <a id="infoDiscriminadora-link" class="nav-link" href="#">InfoDiscriminadora</a>
+                            <a id="infoDiscriminadora-link" class="nav-link" href="#">Info Linea</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a id="objetivos-link" class="nav-link @(currentController == "ConfigurarObjetivos" && currentAction == "ObjetivosConfigurables" && currentArea == "KPIS" ? "active" : "")"
+                               asp-area="KPIS" asp-controller="ConfigurarObjetivos" asp-action="ObjetivosConfigurables">Configurar objetivos</a>
+                        </li>
                     </ul>
                 </div>
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="/images/Logo_Natursur.png" alt="Logo" style="height: 40px; width: auto; margin-right: 10px;">
+
+                </a>
                 @*   <span style="float: right;">Parque Nat S.C.A</span> *@
             </div>
             <ul class="navbar-nav p-2">

@@ -427,6 +427,7 @@ function cargarConfeccionesHistorico() {
     );
 }
 
+
 Promise.all([cargarLineasHistorico(), cargarConfeccionesHistorico()])
     .then(() => {
         //overlayManager.hide(); // Hide overlay after both fetches are complete
@@ -437,7 +438,7 @@ Promise.all([cargarLineasHistorico(), cargarConfeccionesHistorico()])
     });
 
 
-// ----------------------------
+
 // 6. Actualiza fechas del dropdown ayer y hoy.
 // ----------------------------
 

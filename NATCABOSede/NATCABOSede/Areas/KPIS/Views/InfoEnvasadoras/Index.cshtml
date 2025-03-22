@@ -5,25 +5,49 @@
     ViewData["Title"] = "Envasadoras";
 }
 
-<h2>Desperdicio - @Model.NombreLinea</h2>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Cliente</th>
-            <th>Producto</th>
-            <th>Peso Total Desperdicio (kg)</th>
-            <th>Porcentaje Total Desperdicio (%)</th>
-            <th>FTT (%)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@Model.Cliente</td>
-            <td>@Model.Producto</td>
-            <td>@Model.PesoTotalDesperdicio</td>
-            <td>@Model.PorcentajeTotalDesperdicio %</td>
-            <td>@Model.FTT %</td>
-        </tr>
-    </tbody>
-</table>
+<div class="container mt-3">
+    <!-- Primer bloque de KPIs -->
+    <div class="row align-items-center mb-4">
+        <div class="col-12">
+            <!-- Título de la línea -->
+            <h2 class="fw-bold mb-0">@Model.NombreLinea</h2>
+        </div>
+        <!-- Cartas de PPM y Objetivo -->
+        <div class="col-12 col-md-6 d-flex gap-3 mt-3">
+            <div class="card shadow-sm flex-fill">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-uppercase">PPM</h5>
+                    <p class="card-text fs-3 fw-semibold">1,23</p>
+                </div>
+            </div>
+            <div class="card shadow-sm flex-fill">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-uppercase">Objetivo</h5>
+                    <p class="card-text fs-3 fw-semibold">1,23</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Segundo bloque de KPIs, a modo de ejemplo. Repite el patrón para cada línea. -->
+    <div class="row align-items-center mb-4">
+        <div class="col-12">
+            <h2 class="fw-bold mb-0">@Model.NombreLinea</h2>
+        </div>
+        <div class="col-12 col-md-6 d-flex gap-3 mt-3">
+            <div class="card shadow-sm flex-fill">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-uppercase">PPM</h5>
+                    <p class="card-text fs-3 fw-semibold">1,23</p>
+                </div>
+            </div>
+            <div class="card shadow-sm flex-fill">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-uppercase">Objetivo</h5>
+                    <p class="card-text fs-3 fw-semibold">1,23</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -427,13 +427,6 @@ document.getElementById("btn-export-excel").addEventListener("click", function (
         );
     }
 
-//// Cargar las líneas al cargar la página
-//cargarLineasHistorico();
-//// Cargar las confecciones al cargar la página (sin filtrar por línea)
-//cargarConfeccionesHistorico();
-
-
-//overlayManager.show(); // Show overlay before fetching data
 
 Promise.all([cargarLineasHistorico(), cargarConfeccionesHistorico()])
     .then(() => {
@@ -445,103 +438,19 @@ Promise.all([cargarLineasHistorico(), cargarConfeccionesHistorico()])
     });
 
 
+// ----------------------------
+// 6. Actualiza dropdown fechas ayer y hoy
+// ----------------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1); // Set to yesterday
+
+    // Format the date as YYYY-MM-DD for input type="date"
+    const formatDate = (date) => date.toISOString().split('T')[0];
+
+    document.getElementById("desde").value = formatDate(yesterday);
+    document.getElementById("hasta").value = formatDate(today);
+});
 
 
-
-//document.addEventListener('DOMContentLoaded', function () {
-//    const obtenerLineasHistoricoUrlAction = window.appSettings.obtenerLineasHistoricoUrlAction;
-//    const obtenerConfeccionesHistoricoUrlAction = window.appSettings.obtenerConfeccionesHistoricoUrlAction;
-
-//    const lineaSeleccionada = document.getElementById("lineaSeleccionada");
-//    const confeccionSeleccionada = document.getElementById("confeccionSeleccionada");
-
-//    /**
-//     * Carga las líneas históricas desde el servidor y las agrega al dropdown.
-//     */
-//    function cargarLineasHistorico() {
-//        fetch(obtenerLineasHistoricoUrlAction)
-//            .then(response => {
-//                if (!response.ok) throw new Error('Error fetching lineas historico');
-//                return response.json();
-//            })
-//            .then(lineas => {
-//                lineaSeleccionada.innerHTML = ''; // Clear existing options
-//                const placeholderOption = document.createElement('option');
-//                placeholderOption.value = '';
-//                placeholderOption.textContent = 'Seleccione una línea';
-//                placeholderOption.disabled = true;
-//                placeholderOption.selected = true;
-//                lineaSeleccionada.appendChild(placeholderOption);
-
-//                if (lineas.length === 0) {
-//                    const noLinesOption = document.createElement('option');
-//                    noLinesOption.textContent = 'No existen líneas';
-//                    noLinesOption.disabled = true;
-//                    noLinesOption.selected = true;
-//                    lineaSeleccionada.appendChild(noLinesOption);
-//                    return;
-//                }
-
-//                const uniqueLineas = new Set();
-//                lineas.forEach(linea => uniqueLineas.add(JSON.stringify(linea)));
-//                const filteredLineas = Array.from(uniqueLineas).map(linea => JSON.parse(linea));
-//                filteredLineas.sort((a, b) => a.sName.localeCompare(b.sName));
-
-//                filteredLineas.forEach(linea => {
-//                    const option = document.createElement('option');
-//                    option.value = linea.lineaId;
-//                    option.textContent = linea.sName;
-//                    lineaSeleccionada.appendChild(option);
-//                });
-//            })
-//            .catch(error => console.error('Error cargando líneas:', error));
-//    }
-//    /**
-//     * Carga las confecciones históricas desde el servidor y las agrega al dropdown.
-//     * @param {number} [lineaId=null] - Opcional. Filtra las confecciones por línea.
-//     */
-//    function cargarConfeccionesHistorico() {
-//       // console.log('Cargando Confecciones disponibles para el histórico...')
-//        fetch(obtenerConfeccionesHistoricoUrlAction)
-//            .then(response => {
-//                if (!response.ok) throw new Error('Error fetching confecciones historico');
-//                return response.json();
-//            })
-
-//            .then(confecciones => {
-//                confeccionSeleccionada.innerHTML = ''; // Clear existing options
-//                const placeholderOption = document.createElement('option');
-//                placeholderOption.value = '';
-//                placeholderOption.textContent = 'Seleccione una confección';
-//                placeholderOption.disabled = true;
-//                placeholderOption.selected = true;
-//                confeccionSeleccionada.appendChild(placeholderOption);
-//                if (confecciones.length === 0) {
-//                    const noConfeccionesOption = document.createElement('option');
-//                    noConfeccionesOption.textContent = 'No existen confecciones';
-//                    noConfeccionesOption.disabled = true;
-//                    noConfeccionesOption.selected = true;
-//                    confeccionSeleccionada.appendChild(noConfeccionesOption);
-//                    return;
-//                }
-
-//                const uniqueConfecciones = new Set();
-//                confecciones.forEach(confeccion => uniqueConfecciones.add(JSON.stringify(confeccion)));
-//                const filteredConfecciones = Array.from(uniqueConfecciones).map(confeccion => JSON.parse(confeccion));
-//                filteredConfecciones.sort((a, b) => a.confeccion.localeCompare(b.confeccion));
-
-
-//                filteredConfecciones.forEach(confeccion => {
-//                    const option = document.createElement('option');
-//                    option.value = confeccion.confeccion;
-//                    option.textContent = confeccion.confeccion;
-//                    confeccionSeleccionada.appendChild(option);
-//                });
-//            })
-//            .catch(error => console.error('Error cargando confecciones:', error));
-//    }
-//    // Cargar las líneas al cargar la página
-//    cargarLineasHistorico();
-//    // Cargar las confecciones al cargar la página (sin filtrar por línea)
-//    cargarConfeccionesHistorico();
-//});

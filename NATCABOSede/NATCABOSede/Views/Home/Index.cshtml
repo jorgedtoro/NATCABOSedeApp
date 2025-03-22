@@ -10,15 +10,26 @@
 
             <div class="col-md-4 mb-3">
                 <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h4 class="card-title">KPIs</h4>
-                    <p class="card-text">Revisa los KPIs en tiempo real</p>
-                    <a asp-area="KPIS" asp-controller="KPIS" asp-action="Index" class="btn btn-primary">
-                        Ver KPIs
-                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title">KPIs</h4>
+                        <p class="card-text">Revisa los KPIs en tiempo real</p>
+                        <a asp-area="KPIS" asp-controller="KPIS" asp-action="Index" class="btn btn-primary">
+                            Ver KPIs
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="col-md-4 mb-3">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title">Configuración</h4>
+                        <p class="card-text">Configurar objetivos y personal</p>
+                        <a asp-area="KPIS" asp-controller="ConfigurarObjetivos" asp-action="ObjetivosConfigurables" class="btn btn-primary">
+                            Configuración
+                        </a>
+                    </div>
+                </div>
+            </div>
         }
 
         <!-- Tarjeta 2: Histórico -->

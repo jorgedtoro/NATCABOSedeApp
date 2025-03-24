@@ -3,6 +3,7 @@ using NATCABOSede.Models;
 using NATCABOSede.ViewModels;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NATCABOSede.Areas.KPIS.Controllers
 {
@@ -15,8 +16,9 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         {
             _context = context;
         }
-
+        
         [HttpGet]
+        [Authorize]
         public IActionResult ObjetivosConfigurables()
         {
         

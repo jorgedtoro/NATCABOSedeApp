@@ -133,3 +133,34 @@
     </form>
 </div>
 
+<!-- Bloque de scripts para mostrar alertas SweetAlert2 -->
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check for success message
+        @if (TempData["Success"] != null)
+        {
+            <text>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Guardado',
+                        text: '@TempData["Success"]'
+                    });
+            </text>
+        }
+
+                // Check for error message
+        @if (TempData["Error"] != null)
+        {
+            <text>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: '@TempData["Error"]'
+                    });
+            </text>
+        }
+                });
+    </script>
+}

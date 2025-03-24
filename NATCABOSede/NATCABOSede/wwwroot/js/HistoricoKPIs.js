@@ -253,27 +253,31 @@ function loadPage(page) {
 
 // Manejar el clic en el botón "Filtrar"
 document.getElementById("btn-filtrar").addEventListener("click", function () {
-    overlayManager.show(); // Show overlay before the request
 
-    const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    overlayManager.show();
+
+    const IdLinea = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    //alert(IdLinea);
     const confeccion = document.getElementById("confeccionSeleccionada").value;          //JMB, es necesario filtrar también por Confección
     const desde = new Date(document.getElementById("desde").value).toISOString();
     const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
     // Validación: Línea, Desde y Hasta son obligatorios
-    //if (!lineaId || !desde || !hasta) {
+    //if (!(IdLinea || confeccion) || !desde || !hasta) {
     if (!desde || !hasta) {
-        mostrarAlerta("Por favor, complete los campos de Línea, Desde y Hasta.");
+        //alert("Por favor, complete todos los campos del filtro (linea o confección, y fecha inicio y fecha fin).");
+        alert("Por favor, seleccione al menos una fecha incial y una fecha final.");
         return;
     }
+
     // Validación: 'hasta' debe ser mayor o igual a 'desde'
     if (!validarFechas(desde, hasta)) {
         mostrarAlerta("La fecha 'Hasta' debe ser posterior o igual a la fecha 'Desde'.");
         return;
     }
     // Preparar los datos de la solicitud
-    const request = {
-        lineaId,
+    const requestData = {
+        IdLinea,
         Confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
         desde: desde ? desde : null,
         hasta: hasta ? hasta : null,
@@ -285,14 +289,15 @@ document.getElementById("btn-filtrar").addEventListener("click", function () {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         // body: JSON.stringify({ lineaId, desde, hasta })
-        body: JSON.stringify(request)
+        body: JSON.stringify(requestData)
     })
+
         .then(response => response.json())
         .then(data => {
             datosFiltrados = data.data;
+            console.log("Datos Filtrados:", datosFiltrados); // Log to console
             totalPages = data.totalPages;
             currentPage = 1; //reseteamos a la primera página
-            console.log(datosFiltrados);
             updateTable(datosFiltrados); // Actualiza tabla
             actualizarGraficos(data.data); // Actualiza gráfico
             actualizarPaginacion(); // Actualizar la paginación
@@ -308,12 +313,9 @@ document.getElementById("btn-filtrar").addEventListener("click", function () {
             }
         })
         .catch(error => console.error('Error:', error))
-
-        .finally(function () {
-            //hideLoading(); // Hide loading overlay
-            overlayManager.hide(); // Hide overlay after content is updated
+        .finally(() => {
+            overlayManager.hide(); // Hide overlay after file download or error
         });
-
 });
 
 // Manejar el cambio en la selección de KPI
@@ -414,7 +416,7 @@ function cargarLineasHistorico() {
         window.appSettings.obtenerLineasHistoricoUrlAction,
         document.getElementById("lineaSeleccionada"),
         'Seleccione una línea',
-        (item, isText = false) => isText ? item.nombreLinea : item.lineaId
+        (item, isText = false) => isText ? item.nombreLinea : item.idLinea
     );
 }
 

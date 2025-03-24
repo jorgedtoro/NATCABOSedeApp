@@ -6,6 +6,9 @@ using NATCABOSede.Interfaces;
 using ClosedXML.Excel;
 using System.IO;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using NATCABOSede.Models.Metadata;
 
 namespace NATCABOSede.Areas.KPIS.Controllers
 {
@@ -63,53 +66,91 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             // return View(historico);
         }
         [HttpPost]
-        public IActionResult Filtrar([FromBody] FiltrarRequest request)
+        public async Task<IActionResult> Filtrar([FromBody] FiltrarRequest request)
         {
             if (request == null)
             {
                 return BadRequest("Solicitud inválida.");
             }
-            var query = _context.DatosKpisHistoricos.AsQueryable();
-
-            //Filtro de linea si se proporciona
-            if (request.LineaId.HasValue)
+            try
             {
-                query = query.Where(h => h.IdLinea == request.LineaId.Value);
+                // Preparar los parámetros para el SP
+                var idLineaParam = new SqlParameter("@idLinea", System.Data.SqlDbType.Int);
+                idLineaParam.Value = request.LineaId.HasValue ? (object)request.LineaId .Value : DBNull.Value;
+
+                var confeccionParam = new SqlParameter("@confeccion", System.Data.SqlDbType.NVarChar, 50);
+                confeccionParam.Value = string.IsNullOrWhiteSpace(request.Confeccion) ? (object)DBNull.Value : request.Confeccion;
+
+                var desdeParam = new SqlParameter("@desde", request.Desde);
+                //var hastaParam = new SqlParameter("@hasta", request.Hasta);
+                var hastaParam = new SqlParameter("@hasta", request.Hasta.HasValue
+                    ? request.Hasta.Value.Date.AddDays(1).AddTicks(-1)
+                    : DBNull.Value);
+
+                // Ejecutar el procedimiento almacenado y mapear el resultado al DTO
+                var data = await _context.KpisHistoricoDtos
+                    .FromSqlRaw("EXEC dbo.Filtrar_DatosKPIs_Historico @idLinea, @confeccion, @desde, @hasta",
+                                idLineaParam, confeccionParam, desdeParam, hastaParam)
+                    .ToListAsync();
+
+                // Aplicar paginación en memoria (el SP no incluye paginación)
+                var totalRecords = data.Count;
+                var totalPages = (int)Math.Ceiling(totalRecords / (double)request.PageSize);
+                var pagedData = data
+                    .OrderByDescending(d => d.Fecha)
+                    .Skip((request.Page - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .ToList();
+
+                return Json(new { data = pagedData, totalPages });
             }
-            // Filtrar por Confección si se proporciona y no está vacío
-            if (!string.IsNullOrWhiteSpace(request.Confeccion))
+            catch (Exception ex)
             {
-                query = query.Where(h => h.Confeccion == request.Confeccion);
+
+                Console.WriteLine(ex);
+                return StatusCode(500, new { error = ex.Message, stackTrace = ex.StackTrace });
             }
-            if (request.Desde.HasValue)
-            {
-                query = query.Where(h => h.Fecha >= request.Desde.Value);
-            }
+            //var query = _context.DatosKpisHistoricos.AsQueryable();
 
-            if (request.Hasta.HasValue)
-            {
-                query = query.Where(h => h.Fecha <= request.Hasta.Value);
-            }
+            ////Filtro de linea si se proporciona
+            //if (request.LineaId.HasValue)
+            //{
+            //    query = query.Where(h => h.IdLinea == request.LineaId.Value);
+            //}
+            //// Filtrar por Confección si se proporciona y no está vacío
+            //if (!string.IsNullOrWhiteSpace(request.Confeccion))
+            //{
+            //    query = query.Where(h => h.Confeccion == request.Confeccion);
+            //}
+            //if (request.Desde.HasValue)
+            //{
+            //    query = query.Where(h => h.Fecha >= request.Desde.Value);
+            //}
 
-            //var resultados = query.OrderByDescending(h => h.Fecha).ToList();
-            // Ordenar y aplicar paginación
-            var totalRecords = query.Count();
-            var totalPages = (int)Math.Ceiling(totalRecords / (double)request.PageSize);
+            //if (request.Hasta.HasValue)
+            //{
+            //    query = query.Where(h => h.Fecha <= request.Hasta.Value);
+            //}
 
-            var resultados = query.OrderByDescending(h => h.Fecha)
-                                  .Skip((request.Page - 1) * request.PageSize)
-                                  .Take(request.PageSize)
-                                  .ToList();
+            ////var resultados = query.OrderByDescending(h => h.Fecha).ToList();
+            //// Ordenar y aplicar paginación
+            //var totalRecords = query.Count();
+            //var totalPages = (int)Math.Ceiling(totalRecords / (double)request.PageSize);
 
-            ////Preparar respuesta
-            var response = new
-            {
-                Data = resultados,
-                TotalPages = totalPages
-            };
+            //var resultados = query.OrderByDescending(h => h.Fecha)
+            //                      .Skip((request.Page - 1) * request.PageSize)
+            //                      .Take(request.PageSize)
+            //                      .ToList();
 
-            return Json(response);
-            
+            //////Preparar respuesta
+            //var response = new
+            //{
+            //    Data = resultados,
+            //    TotalPages = totalPages
+            //};
+
+            //return Json(response);
+
         }
         [HttpPost]
         public IActionResult ExportarExcel([FromBody] FiltrarRequest request)

@@ -74,10 +74,13 @@
                         <li class="nav-item">
                             <a id="infoDiscriminadora-link" class="nav-link" href="#">Info Linea</a>
                         </li>
-                        <li class="nav-item">
-                            <a id="objetivos-link" class="nav-link @(currentController == "ConfigurarObjetivos" && currentAction == "ObjetivosConfigurables" && currentArea == "KPIS" ? "active" : "")"
-                               asp-area="KPIS" asp-controller="ConfigurarObjetivos" asp-action="ObjetivosConfigurables">Configurar objetivos</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a id="objetivos-link" class="nav-link @(currentController == "ConfigurarObjetivos" && currentAction == "ObjetivosConfigurables" && currentArea == "KPIS" ? "active" : "")"
+                                asp-area="KPIS" asp-controller="ConfigurarObjetivos" asp-action="ObjetivosConfigurables">Configurar objetivos</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
@@ -137,6 +140,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/overlayManager.js"></script>
     <script src="~/js/infoDiscriminadora.js" asp-append-version="true"></script>

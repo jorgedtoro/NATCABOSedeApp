@@ -16,10 +16,16 @@ public partial class NATCABOContext : DbContext
     }
 
     public virtual DbSet<DatosKpisHistorico> DatosKpisHistoricos { get; set; }
-    public DbSet<KpisHistoricoDto> KpisHistoricoDtos { get; set; }
-
-    public virtual DbSet<DatosKpisLive> DatosKpisLives { get; set; }
+    public virtual DbSet<KpisHistoricoDto> KpisHistoricoDtos { get; set; }
     public virtual DbSet<Usuario> Usuarios { get; set; }
+    public virtual DbSet<DatosKpisLive> DatosKpisLives { get; set; }
+
+    public virtual DbSet<TMarcoBizerba> TMarcoBizerbas { get; set; }
+
+    public virtual DbSet<TObjetivosConfeccione> TObjetivosConfecciones { get; set; }
+
+    public virtual DbSet<VwObjetivosConfecciones> VwObjetivosConfecciones { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=C0K3\\SQLEXPRESS;Database=dbGrupalia_aux;User ID=sa;Password=080506;TrustServerCertificate=True;Encrypt=False;");
@@ -121,10 +127,65 @@ public partial class NATCABOContext : DbContext
             entity.Property(e => e.PpmObjetivo).HasColumnName("ppm_Objetivo");
             entity.Property(e => e.TotalDowntime).HasColumnType("numeric(19, 6)");
         });
+
+        modelBuilder.Entity<TMarcoBizerba>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("T_Marco_Bizerba");
+
+            entity.Property(e => e.DeviceNoBizerba).HasColumnName("DeviceNo_BIZERBA");
+            entity.Property(e => e.IdLineaMarco).HasColumnName("IdLinea_MARCO");
+        });
+
+        modelBuilder.Entity<TObjetivosConfeccione>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("T_ObjetivosConfecciones");
+
+            entity.Property(e => e.FttObj).HasColumnName("FTT_Obj");
+            entity.Property(e => e.ModObj).HasColumnName("MOD_Obj");
+            entity.Property(e => e.NMaxExtraOper).HasColumnName("nMaxExtraOper");
+            entity.Property(e => e.PercExtraOper).HasColumnName("percExtraOper");
+            entity.Property(e => e.PpmObj).HasColumnName("PPM_Obj");
+            entity.Property(e => e.SCode)
+                .HasMaxLength(255)
+                .HasColumnName("sCode");
+        });
+
+        modelBuilder.Entity<VwObjetivosConfecciones>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("vw_ObjetivosConfecciones");
+
+            entity.Property(e => e.FttObj).HasColumnName("FTT_Obj");
+            entity.Property(e => e.ModObj).HasColumnName("MOD_Obj");
+            entity.Property(e => e.PercExtraOper).HasColumnName("percExtraOper");
+            entity.Property(e => e.PpmObj).HasColumnName("PPM_Obj");
+            entity.Property(e => e.SCode)
+                .HasMaxLength(255)
+                .HasColumnName("sCode");
+            entity.Property(e => e.SName)
+                .HasMaxLength(255)
+                .HasColumnName("sName");
+        });
         //Jorge: KpisHistoricoDto no tiene primary Key. Lo incluimos aquí para que no de fallo la consulta del SP.
         modelBuilder.Entity<KpisHistoricoDto>()
             .HasNoKey()
             .ToView(null);
+        //Jorge: Al no tener Key debemos indicar una para guardar en base de datos
+        modelBuilder.Entity<TObjetivosConfeccione>(entity =>
+        {
+            entity.HasKey(e => e.SCode);
+
+            entity.ToTable("T_ObjetivosConfecciones");
+
+            entity.Property(e => e.SCode).HasMaxLength(255).HasColumnName("sCode");
+           
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 

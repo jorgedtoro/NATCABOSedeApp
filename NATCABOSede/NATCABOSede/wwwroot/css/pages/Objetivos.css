@@ -1,10 +1,9 @@
-﻿/* Objetivos.css */
-
+﻿
 /* ------------------------------------------------------------------
    1. Estilos Generales
    ------------------------------------------------------------------ */
 body {
-    background-color: #fafafa; /* Ejemplo de fondo claro */
+    background-color: #fafafa; 
 }
 
 /* ------------------------------------------------------------------
@@ -13,12 +12,12 @@ body {
 
 /* Añade una clase específica para identificar estas tablas */
 .table-custom {
-    border-collapse: separate; /* para permitir esquinas redondeadas en thead/tbody si deseas */
+    border-collapse: separate; 
     width: 100%;
     background-color: #fff;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
     border-radius: 6px;
-    overflow: hidden; /* si quieres que el redondeado afecte también a las esquinas */
+    overflow: hidden; /
 }
 
     /* Estilo para el header de la tabla */
@@ -31,7 +30,7 @@ body {
             color: #333;
             padding: 1rem 0.75rem;
             text-transform: uppercase;
-            border-bottom: 2px solid #dee2e6; /* línea más marcada para separar encabezados */
+            border-bottom: 2px solid #dee2e6; 
         }
 
     /* Estilo para celdas del cuerpo de la tabla */
@@ -40,7 +39,7 @@ body {
     }
 
         .table-custom tbody tr:hover {
-            background-color: #f8f9fa; /* Efecto hover */
+            background-color: #f8f9fa; 
         }
 
     .table-custom th,
@@ -59,7 +58,7 @@ body {
    3. Botones personalizados
    ------------------------------------------------------------------ */
 
-/* Ejemplo de botón 'Guardar' con un color sutil distinto al .btn-primary */
+
 .btn-save {
     background-color: #647acb;
     border: none;
@@ -71,7 +70,7 @@ body {
         color: #fff;
     }
 
-    /* Si quieres centrar el ícono y texto */
+   
     .btn-save i {
         margin-right: 0.5rem;
     }

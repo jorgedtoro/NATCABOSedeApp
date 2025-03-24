@@ -224,14 +224,14 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     NombreLinea=d.NombreLinea,
                     Cliente = d.NombreCliente,
                     Producto = d.NombreProducto,
-                    //PPM = _kpiService.CalcularPPM(d.PaquetesValidos, d.MinutosTrabajados, d.NumeroOperadores),
+                    PPM = _kpiService.CalcularPPM(d.PaquetesValidos ?? 0, d.MinutosTrabajados ?? 0, d.NumeroOperadores ?? 0),
                     //PM = _kpiService.CalcularPM(d.PaquetesValidos, d.MinutosTrabajados),
                     //ExtraPeso = _kpiService.CalcularExtrapeso(d.PesoTotalReal, d.PesoObjetivo, d.PaquetesValidos),
-                    //HoraInicio = d.HoraInicioProduccion,
-                    //HoraFinAproximada = _kpiService.CalcularHoraFin(d.HoraInicioProduccion, d.PaquetesRequeridos - d.PaquetesValidos, d.PaquetesValidos / d.MinutosTrabajados),
-                    //PorcentajePedido = _kpiService.CalcularPorcentajePedido(d.PaquetesValidos, d.PaquetesRequeridos),
-                    //CosteMOD=_kpiService.CalcularCosteMOD(d.TotalHours,d.CosteHora,d.PaquetesValidos,d.PesoObjetivo),
-                    //ppm_objetivo=d.PpmObjetivo
+                    HoraInicio = d.HoraInicioProduccion ?? DateTime.Now,
+                    HoraFinAproximada = _kpiService.CalcularHoraFin(d.HoraInicioProduccion ?? DateTime.Now, d.PaquetesRequeridos ?? 0 - d.PaquetesValidos ?? 0, d.PaquetesValidos ?? 0 / d.MinutosTrabajados ?? 0),
+                    PorcentajePedido = _kpiService.CalcularPorcentajePedido(d.PaquetesValidos ?? 0, d.PaquetesRequeridos ?? 0),
+                    CosteMOD=_kpiService.CalcularCosteMOD(d.TotalHours ?? 0,d.CosteHora ?? 0, d.PaquetesValidos ?? 0, d.PesoObjetivo ?? 0),
+                    ppm_objetivo=d.PpmObjetivo ?? 0
                 })
                 .ToList();
 

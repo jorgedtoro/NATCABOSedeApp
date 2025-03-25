@@ -66,8 +66,10 @@ function updateTable(data) {
     } else {
         contenido = data.map(item => `
             <tr>
-                <td class="numeric">${new Date(item.fecha).toLocaleDateString()}</td>
-                <td>${item.nombreLinea || item.NombreLinea}</td>
+                <td class="numeric center-text">
+                    ${item.fecha ? new Date(item.fecha).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + new Date(item.fecha).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false }) : "-"}
+                </td>
+                <td class="center-text">${item.nombreLinea || item.NombreLinea || "-"}</td>
                 <td>${item.confeccion || item.Confeccion}</td>
                 <td class="numeric">${formatearNumero(item.ppM_Marco)}</td>
                 <td class="numeric">${formatearNumero(item.pM_Marco)}</td>
@@ -199,13 +201,15 @@ function loadPage(page) {
 
     overlayManager.show(); // Show overlay before the request
 
-    const lineaId = document.getElementById("lineaSeleccionada").value;
+    //const lineaId = document.getElementById("lineaSeleccionada").value;
+    const IdLinea = document.getElementById("lineaSeleccionada").value;                         //Chema 250324
     const confeccion = document.getElementById("confeccionSeleccionada").value; // Opcional
     const desde = document.getElementById("desde").value;
     const hasta = document.getElementById("hasta").value;
 
-    if (!lineaId || !desde || !hasta) {
-        alert("Por favor, complete todos los campos del filtro antes de cambiar de página.");
+    //if (!lineaId || !desde || !hasta) {
+    if (!desde || !hasta) {
+        alert("Por favor, introduzca al menos las fechas de inicio y fin antes de cambiar de página.");
         return;
     }
     // Validación: 'hasta' debe ser mayor o igual a 'desde'
@@ -215,7 +219,7 @@ function loadPage(page) {
     }
     // Preparar los datos de la solicitud
     const requestData = {
-        lineaId,
+        IdLinea,
         confeccion: confeccion ? confeccion : null, // Incluir confección si está seleccionada
         desde: desde ? desde : null,
         hasta: hasta ? hasta : null,
@@ -329,19 +333,21 @@ document.getElementById("kpiSelect").addEventListener("change", function () {
 // Manejar el clic en el botón "Exportar a Excel"
 document.getElementById("btn-export-excel").addEventListener("click", function () {
     overlayManager.show();
-    const lineaId = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    const IdLinea = parseInt(document.getElementById("lineaSeleccionada").value, 10);
+    const confeccion = document.getElementById("confeccionSeleccionada").value;   
     const desde = new Date(document.getElementById("desde").value).toISOString();
     const hasta = new Date(document.getElementById("hasta").value).toISOString();
 
-    if (!lineaId || !desde || !hasta) {
-        alert("Por favor, para exportar datos complete todos los campos del filtro.");
+    //if (!lineaId || !desde || !hasta) {
+    if (!desde || !hasta) {
+        alert("Por favor, para exportar datos introduzca al menos las fechas de inicio y fin.");
         return;
     }
 
     fetch('/KPIS/Historico/ExportarExcel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lineaId, desde, hasta })
+        body: JSON.stringify({ IdLinea, desde, hasta })
     })
         .then(response => response.blob())
         .then(blob => {
@@ -382,7 +388,8 @@ function cargarDropdown(url, selectElement, placeholderText, formatOption) {
             const placeholderOption = document.createElement('option');
             placeholderOption.value = '';
             placeholderOption.textContent = placeholderText;
-            placeholderOption.disabled = true;
+            //placeholderOption.disabled = true;
+            placeholderOption.disabled = false;                 //Chema 250324
             placeholderOption.selected = true;
             selectElement.appendChild(placeholderOption);
 
@@ -416,7 +423,13 @@ function cargarLineasHistorico() {
         window.appSettings.obtenerLineasHistoricoUrlAction,
         document.getElementById("lineaSeleccionada"),
         'Seleccione una línea',
-        (item, isText = false) => isText ? item.nombreLinea : item.idLinea
+        (item, isText = false) => {
+            if (isText) {
+                return item.NombreLinea || item.nombreLinea;
+            } else {
+                return item.IdLinea || item.idLinea;
+            }
+        }
     );
 }
 

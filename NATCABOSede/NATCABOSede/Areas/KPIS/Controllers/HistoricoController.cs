@@ -76,8 +76,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             {
                 // Preparar los parámetros para el SP
                 var idLineaParam = new SqlParameter("@idLinea", System.Data.SqlDbType.Int);
-                idLineaParam.Value = request.LineaId.HasValue ? (object)request.LineaId .Value : DBNull.Value;
-
+                //idLineaParam.Value = request.LineaId.HasValue ? (object)request.LineaId .Value : DBNull.Value;
+                idLineaParam.Value = request.IdLinea.HasValue ? (object)request.IdLinea.Value : DBNull.Value;           //Chema
                 var confeccionParam = new SqlParameter("@confeccion", System.Data.SqlDbType.NVarChar, 50);
                 confeccionParam.Value = string.IsNullOrWhiteSpace(request.Confeccion) ? (object)DBNull.Value : request.Confeccion;
 
@@ -163,9 +163,9 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             var query = _context.DatosKpisHistoricos.AsQueryable();
 
             // Filtrar por Línea si se proporciona
-            if (request.LineaId.HasValue)
+            if (request.IdLinea.HasValue)
             {
-                query = query.Where(h => h.IdLinea == request.LineaId.Value);
+                query = query.Where(h => h.IdLinea == request.IdLinea.Value);
             }
 
             // Filtrar por Confección si se proporciona y no está vacío

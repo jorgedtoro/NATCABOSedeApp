@@ -28,7 +28,7 @@ public partial class NATCABOContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=C0K3\\SQLEXPRESS;Database=dbGrupalia_aux;User ID=sa;Password=080506;TrustServerCertificate=True;Encrypt=False;");
+        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS01;Database=dbGrupalia_aux;User ID=sa;Password=870104;TrustServerCertificate=True;Encrypt=False;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -81,7 +81,7 @@ public partial class NATCABOContext : DbContext
 
             entity.Property(e => e.CosteHora).HasColumnName("costeHora");
             entity.Property(e => e.CosteKg).HasColumnName("costeKg");
-            entity.Property(e => e.DowntimeTotal2).HasColumnName("DowntimeTotal_2");
+            //entity.Property(e => e.DowntimeTotal2).HasColumnName("DowntimeTotal_2");
             entity.Property(e => e.FInputWeight).HasColumnName("fInputWeight");
             entity.Property(e => e.HoraInicioLote)
                 .HasColumnType("datetime")
@@ -125,7 +125,8 @@ public partial class NATCABOContext : DbContext
             entity.Property(e => e.PpmBizerba).HasColumnName("PPM_Bizerba");
             entity.Property(e => e.PpmMarco).HasColumnName("PPM_Marco");
             entity.Property(e => e.PpmObjetivo).HasColumnName("ppm_Objetivo");
-            entity.Property(e => e.TotalDowntime).HasColumnType("numeric(19, 6)");
+            //entity.Property(e => e.TotalDowntime).HasColumnType("numeric(19, 6)");
+            entity.Property(e => e.TotalDowntime).HasColumnType("TotalDowntime");
         });
 
         modelBuilder.Entity<TMarcoBizerba>(entity =>
@@ -146,6 +147,7 @@ public partial class NATCABOContext : DbContext
 
             entity.Property(e => e.FttObj).HasColumnName("FTT_Obj");
             entity.Property(e => e.ModObj).HasColumnName("MOD_Obj");
+            //entity.Property(e => e.NMaxExtraOper).HasColumnName("nMaxExtraOper");
             entity.Property(e => e.PercExtraOper).HasColumnName("percExtraOper");
             entity.Property(e => e.PpmObj).HasColumnName("PPM_Obj");
             entity.Property(e => e.SCode)

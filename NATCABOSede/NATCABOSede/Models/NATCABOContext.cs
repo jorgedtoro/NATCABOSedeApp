@@ -146,7 +146,6 @@ public partial class NATCABOContext : DbContext
 
             entity.Property(e => e.FttObj).HasColumnName("FTT_Obj");
             entity.Property(e => e.ModObj).HasColumnName("MOD_Obj");
-            entity.Property(e => e.NMaxExtraOper).HasColumnName("nMaxExtraOper");
             entity.Property(e => e.PercExtraOper).HasColumnName("percExtraOper");
             entity.Property(e => e.PpmObj).HasColumnName("PPM_Obj");
             entity.Property(e => e.SCode)

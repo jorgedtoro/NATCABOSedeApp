@@ -45,13 +45,15 @@ public partial class DatosKpisLive
 
     public int? Id { get; set; }
 
-    public decimal? TotalDowntime { get; set; }
+    //public decimal? TotalDowntime { get; set; }
+    public int? TotalDowntime { get; set; }
 
-    public int? DowntimeTotal2 { get; set; }
+    //public int? DowntimeTotal2 { get; set; }
 
     public int? MinutosTrabajados { get; set; }
 
-    public double? DowntimeTotal { get; set; }
+    //public double? DowntimeTotal { get; set; }
+    //public int? DowntimeTotal { get; set; }
 
     public int? NumberOfMinutes { get; set; }
 

@@ -5,7 +5,7 @@ namespace NATCABOSede.Models;
 
 public partial class KpisHistorico
 {
-    public int? LineaId { get; set; }
+    public int? IdLinea { get; set; }
 
     public string? NombreLinea { get; set; }
 

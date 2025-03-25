@@ -21,6 +21,11 @@ namespace NATCABOSede.ViewModels
 
         public int PersonalEnBalanza { get; set; }
         public int PersonalTotal { get; set; }
+        public int PersonalPeriferico { get; set; }
+        public int PersonalCorrecto { get; set; }
+        public int Rangos_Ok { get; set; }
+        public int DiscriminadorEnUso { get; set; }
+        public int ExpulsionAire_Ok { get; set; }
 
         // Constructor por defecto
         public InfoDiscriminadoraViewModel()
@@ -39,6 +44,10 @@ namespace NATCABOSede.ViewModels
             CosteMOD = 0;
             PersonalEnBalanza = 0;
             PersonalTotal = 0;
+            PersonalCorrecto = 0;
+            Rangos_Ok = 0;
+            DiscriminadorEnUso= 0;
+            ExpulsionAire_Ok = 0;
         }
     }
 }

@@ -22,64 +22,11 @@ namespace NATCABOSede.Areas.KPIS.Controllers
 
         public IActionResult Index(short lineaSeleccionada)
         {
-            // Obtener los datos de la línea seleccionada
             var datos = _context.DatosKpisLives.FirstOrDefault(d => d.IdLinea == lineaSeleccionada);
-
-            InfoDiscriminadoraViewModel modelo;
-
-            if (datos == null)
-            {
-                modelo = new InfoDiscriminadoraViewModel
-                {
-                    LineaSeleccionada = lineaSeleccionada // Asignamos la línea seleccionada
-                };
-            }
-            else
-            {
-                double mediaPaquetesPorMinuto = 0.0;
-
-                if (datos.HoraInicioProduccion.HasValue && datos.HoraUltimoPaquete.HasValue)
-                {
-                    var inicio = datos.HoraInicioProduccion.Value;
-                    var fin = datos.HoraUltimoPaquete.Value;
-
-                    TimeSpan diferencia = fin - inicio;
-                    if (diferencia.TotalMinutes > 0)
-                    {
-                        mediaPaquetesPorMinuto = (datos.PaquetesValidos ?? 0) / diferencia.TotalMinutes;
-                    }
-                }
-
-                modelo = new InfoDiscriminadoraViewModel
-                {
-                    //TODO: recuperar bien los datos de la vista pasada del back.
-                    LineaSeleccionada = lineaSeleccionada,
-                    NombreLinea = datos.NombreLinea ?? "Nombre de Linea",
-                    NombreCliente = datos.NombreCliente ?? "**CLIENTE**",
-                    NombreProducto = datos.NombreProducto ?? "**PRODUCTO**",
-                    PPM = datos.PpmMarco ?? 0,
-                    PPM_Disc = datos.PpmBizerba ?? 0,
-                    PMObjetivo = datos.PpmObjetivo ?? 0,
-                    ExtraPeso = _kpiService.CalcularExtrapeso(datos.PesoTotalReal ?? 0.0, datos.PesoObjetivo ?? 0.0, datos.PaquetesValidos ?? 0),
-                    HoraInicio = datos.HoraInicioProduccion ?? DateTime.Now,
-                    HoraFinAproximada = datos.HoraUltimoPaquete ?? DateTime.Now,
-                    PorcentajePedido = _kpiService.CalcularPorcentajePedido(datos.PaquetesValidos ?? 0, datos.PaquetesTotales ?? 0),
-                    CosteMOD = datos.CosteKg ?? 0,
-                    PersonalEnBalanza = datos.PersonalEnBalanza ?? 0,
-                    PersonalTotal = datos.PersonalTotal ?? 0,
-                    PersonalCorrecto = datos.PersonalCorrecto,
-                    PersonalPeriferico = datos.PersonalPeriferico ?? 0,
-                    Rangos_Ok = datos.RangosOk,
-                    DiscriminadorEnUso = datos.DiscriminadorEnUso,
-                    ExpulsionAire_Ok = datos.ExpulsionAireOk
-                    
-                };
-                ViewBag.PersonasExtra = 9;
-            }
-
+            var modelo = GenerarViewModel(datos, lineaSeleccionada);
+                       
             return View(modelo);
         }
-
         [HttpGet]
         public IActionResult ObtenerLineasDisponibles()
         {
@@ -98,5 +45,56 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 return StatusCode(500, "Error interno del servidor.");
             }
         }
+
+
+        private InfoDiscriminadoraViewModel GenerarViewModel(DatosKpisLive datos, short lineaSeleccionada)
+        {
+            if (datos == null)
+            {
+                return new InfoDiscriminadoraViewModel
+                {
+                    LineaSeleccionada = lineaSeleccionada
+                };
+            }
+
+            double mediaPaquetesPorMinuto = 0.0;
+
+            if (datos.HoraInicioProduccion.HasValue && datos.HoraUltimoPaquete.HasValue)
+            {
+                var inicio = datos.HoraInicioProduccion.Value;
+                var fin = datos.HoraUltimoPaquete.Value;
+
+                TimeSpan diferencia = fin - inicio;
+                if (diferencia.TotalMinutes > 0)
+                {
+                    mediaPaquetesPorMinuto = (datos.PaquetesValidos ?? 0) / diferencia.TotalMinutes;
+                }
+            }
+
+            return new InfoDiscriminadoraViewModel
+            {
+                LineaSeleccionada = lineaSeleccionada,
+                NombreLinea = datos.NombreLinea ?? "Nombre de Linea",
+                NombreCliente = datos.NombreCliente ?? "**CLIENTE**",
+                NombreProducto = datos.NombreProducto ?? "**PRODUCTO**",
+                PPM = datos.PpmMarco ?? 0,
+                PPM_Disc = datos.PpmBizerba ?? 0,
+                PMObjetivo = datos.PpmObjetivo ?? 0,
+                ExtraPeso = _kpiService.CalcularExtrapeso(datos.PesoTotalReal ?? 0.0, datos.PesoObjetivo ?? 0.0, datos.PaquetesValidos ?? 0),
+                HoraInicio = datos.HoraInicioProduccion ?? DateTime.Now,
+                HoraFinAproximada = datos.HoraUltimoPaquete ?? DateTime.Now,
+                PorcentajePedido = _kpiService.CalcularPorcentajePedido(datos.PaquetesValidos ?? 0, datos.PaquetesTotales ?? 0),
+                CosteMOD = datos.CosteKg ?? 0,
+                PersonalEnBalanza = datos.PersonalEnBalanza ?? 0,
+                PersonalTotal = datos.PersonalTotal ?? 0,
+                PersonalCorrecto = datos.PersonalCorrecto,
+                PersonalPeriferico = datos.PersonalPeriferico ?? 0,
+                Rangos_Ok = datos.RangosOk,
+                DiscriminadorEnUso = datos.DiscriminadorEnUso,
+                ExpulsionAire_Ok = datos.ExpulsionAireOk
+            };
+        }
+
+
     }
 }

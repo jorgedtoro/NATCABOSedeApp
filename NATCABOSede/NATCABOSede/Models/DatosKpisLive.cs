@@ -45,15 +45,9 @@ public partial class DatosKpisLive
 
     public int? Id { get; set; }
 
-    //public decimal? TotalDowntime { get; set; }
     public int? TotalDowntime { get; set; }
 
-    //public int? DowntimeTotal2 { get; set; }
-
     public int? MinutosTrabajados { get; set; }
-
-    //public double? DowntimeTotal { get; set; }
-    //public int? DowntimeTotal { get; set; }
 
     public int? NumberOfMinutes { get; set; }
 
@@ -80,4 +74,38 @@ public partial class DatosKpisLive
     public int? PesoTotalRealDisc { get; set; }
 
     public int? PaquetesTotalesDisc { get; set; }
+
+    public int? PersonalEnBalanza { get; set; }
+
+    public int? PersonalTotal { get; set; }
+
+    public int? PersonalPeriferico { get; set; }
+
+    public int PersonalCorrecto { get; set; }
+
+    public int DiscriminadorEnUso { get; set; }
+
+    public double? PpmPersonalEnBalanza { get; set; }
+
+    public double PpmObjPersonaEnBalanza { get; set; }
+
+    public double? PpmLinea { get; set; }
+
+    public double PpmObj { get; set; }
+
+    public double ModObj { get; set; }
+
+    public double FttObj { get; set; }
+
+    public int PpmBalanzasOk { get; set; }
+
+    public int PpmLineaOk { get; set; }
+
+    public double? Mod { get; set; }
+
+    public int? Ftt { get; set; }
+
+    public int RangosOk { get; set; }
+
+    public int ExpulsionAireOk { get; set; }
 }

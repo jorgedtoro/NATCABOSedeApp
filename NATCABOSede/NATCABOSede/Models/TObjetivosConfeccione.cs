@@ -7,8 +7,7 @@ public partial class TObjetivosConfeccione
 {
     public string? SCode { get; set; }
 
-    public short? NMaxExtraOper { get; set; }
-
+ 
     public short? PercExtraOper { get; set; }
 
     public double? PpmObj { get; set; }

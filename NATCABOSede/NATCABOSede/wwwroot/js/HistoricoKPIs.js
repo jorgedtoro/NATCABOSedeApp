@@ -389,7 +389,7 @@ function cargarDropdown(url, selectElement, placeholderText, formatOption) {
             placeholderOption.value = '';
             placeholderOption.textContent = placeholderText;
             //placeholderOption.disabled = true;
-            placeholderOption.disabled = false;             //Chema 250324
+            placeholderOption.disabled = false;                 //Chema 250324
             placeholderOption.selected = true;
             selectElement.appendChild(placeholderOption);
 

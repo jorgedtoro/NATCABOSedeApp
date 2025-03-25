@@ -16,20 +16,22 @@ public partial class NATCABOContext : DbContext
     }
 
     public virtual DbSet<DatosKpisHistorico> DatosKpisHistoricos { get; set; }
-    public virtual DbSet<KpisHistoricoDto> KpisHistoricoDtos { get; set; }
-    public virtual DbSet<Usuario> Usuarios { get; set; }
+
     public virtual DbSet<DatosKpisLive> DatosKpisLives { get; set; }
+    public virtual DbSet<KpisHistoricoDto> KpisHistoricoDtos { get; set; }
+
 
     public virtual DbSet<TMarcoBizerba> TMarcoBizerbas { get; set; }
 
     public virtual DbSet<TObjetivosConfeccione> TObjetivosConfecciones { get; set; }
 
-    public virtual DbSet<VwObjetivosConfecciones> VwObjetivosConfecciones { get; set; }
+    public virtual DbSet<Usuario> Usuarios { get; set; }
+
+    public virtual DbSet<VwObjetivosConfeccione> VwObjetivosConfecciones { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-       // => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS01;Database=dbGrupalia_aux;User ID=sa;Password=870104;TrustServerCertificate=True;Encrypt=False;");
-        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=dbGrupalia_aux;User ID=sa;Password=080506;TrustServerCertificate=True;Encrypt=False;");
+        => optionsBuilder.UseSqlServer("Server=C0K3\\SQLEXPRESS;Database=dbGrupalia_aux;User ID=sa;Password=080506;TrustServerCertificate=True;Encrypt=False;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -82,8 +84,10 @@ public partial class NATCABOContext : DbContext
 
             entity.Property(e => e.CosteHora).HasColumnName("costeHora");
             entity.Property(e => e.CosteKg).HasColumnName("costeKg");
-            //entity.Property(e => e.DowntimeTotal2).HasColumnName("DowntimeTotal_2");
+            entity.Property(e => e.ExpulsionAireOk).HasColumnName("expulsionAire_Ok");
             entity.Property(e => e.FInputWeight).HasColumnName("fInputWeight");
+            entity.Property(e => e.Ftt).HasColumnName("FTT");
+            entity.Property(e => e.FttObj).HasColumnName("FTT_Obj");
             entity.Property(e => e.HoraInicioLote)
                 .HasColumnType("datetime")
                 .HasColumnName("horaInicioLote");
@@ -97,6 +101,8 @@ public partial class NATCABOContext : DbContext
             entity.Property(e => e.IdLinea).HasColumnName("idLinea");
             entity.Property(e => e.LBatchId).HasColumnName("lBatchID");
             entity.Property(e => e.MinutosTrabajados).HasColumnName("minutosTrabajados");
+            entity.Property(e => e.Mod).HasColumnName("MOD");
+            entity.Property(e => e.ModObj).HasColumnName("MOD_Obj");
             entity.Property(e => e.NPaquetes5min).HasColumnName("nPaquetes_5min");
             entity.Property(e => e.NombreCliente)
                 .HasMaxLength(255)
@@ -123,11 +129,16 @@ public partial class NATCABOContext : DbContext
             entity.Property(e => e.PesoTotalRealDisc).HasColumnName("pesoTotalReal_Disc");
             entity.Property(e => e.PmBizerba).HasColumnName("PM_Bizerba");
             entity.Property(e => e.PmBizerbaTotal).HasColumnName("PM_Bizerba_Total");
+            entity.Property(e => e.PpmBalanzasOk).HasColumnName("PPM_Balanzas_Ok");
             entity.Property(e => e.PpmBizerba).HasColumnName("PPM_Bizerba");
+            entity.Property(e => e.PpmLinea).HasColumnName("PPM_Linea");
+            entity.Property(e => e.PpmLineaOk).HasColumnName("PPM_Linea_Ok");
             entity.Property(e => e.PpmMarco).HasColumnName("PPM_Marco");
+            entity.Property(e => e.PpmObj).HasColumnName("PPM_Obj");
+            entity.Property(e => e.PpmObjPersonaEnBalanza).HasColumnName("PPM_Obj_PersonaEnBalanza");
             entity.Property(e => e.PpmObjetivo).HasColumnName("ppm_Objetivo");
-            //entity.Property(e => e.TotalDowntime).HasColumnType("numeric(19, 6)");
-            entity.Property(e => e.TotalDowntime).HasColumnType("TotalDowntime");
+            entity.Property(e => e.PpmPersonalEnBalanza).HasColumnName("PPM_PersonalEnBalanza");
+            entity.Property(e => e.RangosOk).HasColumnName("rangos_Ok");
         });
 
         modelBuilder.Entity<TMarcoBizerba>(entity =>
@@ -148,7 +159,6 @@ public partial class NATCABOContext : DbContext
 
             entity.Property(e => e.FttObj).HasColumnName("FTT_Obj");
             entity.Property(e => e.ModObj).HasColumnName("MOD_Obj");
-            //entity.Property(e => e.NMaxExtraOper).HasColumnName("nMaxExtraOper");
             entity.Property(e => e.PercExtraOper).HasColumnName("percExtraOper");
             entity.Property(e => e.PpmObj).HasColumnName("PPM_Obj");
             entity.Property(e => e.SCode)
@@ -156,7 +166,24 @@ public partial class NATCABOContext : DbContext
                 .HasColumnName("sCode");
         });
 
-        modelBuilder.Entity<VwObjetivosConfecciones>(entity =>
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC0797E1CD27");
+
+            entity.HasIndex(e => e.Email, "UQ__Usuarios__A9D10534E4733E62").IsUnique();
+
+            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.FechaRegistro)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Nombre).HasMaxLength(100);
+            entity.Property(e => e.PasswordHash).HasMaxLength(255);
+            entity.Property(e => e.Rol)
+                .HasMaxLength(50)
+                .HasDefaultValueSql("('Usuario')");
+        });
+
+        modelBuilder.Entity<VwObjetivosConfeccione>(entity =>
         {
             entity
                 .HasNoKey()
@@ -177,6 +204,8 @@ public partial class NATCABOContext : DbContext
         modelBuilder.Entity<KpisHistoricoDto>()
             .HasNoKey()
             .ToView(null);
+        OnModelCreatingPartial(modelBuilder);
+
         //Jorge: Al no tener Key debemos indicar una para guardar en base de datos
         modelBuilder.Entity<TObjetivosConfeccione>(entity =>
         {
@@ -185,9 +214,8 @@ public partial class NATCABOContext : DbContext
             entity.ToTable("T_ObjetivosConfecciones");
 
             entity.Property(e => e.SCode).HasMaxLength(255).HasColumnName("sCode");
-           
-        });
 
+        });
         OnModelCreatingPartial(modelBuilder);
     }
 

@@ -23,3 +23,5 @@ Scaffold-DbContext "Server=C0K3\SQLEXPRESS;Database=dbGrupalia_aux;User ID=sa;Pa
             entity.Property(e => e.SCode).HasMaxLength(255).HasColumnName("sCode");
            
         });
+## incluir dbSet
+    public virtual DbSet<KpisHistoricoDto> KpisHistoricoDtos { get; set; }

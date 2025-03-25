@@ -13,19 +13,32 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(int discriminadora)
         {
-            var datosMock = new DatosKpiViewModel
-            {
-                NombreLinea = "Línea Mock",
-                Cliente = "Cliente de prueba",
-                Producto = "Producto X",
-                PesoTotalDesperdicio = 150.75,
-                PorcentajeTotalDesperdicio = 12.5,
-                FTT = 89.7
-            };
+            var lineas = (from kpi in _context.DatosKpisLives
+                          join marco in _context.TMarcoBizerbas on kpi.IdLinea equals marco.IdLineaMarco
+                          where marco.DeviceNoBizerba == discriminadora
+                          select new LineaKpiViewModel
+                          {
+                              NombreLinea = kpi.NombreLinea,
+                              PPM = kpi.PpmBizerba ?? 0,
+                              Objetivo = kpi.PpmObjetivo ?? 0
+                          }).ToList();
 
-            return View(datosMock);
+            ViewBag.Discriminadora = discriminadora;
+            return View(lineas);
         }
+        [HttpGet]
+        public IActionResult ObtenerDiscriminadoras()
+        {
+            var discriminadoras = _context.TMarcoBizerbas
+                .Where(x => x.DeviceNoBizerba > 0)
+                .Select(x => x.DeviceNoBizerba)
+                .Distinct()
+                .ToList();
+
+            return Json(discriminadoras);
+        }
+
     }
 }

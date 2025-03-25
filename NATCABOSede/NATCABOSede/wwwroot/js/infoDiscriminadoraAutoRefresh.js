@@ -32,5 +32,5 @@
         /* Actualización del último timestamp*/
         var now = new Date();
         lastUpdatedElement.innerText = 'Última actualización: ' + now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-    }, 6000);
+    }, 120000);
 });

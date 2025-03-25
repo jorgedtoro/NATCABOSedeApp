@@ -18,9 +18,10 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         private readonly NATCABOContext _context;
         private readonly IKPIService _kpiService;
 
-        public HistoricoController(NATCABOContext context)
+        public HistoricoController(NATCABOContext context, IKPIService kPIService)
         {
             _context = context;
+            _kpiService = kPIService;
         }
 
         public IActionResult Historico(int page = 1, int pageSize = 25)
@@ -43,27 +44,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             ViewBag.ConfeccionesDisponibles = confecciones;
 
             return View();
-            // var historico = _context.KpisHistoricos
-            //    .OrderByDescending(h => h.Fecha)
-            //    .Skip((page - 1) * pageSize)
-            //    .Take(pageSize)
-            //    .ToList();
-            ////lineas disponibles en el histórico
-            // var lineas = _context.KpisHistoricos
-            //    .Select(d => new { d.LineaId, d.SName })
-            //    .ToList();
-
-            // // Total de registros
-            // var totalRecords = _context.KpisHistoricos.Count();
-
-            // // Pasar datos a la vista
-            // ViewBag.Historico = historico;
-            // ViewBag.Page = page;
-            // ViewBag.PageSize = pageSize;
-            // ViewBag.TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
-            // ViewBag.LineasDisponibles = lineas;
-
-            // return View(historico);
+           
         }
         [HttpPost]
         public async Task<IActionResult> Filtrar([FromBody] FiltrarRequest request)
@@ -110,47 +91,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 Console.WriteLine(ex);
                 return StatusCode(500, new { error = ex.Message, stackTrace = ex.StackTrace });
             }
-            //var query = _context.DatosKpisHistoricos.AsQueryable();
-
-            ////Filtro de linea si se proporciona
-            //if (request.LineaId.HasValue)
-            //{
-            //    query = query.Where(h => h.IdLinea == request.LineaId.Value);
-            //}
-            //// Filtrar por Confección si se proporciona y no está vacío
-            //if (!string.IsNullOrWhiteSpace(request.Confeccion))
-            //{
-            //    query = query.Where(h => h.Confeccion == request.Confeccion);
-            //}
-            //if (request.Desde.HasValue)
-            //{
-            //    query = query.Where(h => h.Fecha >= request.Desde.Value);
-            //}
-
-            //if (request.Hasta.HasValue)
-            //{
-            //    query = query.Where(h => h.Fecha <= request.Hasta.Value);
-            //}
-
-            ////var resultados = query.OrderByDescending(h => h.Fecha).ToList();
-            //// Ordenar y aplicar paginación
-            //var totalRecords = query.Count();
-            //var totalPages = (int)Math.Ceiling(totalRecords / (double)request.PageSize);
-
-            //var resultados = query.OrderByDescending(h => h.Fecha)
-            //                      .Skip((request.Page - 1) * request.PageSize)
-            //                      .Take(request.PageSize)
-            //                      .ToList();
-
-            //////Preparar respuesta
-            //var response = new
-            //{
-            //    Data = resultados,
-            //    TotalPages = totalPages
-            //};
-
-            //return Json(response);
-
+         
         }
         [HttpPost]
         public IActionResult ExportarExcel([FromBody] FiltrarRequest request)

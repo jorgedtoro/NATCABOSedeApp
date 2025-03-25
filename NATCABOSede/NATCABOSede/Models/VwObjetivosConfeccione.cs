@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NATCABOSede.Models;
 
-public partial class VwObjetivosConfecciones
+public partial class VwObjetivosConfeccione
 {
     public string SCode { get; set; } = null!;
 

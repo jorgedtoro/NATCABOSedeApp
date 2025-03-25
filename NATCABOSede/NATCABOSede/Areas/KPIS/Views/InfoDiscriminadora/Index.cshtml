@@ -1,5 +1,4 @@
-﻿
-@model NATCABOSede.ViewModels.InfoDiscriminadoraViewModel
+﻿@model NATCABOSede.ViewModels.InfoDiscriminadoraViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -94,7 +93,18 @@
             <div class="card shadow-sm text-center">
                 <div class="card-body d-flex flex-column align-items-center">
                     <h2 class="card-title">Personal Periférico</h2>
-                    <div class="personal-indicator status-personal-indicator-green">@ViewBag.PersonasExtra</div>
+                    @if (Model.PersonalCorrecto == 1)
+                    {
+
+                        <div class="personal-indicator status-personal-indicator-green">@Model.PersonalPeriferico</div>
+
+                    }
+                    else
+                    {
+                        <div class="personal-indicator status-personal-indicator-red">@Model.PersonalPeriferico</div>
+
+
+                    }
                     <h2 class="card-subtitle mb-4 mt-2">Distribución de Personal</h2>
                     <div class="d-flex flex-column text-center">
                         <p><strong>Personal en Balanza</strong></p>
@@ -112,21 +122,46 @@
                 <div class="card-body">
                     <h2 class="card-title">Estado del Discriminador</h2>
                     <h3 class="card-subtitle mb-4 text-muted">Confección: @Model.NombreProducto</h3>
-                  
+
                     <div class="traffic-light">
                         <p><strong>Rangos de Peso:</strong></p>
-                        <div class="status-indicator status-red">Incorrecto</div>
+                        @if (Model.Rangos_Ok == 1)
+                        {
+                            <div class="status-indicator status-green">Correcto</div>
+
+                        }
+                        else
+                        {
+                            <div class="status-indicator status-red">Incorrecto</div>
+
+                        }
                     </div>
 
                     <div class="traffic-light">
                         <p><strong>Activo/Inactivo:</strong></p>
-                        
-                        <div class="status-indicator status-green">Correcto</div>
+                        @if (Model.DiscriminadorEnUso == 1)
+                        {
+                            <div class="status-indicator status-green">Correcto</div>
+
+                        }
+                        else
+                        {
+                            <div class="status-indicator status-red">Correcto</div>
+
+                        }
                     </div>
 
                     <div class="traffic-light">
                         <p><strong>Expulsión por Aire</strong></p>
-                        <div class="status-indicator status-green">Correcto</div>
+                        @if (Model.ExpulsionAire_Ok == 1)
+                        {
+                            <div class="status-indicator status-green">Correcto</div>
+                        }
+                        else
+                        {
+                            <div class="status-indicator status-red">Incorrecto</div>
+
+                        }
                     </div>
 
 
@@ -136,5 +171,5 @@
         </div>
     </div>
 </div>
-  
+
 

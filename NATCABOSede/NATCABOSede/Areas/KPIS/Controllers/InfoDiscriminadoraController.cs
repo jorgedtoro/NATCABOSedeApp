@@ -54,7 +54,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 {
                     //TODO: recuperar bien los datos de la vista pasada del back.
                     LineaSeleccionada = lineaSeleccionada,
-                    NombreLinea = datos.NombreLinea ?? "Nombre de Linea" ,
+                    NombreLinea = datos.NombreLinea ?? "Nombre de Linea",
                     NombreCliente = datos.NombreCliente ?? "**CLIENTE**",
                     NombreProducto = datos.NombreProducto ?? "**PRODUCTO**",
                     PPM = datos.PpmMarco ?? 0,
@@ -65,8 +65,14 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                     HoraFinAproximada = datos.HoraUltimoPaquete ?? DateTime.Now,
                     PorcentajePedido = _kpiService.CalcularPorcentajePedido(datos.PaquetesValidos ?? 0, datos.PaquetesTotales ?? 0),
                     CosteMOD = datos.CosteKg ?? 0,
-                    PersonalEnBalanza = 31,
-                    PersonalTotal = 40,
+                    PersonalEnBalanza = datos.PersonalEnBalanza ?? 0,
+                    PersonalTotal = datos.PersonalTotal ?? 0,
+                    PersonalCorrecto = datos.PersonalCorrecto,
+                    PersonalPeriferico = datos.PersonalPeriferico ?? 0,
+                    Rangos_Ok = datos.RangosOk,
+                    DiscriminadorEnUso = datos.DiscriminadorEnUso,
+                    ExpulsionAire_Ok = datos.ExpulsionAireOk
+                    
                 };
                 ViewBag.PersonasExtra = 9;
             }

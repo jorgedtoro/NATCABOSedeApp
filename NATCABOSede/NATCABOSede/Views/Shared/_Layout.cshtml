@@ -63,14 +63,18 @@
                             <a id="historico-link" class="nav-link @(currentController == "Historico" && currentAction == "Historico" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="Historico" asp-action="Historico">Historico</a>
                         </li>
-                        <li class="nav-item">
+                      @*   <li class="nav-item">
                             <a id="envasadora-link" class="nav-link @(currentController == "InfoEnvasadoras" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="InfoEnvasadoras" asp-action="Index">Info Envasadoras</a>
-                        </li>
+                        </li> *@
                         @* <li class="nav-item">
                             <a id="discriminadora-link" class="nav-link @(currentController == "InfoDiscriminadora" && currentAction == "Index" && currentArea == "KPIS" ? "active" : "")"
                                asp-area="KPIS" asp-controller="InfoDiscriminadora" asp-action="Index">InfoDiscriminadora</a>
                         </li> *@
+                        <li class="nav-item">
+                            <a id="infoEnvasadoras-link" class="nav-link" href="#">Info Envasadoras</a>
+                        </li>
+
                         <li class="nav-item">
                             <a id="infoDiscriminadora-link" class="nav-link" href="#">Info Linea</a>
                         </li>
@@ -144,6 +148,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/overlayManager.js"></script>
     <script src="~/js/infoDiscriminadora.js" asp-append-version="true"></script>
+    <script src="~/js/infoEnvasadoras.js" asp-append-version="true"></script>
 
    @*  <script>
         document.addEventListener('DOMContentLoaded', function () {

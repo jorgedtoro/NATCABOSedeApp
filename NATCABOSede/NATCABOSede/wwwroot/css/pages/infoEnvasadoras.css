@@ -1,0 +1,63 @@
+﻿body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 20px;
+}
+
+.linea-wrapper {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+.titulo-linea {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-basis:33%;
+}
+
+.logo-linea {
+    max-width: 40% !important;
+    height: auto;
+    flex-shrink: 0;
+}
+.imagen{
+    flex-basis:30%;
+}
+.titulo{
+    flex-basis:25%;
+}
+.nombre-linea {
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.tarjeta-kpi {
+    transition: transform 0.2s;
+}
+
+    .tarjeta-kpi:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.15);
+    }
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 1200px) {
+    /* Ajustamos el tamaño de fuente y el ancho de los logos */
+    .nombre-linea {
+        font-size: 1.2rem;
+    }
+
+    .logo-linea {
+        max-height: 30px;
+    }
+   .card-title{
+       font-size: 1rem;
+   }
+
+}

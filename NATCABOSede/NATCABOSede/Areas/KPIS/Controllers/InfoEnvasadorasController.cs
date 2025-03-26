@@ -13,19 +13,51 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(int discriminadora)
         {
-            var datosMock = new DatosKpiViewModel
+            var datosPre = (from kpi in _context.DatosKpisLives
+                          join marco in _context.TMarcoBizerbas on kpi.IdLinea equals marco.IdLineaMarco
+                          where marco.DeviceNoBizerba == discriminadora
+                          select new LineaKpiViewModel
+                          {
+                              NombreLinea = kpi.NombreLinea,
+                              PPM = kpi.PpmBizerba ?? 0,
+                              Objetivo = kpi.PpmObjetivo ?? 0,
+                             
+                          
+        }).ToList();
+            var lineas = datosPre.Select(d => new LineaKpiViewModel
             {
-                NombreLinea = "Línea Mock",
-                Cliente = "Cliente de prueba",
-                Producto = "Producto X",
-                PesoTotalDesperdicio = 150.75,
-                PorcentajeTotalDesperdicio = 12.5,
-                FTT = 89.7
-            };
+                NombreLinea = d.NombreLinea,
+                PPM = d.PPM,
+                Objetivo = d.Objetivo,
+                PpmCardClass = GetColorClass(d.PPM, d.Objetivo)
+            }).ToList();
+            ViewBag.Discriminadora = discriminadora;
+            
+            return View(lineas);
+        }
+        [HttpGet]
+        public IActionResult ObtenerDiscriminadoras()
+        {
+            var discriminadoras = _context.TMarcoBizerbas
+                .Where(x => x.DeviceNoBizerba > 0)
+                .Select(x => x.DeviceNoBizerba)
+                .Distinct()
+                .ToList();
 
-            return View(datosMock);
+            return Json(discriminadoras);
+        }
+        private string GetColorClass(double actual, double objetivo)
+        {
+            double porcentaje = ((actual - objetivo) / objetivo) * 100;
+
+            if (porcentaje > 10)
+                return "bg-success";  // Verde
+            else if (porcentaje >= -10 && porcentaje <= 10)
+                return "bg-warning";  // Amarillo
+            else
+                return "bg-danger";   // Rojo
         }
     }
 }

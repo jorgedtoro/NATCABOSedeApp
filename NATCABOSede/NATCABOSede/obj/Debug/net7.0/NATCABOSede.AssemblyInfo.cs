@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NATCABOSede")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6bf8bc0f1d765b100e0a7da3a5dcddec75f01e39")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d8ffa3602acbbbf3f5c406318173f23c14a3034f")]
 [assembly: System.Reflection.AssemblyProductAttribute("NATCABOSede")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NATCABOSede")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

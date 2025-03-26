@@ -15,6 +15,8 @@
     <link href="~/css/pages/infoenvasadoras.css" rel="stylesheet" />
 </head>
 <body>
+    <input type="hidden" id="discriminadoraHidden" value="@ViewBag.Discriminadora" />
+    <div id="contenido-envasadora-completo">
     <div class="container-fluid mt-4">
         <div class="row g-4 justify-content-center">
             @foreach (var linea in Model)
@@ -61,5 +63,8 @@
             }
         </div>
     </div>
+    </div>
+    <p id="last-updated"></p>
+    <script src="~/js/infoEnvasadoraAutoRefresh.js"></script>
 </body>
 </html>

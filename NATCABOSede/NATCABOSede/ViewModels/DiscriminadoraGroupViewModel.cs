@@ -11,6 +11,8 @@
         public string NombreLinea { get; set; }
         public double PPM { get; set; }
         public double Objetivo { get; set; }
+
+        public string PpmCardClass { get; set; }
     }
 
 }

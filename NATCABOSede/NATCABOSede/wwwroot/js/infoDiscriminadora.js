@@ -1,4 +1,5 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+﻿
+document.addEventListener("DOMContentLoaded", function () {
     const infoDiscriminadoraLink = document.getElementById("infoDiscriminadora-link");
 
     if (infoDiscriminadoraLink) {

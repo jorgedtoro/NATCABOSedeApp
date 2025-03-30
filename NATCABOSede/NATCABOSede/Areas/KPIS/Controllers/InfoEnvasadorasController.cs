@@ -21,8 +21,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                           select new LineaKpiViewModel
                           {
                               NombreLinea = kpi.NombreLinea,
-                              PPM = kpi.PpmBizerba ?? 0,
-                              Objetivo = kpi.PpmObjetivo ?? 0,
+                              PPM = kpi.PpmPersonalEnBalanza ?? 0,
+                              Objetivo = kpi.PpmObjPersonaEnBalanza,
                              
                           
         }).ToList();

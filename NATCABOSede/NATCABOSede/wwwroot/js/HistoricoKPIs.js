@@ -75,6 +75,7 @@ function updateTable(data) {
                 <td class="numeric">${formatearNumero(item.pM_Marco)}</td>
                 <td class="numeric">${formatearNumero(item.pM_Bizerba)}</td>
                 <td class="numeric">${formatearNumero(item.extrapeso_Marco)}</td>
+                <td class="numeric">${formatearNumero(item.pesoTotalReal / 1000)}</td>
                 <td class="numeric">${formatearNumero(item.desecho_Kg)}</td>
                 <td class="numeric">${formatearNumero(item.desecho_Perc)}</td>
                 <td class="numeric">${formatearNumero(item.ftt)}</td>

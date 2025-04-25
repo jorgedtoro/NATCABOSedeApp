@@ -12475,32 +12475,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Jose\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\jorge\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Proyectos_VS\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
+      "projectUniqueName": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
       "projectName": "NATCABOSede",
-      "projectPath": "D:\\Proyectos_VS\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
-      "packagesPath": "C:\\Users\\Jose\\.nuget\\packages\\",
-      "outputPath": "D:\\Proyectos_VS\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\obj\\",
+      "projectPath": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\NATCABOSede.csproj",
+      "packagesPath": "C:\\Users\\jorge\\.nuget\\packages\\",
+      "outputPath": "G:\\gitPersonal\\NATCABOSedeApp\\NATCABOSede\\NATCABOSede\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Jose\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\jorge\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -12518,8 +12511,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+      }
     },
     "frameworks": {
       "net7.0": {
@@ -12585,7 +12577,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

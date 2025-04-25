@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ClosedXML.Graphics;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Mvc;
 using NATCABOSede.Models;
 using NATCABOSede.ViewModels;
 
@@ -23,15 +25,18 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                               NombreLinea = kpi.NombreLinea,
                               PPM = kpi.PpmPersonalEnBalanza ?? 0,
                               Objetivo = kpi.PpmObjPersonaEnBalanza,
-                             
-                          
-        }).ToList();
+                              NombreCliente=kpi.NombreCliente ?? "",
+                              NombreProducto = kpi.NombreProducto ?? ""
+                            
+                           }).ToList();
             var lineas = datosPre.Select(d => new LineaKpiViewModel
             {
                 NombreLinea = d.NombreLinea,
                 PPM = d.PPM,
                 Objetivo = d.Objetivo,
-                PpmCardClass = GetColorClass(d.PPM, d.Objetivo)
+                PpmCardClass = GetColorClass(d.PPM, d.Objetivo),
+                NombreCliente = d.NombreCliente ?? "",
+                NombreProducto = d.NombreProducto ?? ""
             }).ToList();
             ViewBag.Discriminadora = discriminadora;
             

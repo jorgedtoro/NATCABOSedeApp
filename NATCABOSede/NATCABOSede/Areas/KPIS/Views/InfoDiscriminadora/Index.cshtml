@@ -70,16 +70,20 @@
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h2 class="card-title">PPM</h2>
-                        <i class="fa-solid fa-arrow-down fa-2xl"></i>
-                        <p class="card-text data-large">@Model.PPM.ToString("F2")</p>
+                <div class="card shadow-sm @Model.PpmCardClass ">
+                    <div class="card-body  d-flex justify-content-around align-items-center">
+                        <div class="text-center">
+                            <h2 class="card-title mb-1">PPM</h2>
+                            <p class="card-text data-large mb-0">@Model.PPM.ToString("F2")</p>
+                        </div>
+                        <div class="text-end">
+                            <i class="fa-solid fa-arrow-down fa-2xl"></i>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm @Model.PpmCardClass">
                     <div class="card-body text-center">
                         <h3 class="card-title">Objetivo</h3>
                         <!--<i class="fa-solid fa-arrow-up fa-2xl"></i>-->

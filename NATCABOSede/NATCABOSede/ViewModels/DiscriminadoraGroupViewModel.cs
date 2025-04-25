@@ -9,10 +9,13 @@
     public class LineaKpiViewModel
     {
         public string NombreLinea { get; set; }
+        public string NombreCliente { get; set; }
+        public string NombreProducto { get; set; }
         public double PPM { get; set; }
         public double Objetivo { get; set; }
 
         public string PpmCardClass { get; set; }
+
     }
 
 }

@@ -93,10 +93,19 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 PersonalPeriferico = datos.PersonalPeriferico ?? 0,
                 Rangos_Ok = datos.RangosOk,
                 DiscriminadorEnUso = datos.DiscriminadorEnUso,
-                ExpulsionAire_Ok = datos.ExpulsionAireOk
+                ExpulsionAire_Ok = datos.ExpulsionAireOk,
+                PpmCardClass = GetColorClass(datos.PpmLinea ?? 0,datos.PpmObj)
             };
         }
+        private string GetColorClass(double ppm, double ppmObjetivo)
+        {
+            
 
+            if (ppm > ppmObjetivo)
+                return "bg-success";  // Verde
+            else
+                return "bg-danger";   // Rojo
+        }
 
     }
 }

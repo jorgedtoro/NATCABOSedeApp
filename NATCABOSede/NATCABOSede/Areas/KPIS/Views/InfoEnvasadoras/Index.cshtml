@@ -36,20 +36,30 @@
                                     <img src="/images/Logo_Natursur.png" alt="Logo Natursur" class="logo-linea" />
                                 </div>
                             </div>
-                            <div class="row d-flex">
-                                <div>
-                                <h2>Cliente: @linea.NombreCliente</h2>
-
+                            <div class="container mt-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card shadow-sm">
+                                            <div class="card-body text-center">
+                                                <h2 class="card-title">Cliente</h2>
+                                                <p class="card-text data-value">@linea.NombreCliente</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card shadow-sm">
+                                            <div class="card-body text-center">
+                                                <h2 class="card-title">Producto</h2>
+                                                <p class="card-text data-value">@linea.NombreProducto</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-
-                                <h2>Confección: @linea.NombreProducto</h2>
-                                </div>
-
                             </div>
+                          
 
                             <!-- Cards -->
-                            <div class="row gx-3">
+                            <div class="row gx-3 mt-3">
 
                                 <div class="col-12 col-sm-6">
                                     <div class="card shadow-sm text-center tarjeta-kpi @linea.PpmCardClass">

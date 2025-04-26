@@ -94,7 +94,8 @@ namespace NATCABOSede.Areas.KPIS.Controllers
                 Rangos_Ok = datos.RangosOk,
                 DiscriminadorEnUso = datos.DiscriminadorEnUso,
                 ExpulsionAire_Ok = datos.ExpulsionAireOk,
-                PpmCardClass = GetColorClass(datos.PpmLinea ?? 0,datos.PpmObj)
+                PpmCardClass = GetColorClass(datos.PpmLinea ?? 0,datos.PpmObj),
+                ArrowClass= GetArrow(datos.PpmLinea ?? 0,datos.NPaquetes5min ?? 0)
             };
         }
         private string GetColorClass(double ppm, double ppmObjetivo)
@@ -106,6 +107,11 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             else
                 return "bg-danger";   // Rojo
         }
-
+        private bool GetArrow(double ppm, double NPaquetes5min)
+        {
+            if (ppm >= NPaquetes5min)
+                return true;
+            else return false;
+        }
     }
 }

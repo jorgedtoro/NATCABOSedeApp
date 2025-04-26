@@ -27,6 +27,7 @@ namespace NATCABOSede.ViewModels
         public int DiscriminadorEnUso { get; set; }
         public int ExpulsionAire_Ok { get; set; }
         public string PpmCardClass { get; set; }
+        public bool ArrowClass { get; set; }
 
         // Constructor por defecto
         public InfoDiscriminadoraViewModel()

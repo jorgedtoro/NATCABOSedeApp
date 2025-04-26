@@ -77,7 +77,13 @@
                             <p class="card-text data-large mb-0">@Model.PPM.ToString("F2")</p>
                         </div>
                         <div class="text-end">
-                            <i class="fa-solid fa-arrow-down fa-2xl"></i>
+                            @if (Model.ArrowClass)
+                            {
+                                <i class="fa-solid fa-arrow-up fa-2xl"></i>
+                            } else {
+                                <i class="fa-solid fa-arrow-down fa-2xl"></i>
+                            
+                            }
                         </div>
                     </div>
                 </div>

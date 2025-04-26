@@ -101,7 +101,7 @@ namespace NATCABOSede.Areas.KPIS.Controllers
         {
             
 
-            if (ppm > ppmObjetivo)
+            if (ppm >= ppmObjetivo)
                 return "bg-success";  // Verde
             else
                 return "bg-danger";   // Rojo

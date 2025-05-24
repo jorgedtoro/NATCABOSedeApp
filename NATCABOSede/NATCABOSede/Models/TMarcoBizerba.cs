@@ -1,13 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NATCABOSede.Models;
 
+[Table("TMarcoBizerba")]
 public partial class TMarcoBizerba
 {
-    public short? IdLineaMarco { get; set; }
+    [Key]
+    [Column("IdLineaMarco")]
+    public short IdLineaMarco { get; set; }
 
-    public short? DeviceNoBizerba { get; set; }
+    [Column("DeviceNoBizerba")]
+    public short DeviceNoBizerba { get; set; }
 
-    public short? ScreeNo { get; set; }
+    [Column("ScreeNo")]
+    public short ScreeNo { get; set; }
 }

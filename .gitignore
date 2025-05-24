@@ -87,3 +87,11 @@ coverage/
 # Archivos de F#
 .fake/
 .qodo
+
+# Archivos de Docker
+.dockerignore
+Dockerfile*
+docker-compose.override.yml
+
+# Archivos de respaldo de base de datos
+/docker/backups/

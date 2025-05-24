@@ -1,38 +1,75 @@
 using Microsoft.EntityFrameworkCore;
 using NATCABOSede.Services;
 using NATCABOSede.Interfaces;
+using NATCABOSede.Models;
 using System;
 using ClosedXML.Parser;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System.Runtime.InteropServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-//**************
-// Configure logging to include EventLog for IIS
-builder.Logging.AddEventLog(settings =>
+// Cargar configuración adicional basada en el sistema operativo
+if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
 {
-    settings.SourceName = "NATCABOSedeApp"; // Customize with your application name
-});
+    builder.Configuration.AddJsonFile("appsettings.Development.Mac.json", optional: true, reloadOnChange: true);
+    Console.WriteLine("Cargando configuración para macOS/Linux");
+}
+else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+{
+    // Configuración específica de Windows
+    builder.Logging.AddEventLog(settings =>
+    {
+        settings.SourceName = "NATCABOSedeApp";
+    });
+    Console.WriteLine("Cargando configuración para Windows");
+}
 
-Console.WriteLine($"Current Environment: {builder.Environment.EnvironmentName}");       //JMB
-// Log the connection string for debugging
-var connectionString = builder.Configuration.GetConnectionString("NATCABOConnection");
-Console.WriteLine($"Connection String: {connectionString}");
+// Configuración de logging
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
-//****************
+// Mostrar información del entorno
+Console.WriteLine($"Current Environment: {builder.Environment.EnvironmentName}");
+Console.WriteLine($"OS: {RuntimeInformation.OSDescription}");
+Console.WriteLine($"Database Connection: {builder.Configuration.GetConnectionString("NATCABOConnection")}");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 
-// Register the database context with a custom CommandTimeout
-builder.Services.AddDbContext<NATCABOSede.Models.NATCABOContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("NATCABOConnection"), sqlServerOptions =>
+// Configuración de la base de datos
+var connectionString = builder.Configuration.GetConnectionString("NATCABOConnection");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new InvalidOperationException("No se ha configurado la cadena de conexión 'NATCABOConnection'");
+}
+
+Console.WriteLine($"Using connection string: {connectionString}");
+
+// Configurar el contexto de la base de datos
+builder.Services.AddDbContext<NATCABOSede.Models.NATCABOContext>((serviceProvider, options) =>
+{
+    options.UseSqlServer(connectionString, sqlServerOptions =>
     {
-        sqlServerOptions.CommandTimeout(60); // Set timeout to 60 seconds
-    }));
+        sqlServerOptions.CommandTimeout(60); // Timeout de 60 segundos
+        sqlServerOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null);
+    });
+
+    // Solo habilitar logging detallado en desarrollo
+    if (builder.Environment.IsDevelopment())
+    {
+        options.EnableSensitiveDataLogging();
+        options.LogTo(Console.WriteLine, LogLevel.Information);
+    }
+});
 //Jorge --> servicio de Auth
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

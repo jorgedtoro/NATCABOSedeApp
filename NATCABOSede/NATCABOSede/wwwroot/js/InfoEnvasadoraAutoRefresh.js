@@ -1,39 +1,49 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+/**
+ * Módulo para la actualización automática de la vista de la envasadora.
+ * @module InfoEnvasadoraAutoRefresh
+ */
+
+document.addEventListener('DOMContentLoaded', function () {
     // valor "discriminadora" del un input hidden de la vista
-    const discriminadora = document.getElementById("discriminadoraHidden")?.value;
+    const discriminadora = document.getElementById('discriminadoraHidden')?.value;
 
     // contenedor principal de la vista
-    const contenedor = document.getElementById("contenido-envasadora-completo");
+    const contenedor = document.getElementById('contenido-envasadora-completo');
 
     //timestamp de “última actualización”
-    const lastUpdatedElement = document.getElementById("last-updated");
+    const lastUpdatedElement = document.getElementById('last-updated');
 
+    /**
+     * Refresca la vista completa de la envasadora obteniendo los datos más recientes del servidor.
+     * @async
+     * @function refrescarVistaCompleta
+     * @returns {Promise<void>}
+     */
     function refrescarVistaCompleta() {
         if (!discriminadora || !contenedor) return;
 
-        
         fetch(`/KPIS/InfoEnvasadoras/Index?discriminadora=${discriminadora}`)
-            .then(response => {
+            .then((response) => {
                 if (!response.ok) {
-                    throw new Error("Error al obtener la vista actualizada");
+                    throw new Error('Error al obtener la vista actualizada');
                 }
                 return response.text();
             })
-            .then(html => {
+            .then((html) => {
                 // contenedor temporal para parsear el HTML recibido
-                const tempDiv = document.createElement("div");
+                const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = html;
-                console.log("Se actualiza la vista de InfoEnvasadoras");
+                console.log('Se actualiza la vista de InfoEnvasadoras');
 
                 // Extraemos el nuevo contenido desde un elemento con el mismo ID
                 // (ej. #contenido-envasadora-completo) y reemplazamos el viejo
-                const nuevoContenido = tempDiv.querySelector("#contenido-envasadora-completo");
+                const nuevoContenido = tempDiv.querySelector('#contenido-envasadora-completo');
                 if (nuevoContenido) {
                     contenedor.innerHTML = nuevoContenido.innerHTML;
                 }
             })
-            .catch(error => {
-                console.error("Error actualizando la vista:", error);
+            .catch((error) => {
+                console.error('Error actualizando la vista:', error);
             });
     }
 
@@ -43,8 +53,11 @@
 
         if (lastUpdatedElement) {
             const now = new Date();
-            lastUpdatedElement.innerText = 'Última actualización: ' +
-                now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+            lastUpdatedElement.innerText =
+                'Última actualización: ' +
+                now.toLocaleDateString() +
+                ' ' +
+                now.toLocaleTimeString();
         }
     }, 120000);
 });

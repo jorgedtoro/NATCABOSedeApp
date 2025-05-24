@@ -1,6 +1,89 @@
+# Archivos de desarrollo de .NET
 .vs/
 bin/
 obj/
-.qodo
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.userprefs
+*.dbmdl
+*.jfm
+*.pfx
+*.publishsettings
+*.ncrunchsolution
+*.ncrunchproject
+*.ncrunchsolution.user
+*.DotSettings.user
+_ReSharper*/
+*.sln.ide
+*.sw?
+*.sln.ide
 
-.fake
+# Archivos de Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnp*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Archivos de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Archivos de IDE
+.idea/
+*.sublime-workspace
+*.sublime-project
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Archivos de compilación
+dist/
+build/
+out/
+
+# Logs
+logs
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración local
+appsettings.Development.json
+appsettings.Local.json
+
+# Archivos de paquetes
+*.nupkg
+
+# Archivos de pruebas
+coverage/
+.nyc_output/
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos de usuario
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Archivos de F#
+.fake/
+.qodo

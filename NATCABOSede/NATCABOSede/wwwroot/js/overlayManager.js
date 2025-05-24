@@ -38,17 +38,17 @@
 
     // Initialize overlay on load
     createOverlay();
-    document.addEventListener("DOMContentLoaded", function () {
-        const historicoLink = document.getElementById("historico-link");
-        const kpisLiveLink = document.getElementById("kpisLive-link");
+    document.addEventListener('DOMContentLoaded', function () {
+        const historicoLink = document.getElementById('historico-link');
+        const kpisLiveLink = document.getElementById('kpisLive-link');
 
         if (historicoLink) {
-            historicoLink.addEventListener("click", function () {
+            historicoLink.addEventListener('click', function () {
                 overlayManager.show(); // Muestra el overlay antes de navegar
             });
         }
         if (kpisLiveLink) {
-            kpisLiveLink.addEventListener("click", function () {
+            kpisLiveLink.addEventListener('click', function () {
                 overlayManager.show(); // Muestra el overlay antes de navegar
             });
         }

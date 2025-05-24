@@ -1,15 +1,37 @@
-﻿
+/**
+ * Módulo principal para la gestión de la interfaz de KPIs.
+ * Maneja la carga y actualización de datos de KPIs para las líneas de producción.
+ * @module KPIS
+ */
+
+// Asegurarse de que el módulo de notificaciones esté cargado
+const hasNotifications = !!window.Notifications;
+
 document.addEventListener('DOMContentLoaded', function () {
-    var obtenerDatosUrlAction = window.appSettings.obtenerDatosUrlAction;
-    var obtenerLineasUrlAction = window.appSettings.obtenerLineasUrlAction;
+    const obtenerDatosUrlAction = window.appSettings.obtenerDatosUrlAction;
+    const obtenerLineasUrlAction = window.appSettings.obtenerLineasUrlAction;
 
-    var lineaSeleccionada = document.getElementById('lineaSeleccionada');
-    var lastUpdatedElement = document.getElementById('last-updated'); 
+    const lineaSeleccionada = document.getElementById('lineaSeleccionada');
+    const lastUpdatedElement = document.getElementById('last-updated');
+    
+    if (!lineaSeleccionada) {
+        if (hasNotifications) {
+            window.Notifications.showError('No se pudo inicializar el selector de líneas');
+        }
+        return;
+    }
 
-    // Función para actualizar el dropdown de líneas activas
-    //TODO: quitar esta forma. Lineas desde el controller
+    /**
+     * Actualiza el dropdown de líneas activas obteniendo los datos del servidor.
+     * @async
+     * @function actualizarDropdownLineasActivas
+     * @returns {Promise<void>}
+     */
 
-    ////*** OVERLAY ***/
+    // Configuración del overlay
+    if (!window.overlayManager && hasNotifications) {
+        window.Notifications.showWarning('El gestor de overlay no está disponible');
+    }
     //// Show loading overlay
     //function showLoading() {
     //    document.getElementById('loading-overlay').style.display = 'flex';
@@ -21,30 +43,35 @@ document.addEventListener('DOMContentLoaded', function () {
     //}
     ////***************/
 
+    /**
+     * Actualiza el dropdown de líneas activas obteniendo los datos del servidor.
+     * @async
+     * @function actualizarDropdownLineasActivas
+     * @returns {Promise<void>}
+     */
     function actualizarDropdownLineasActivas() {
-        console.log('Fetching lines from:', obtenerLineasUrlAction);
-
         // Almacenamos el valor actual seleccionado para volver a asignarlo una vez se refresque el dropdown
         var selectedValue = lineaSeleccionada.value;
 
         fetch(obtenerLineasUrlAction)
             .then(function (response) {
                 if (!response.ok) {
-                    throw new Error('Error al obtener las líenas activas desde la bbdd');
+                    throw new Error('Error al obtener las líneas activas desde la bbdd');
                 }
                 return response.json();
             })
             .then(function (lineas) {
-                console.log(lineas);
                 if ('success' in lineas && !lineas.success) {
-                    console.error('Error en json desde el servidor:', result.message || 'Error desconocido');
-                    //window.location.href = '/Home/Error'; // Cambia el path si es necesario
+                    // Usar el mensaje de error para notificación al usuario
+                    const errorMessage = lineas.message || 'Error desconocido al cargar las líneas';
+                    if (hasNotifications) {
+                        window.Notifications.showError(errorMessage);
+                    }
                     return;
                 }
-                console.log('Json ok, continuamos...');
                 // Eliminamos el contenido del dropdown
                 lineaSeleccionada.innerHTML = '';
-                
+
                 if (lineas.length === 0) {
                     // No existen líneas activas...
                     var noLinesOption = document.createElement('option');
@@ -84,12 +111,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 obtenerYActualizarKPIs(lineaSeleccionada);
             })
             .catch(function (error) {
-                console.error('Error en la actualización del dropdown:', error);
-                window.location.href = '/Home/Error'; // Cambia el path si es necesario
+                const errorMsg = 'Error al actualizar la lista de líneas: ' + (error.message || 'Error desconocido');
+                if (hasNotifications) {
+                    window.Notifications.showError(errorMsg);
+                }
+                // Redirigir a la página de error con el mensaje correspondiente
+                window.location.href = '/Home/Error?message=' + encodeURIComponent(errorMsg);
             });
     }
 
     // Función para actualizar KPIs con datos vacíos
+    /**
+     * Muestra un mensaje cuando no hay datos de KPIs disponibles.
+     * @function actualizarKPIsConDatosVacios
+     */
     function actualizarKPIsConDatosVacios() {
         document.getElementById('titulo-dashboard').innerText = 'Sin Producción actual en líneas';
         document.getElementById('contenido-dashboard').innerHTML = `
@@ -98,19 +133,27 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>`;
     }
 
-    // Función para obtener y actualizar los KPIs
-    function obtenerYActualizarKPIs(element) {
-
-        var linea = element.value;
+    /**
+     * Obtiene y actualiza los KPIs para la línea de producción seleccionada.
+     * @async
+     * @function obtenerYActualizarKPIs
+     * @param {HTMLSelectElement} selectElement - Elemento select que contiene la línea seleccionada.
+     * @returns {Promise<void>}
+     */
+    function obtenerYActualizarKPIs(selectElement) {
+        var linea = selectElement.value;
 
         if (!linea || linea === 'No existen líneas activas') {
             actualizarKPIsConDatosVacios();
             return;
         }
 
-        var lineaText = element.options[element.selectedIndex]?.text || 'Línea desconocida';
+        const lineaText = selectElement.options[selectElement.selectedIndex]?.text || 'Línea desconocida';
 
-        overlayManager.show(); // Show overlay before the request
+        // Verificar si overlayManager está disponible
+        if (window.overlayManager) {
+            window.overlayManager.show(); // Show overlay before the request
+        }
 
         fetch(obtenerDatosUrlAction + '?lineaSeleccionada=' + linea)
             .then(function (response) {
@@ -121,19 +164,30 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(function (html) {
                 // Actualización del título con el nombre de línea seleccionado
-                document.getElementById('titulo-dashboard').innerText = lineaText + ' - KPIs Dashboard';
+                document.getElementById('titulo-dashboard').innerText =
+                    lineaText + ' - KPIs Dashboard';
                 // Actualización del contenido del dashboard
                 document.getElementById('contenido-dashboard').innerHTML = html;
                 // Actualización del último timestamp
                 //var now = new Date();
                 //lastUpdatedElement.innerText = 'Última actualización: ' + now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
             })
-            .catch(function (error) {
-                console.error('Error:', error);
+            .catch(function (fetchError) {
+                // Mostrar error al usuario
+                const errorMsg = 'Error al cargar los KPIs: ' + (fetchError.message || 'Error desconocido');
+                if (hasNotifications) {
+                    window.Notifications.showError(errorMsg);
+                }
+                // Ocultar overlay si está disponible
+                if (window.overlayManager) {
+                    window.overlayManager.hide();
+                }
             })
             .finally(function () {
-                //hideLoading(); // Hide loading overlay
-                overlayManager.hide(); // Hide overlay after content is updated
+                // Ocultar overlay si está disponible
+                if (window.overlayManager) {
+                    window.overlayManager.hide();
+                }
             });
     }
 
@@ -150,8 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
         actualizarDropdownLineasActivas();
         // Actualización del último timestamp
         var now = new Date();
-        lastUpdatedElement.innerText = 'Última actualización: ' + now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+        lastUpdatedElement.innerText =
+            'Última actualización: ' + now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
     }, 120000);
 });
-
-

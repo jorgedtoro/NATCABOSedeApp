@@ -1,0 +1,5 @@
+**/wwwroot/lib/**
+**/bin/**
+**/obj/**
+**/node_modules/**
+*.min.js

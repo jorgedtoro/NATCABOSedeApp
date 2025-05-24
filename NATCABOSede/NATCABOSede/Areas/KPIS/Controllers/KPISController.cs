@@ -1,4 +1,3 @@
-﻿// Controllers/KPISController.cs
 using Microsoft.AspNetCore.Mvc;
 using NATCABOSede.Models;
 using NATCABOSede.Services;
@@ -10,19 +9,33 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace NATCABOSede.Areas.KPIS.Controllers
 {
+    /// <summary>
+    /// Controlador principal para la gestión de KPIs de producción.
+    /// Proporciona funcionalidades para visualizar y gestionar los indicadores clave de rendimiento.
+    /// </summary>
     [Area("KPIS")]
     public class KPISController : Controller
     {
         private readonly NATCABOContext _context;
         private readonly IKPIService _kpiService;
 
+        /// <summary>
+        /// Inicializa una nueva instancia del controlador KPISController.
+        /// </summary>
+        /// <param name="context">Contexto de la base de datos.</param>
+        /// <param name="kpiService">Servicio para la lógica de negocio de KPIs.</param>
         public KPISController(NATCABOContext context, IKPIService kpiService)
         {
             _context = context;
             _kpiService = kpiService;
         }
+        /// <summary>
+        /// Muestra el dashboard principal de KPIs para la línea de producción especificada.
+        /// </summary>
+        /// <param name="lineaSeleccionada">ID de la línea de producción a visualizar. Si es 0, se selecciona la primera disponible.</param>
+        /// <returns>Vista con el modelo de datos de KPIs.</returns>
         [Authorize]
-        public IActionResult Index(short lineaSeleccionada = 0) // Default to 0, indicating no line selected yet
+        public IActionResult Index(short lineaSeleccionada = 0)
         {
             var datos = ObtenerDatosPorLinea(lineaSeleccionada);
             DatosKpiViewModel modelo;
@@ -91,6 +104,12 @@ namespace NATCABOSede.Areas.KPIS.Controllers
             return View(modelo);
         }
 
+        /// <summary>
+        /// Obtiene los datos de KPIs en formato JSON para la línea de producción especificada.
+        /// </summary>
+        /// <param name="lineaSeleccionada">ID de la línea de producción.</param>
+        /// <returns>Datos de KPIs en formato JSON.</returns>
+        [HttpGet]
         public IActionResult ObtenerKPIs(short lineaSeleccionada)
         {
 
